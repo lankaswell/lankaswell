@@ -1,85 +1,163 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LankaSwell</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b1e2d;
-      color: white;
-      text-align: center;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, #eaf6fb 0%, #ffffff 100%);
+      color: #0b1e2d;
     }
+
     header {
-      padding: 80px 20px;
+      text-align: center;
+      padding: 80px 20px 60px;
     }
+
+    .logo {
+      width: 140px;
+      background: white;
+      padding: 10px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
     h1 {
       font-size: 3em;
-      margin-bottom: 10px;
+      margin: 10px 0;
+      font-weight: 800;
     }
-    p {
-      font-size: 1.2em;
-      opacity: 0.8;
+
+    .subtitle {
+      font-size: 1.3em;
+      opacity: 0.7;
     }
+
     .cta {
-      margin-top: 30px;
+      margin-top: 40px;
     }
+
     input {
-      padding: 12px;
-      border-radius: 8px;
-      border: none;
-      width: 250px;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      width: 260px;
+      font-size: 1em;
     }
+
     button {
-      padding: 12px 20px;
+      padding: 14px 22px;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       background: #00c2ff;
-      color: black;
+      color: white;
       cursor: pointer;
       margin-left: 10px;
+      font-weight: 600;
+      transition: 0.2s;
     }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
     section {
       padding: 60px 20px;
+      text-align: center;
     }
+
+    .spots {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
     .card {
-      margin: 20px auto;
-      padding: 20px;
-      max-width: 300px;
-      background: #122c44;
-      border-radius: 16px;
+      padding: 25px;
+      width: 260px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      transition: 0.3s;
     }
-    footer {
-      padding: 40px;
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+    }
+
+    .tag {
+      font-size: 0.85em;
       opacity: 0.6;
+    }
+
+    .highlight {
+      font-size: 1.5em;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      opacity: 0.5;
       font-size: 0.9em;
     }
   </style>
 </head>
-<body><header>
+<body>
+
+<header>
+  <img src="logo.png" alt="LankaSwell Logo" class="logo">
+
   <h1>LankaSwell</h1>
-  <p>Live surf cams across Sri Lanka</p>
-  <p>See the waves before you go.</p>  <div class="cta">
+  <div class="subtitle">Watch the waves before you paddle out</div>
+
+  <div class="cta">
     <input type="email" placeholder="Enter your email">
     <button>Get Early Access</button>
   </div>
-</header><section>
-  <h2>Coming Soon</h2>  <div class="card">
-    <h3>Arugam Bay</h3>
-    <p>Point break - live cam</p>
-  </div>  <div class="card">
-    <h3>Weligama</h3>
-    <p>Beginner waves - live cam</p>
-  </div>  <div class="card">
-    <h3>Hiriketiya</h3>
-    <p>Hidden paradise - live cam</p>
+</header>
+
+<section>
+  <div class="highlight">Live cams coming soon</div>
+
+  <div class="spots">
+    <div class="card">
+      <h3>Arugam Bay</h3>
+      <p class="tag">Point break • Advanced</p>
+    </div>
+
+    <div class="card">
+      <h3>Weligama</h3>
+      <p class="tag">Beginner friendly • Daily waves</p>
+    </div>
+
+    <div class="card">
+      <h3>Hiriketiya</h3>
+      <p class="tag">Hidden bay • Clean lines</p>
+    </div>
   </div>
-</section><section>
-  <h2>Why LankaSwell?</h2>
-  <p>No more guessing. No more wasted trips.</p>
-  <p>Just open the cam and go when it's firing.</p>
-</section><footer>
+</section>
+
+<section>
+  <div class="highlight">No more guessing</div>
+  <p>Check conditions in real time. Plan your surf. Save your sessions.</p>
+</section>
+
+<footer>
   <p>© 2026 LankaSwell</p>
-</footer></body>
+</footer>
+
+</body>
 </html>
