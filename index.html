@@ -214,10 +214,22 @@
   </div>
 </div>
 
-<section style="background:rgba(255,255,255,0.7);">
+<section style="background:rgba(255,255,255,0.75); padding:60px 20px; text-align:center; border-top:1px solid rgba(0,0,0,0.05); border-bottom:1px solid rgba(0,0,0,0.05);">
   <div class="highlight">Keep LankaSwell alive 🌊</div>
-  <p>I’m building this alone across Sri Lanka and I want to keep it free forever.</p>
-  <button onclick="support()">Buy me a coffee ☕</button>
+  <p style="max-width:700px; margin:0 auto; line-height:1.6;">
+    I’m building LankaSwell completely on my own — somewhere between coding sessions, surf checks, and long rides across Sri Lanka.
+    This is not a company with funding or a team behind it. It’s just me trying to turn an idea into something useful for surfers here.
+  </p>
+  <p style="max-width:700px; margin:20px auto 0; line-height:1.6;">
+    I want to keep this platform free for everyone — no subscriptions, no paywalls, no hidden tricks.
+    But running surf cameras, hosting data, and keeping everything alive does have real costs.
+    If you like the project and want to support it, even a small coffee helps keep it running and growing 🌊
+  </p>
+
+  <div style="margin-top:30px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+    <button onclick="support()">Support with Buy Me a Coffee ☕</button>
+    <button onclick="openPayPal()">Donate via PayPal 💙</button>
+  </div>
 
   <div class="supporters" id="supporters"></div>
 </section>
@@ -246,7 +258,7 @@ function loadSupporters() {
 }
 
 function support() {
-  const name = prompt('Your name for the community wall 🌊');
+  const name = prompt('If you want, leave your name for the LankaSwell supporter wall 🌊');
 
   if (name) {
     const list = JSON.parse(localStorage.getItem('supporters') || '[]');
@@ -255,6 +267,14 @@ function support() {
     loadSupporters();
     alert('Thank you for supporting LankaSwell ☕🌊');
   } else {
+    alert('Thank you for the support ☕🌊');
+  }
+}
+
+function openPayPal() {
+  // Replace this with your PayPal.me link
+  window.open('https://www.paypal.me/YOUR_LINK_HERE', '_blank');
+} else {
     alert('Thanks for the support ☕🌊');
   }
 }
