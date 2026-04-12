@@ -50,10 +50,12 @@
       font-size: 1.3em;
       opacity: 0.9;
       color: #444;
+      text-align: center;
     }
 
     .cta {
-      margin-top: 40px;
+      margin-top: 25px;
+      text-align: center;
     }
 
     input {
@@ -71,14 +73,7 @@
       background: linear-gradient(135deg, var(--sun), #ffb347);
       color: white;
       cursor: pointer;
-      margin-left: 10px;
       font-weight: 600;
-      transition: 0.2s;
-    }
-
-    button:hover {
-      transform: scale(1.07) rotate(-1deg);
-      box-shadow: 0 8px 20px rgba(255,123,0,0.4);
     }
 
     section {
@@ -101,13 +96,25 @@
       border-radius: 20px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.06);
       transition: 0.3s;
-      border: 2px solid rgba(0,0,0,0.03);
       cursor: pointer;
+      position: relative;
+      overflow: hidden;
     }
 
     .card:hover {
       transform: translateY(-8px) rotate(0.5deg);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+    }
+
+    .live {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: linear-gradient(135deg, #ff7b00, #ffb347);
+      color: white;
+      font-size: 0.75em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 700;
     }
 
     .highlight {
@@ -117,6 +124,22 @@
       color: var(--ocean);
     }
 
+    .supporters {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .badge {
+      background: white;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.85em;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
     footer {
       text-align: center;
       padding: 40px;
@@ -124,7 +147,6 @@
       font-size: 0.9em;
     }
 
-    /* MODAL */
     .modal {
       display: none;
       position: fixed;
@@ -141,17 +163,6 @@
       width: 90%;
       max-width: 900px;
       background: black;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .close {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 30px;
-      color: white;
-      cursor: pointer;
     }
 
     iframe {
@@ -164,7 +175,7 @@
 <body>
 
 <header>
-  <img src="logo.png" alt="LankaSwell Logo" class="logo">
+  <img src="logo.png" class="logo">
   <div class="subtitle">Watch the waves before you paddle out</div>
 
   <div class="cta">
@@ -174,43 +185,44 @@
 </header>
 
 <section>
-  <div class="highlight">Live cams coming soon</div>
+  <div class="highlight">Live surf cams</div>
 
   <div class="spots">
+
     <div class="card" onclick="openStream()">
-      <div style="position:absolute; margin-top:-10px; margin-left:180px; background:linear-gradient(135deg,#ff7b00,#ffb347); color:white; font-size:0.75em; padding:4px 10px; border-radius:999px; font-weight:700;">
-        🔴 LIVE
-      </div>
+      <div class="live">🔴 LIVE</div>
       <h3>Arugam Bay</h3>
-      <p class="tag">Click to watch live surf</p>
+      <p>Click to watch live surf</p>
     </div>
 
     <div class="card">
       <h3>Weligama</h3>
-      <p class="tag">Beginner friendly • Daily waves</p>
+      <p>Beginner friendly • Daily waves</p>
     </div>
 
     <div class="card">
       <h3>Hiriketiya</h3>
-      <p class="tag">Hidden bay • Clean lines</p>
+      <p>Hidden bay • Clean lines</p>
     </div>
+
   </div>
 </section>
 
 <div id="modal" class="modal" onclick="closeStream()">
   <div class="modal-content" onclick="event.stopPropagation()">
-    <span class="close" onclick="closeStream()">&times;</span>
-    <!-- Replace CHANNEL_NAME with your Twitch channel -->
-    <iframe
-      src="https://player.twitch.tv/?channel=testament_zigos&parent=lankaswell.github.io&muted=true"
-      allowfullscreen>
-    </iframe>
+    <iframe src="https://player.twitch.tv/?channel=CHANNEL_NAME&parent=localhost&muted=true"></iframe>
   </div>
 </div>
 
-<footer>
-  <p>© 2026 LankaSwell</p>
-</footer>
+<section style="background:rgba(255,255,255,0.7);">
+  <div class="highlight">Keep LankaSwell alive 🌊</div>
+  <p>I’m building this alone across Sri Lanka and I want to keep it free forever.</p>
+  <button onclick="support()">Buy me a coffee ☕</button>
+
+  <div class="supporters" id="supporters"></div>
+</section>
+
+<footer>© 2026 LankaSwell</footer>
 
 <script>
 function openStream() {
@@ -220,6 +232,34 @@ function openStream() {
 function closeStream() {
   document.getElementById('modal').style.display = 'none';
 }
+
+function loadSupporters() {
+  const list = JSON.parse(localStorage.getItem('supporters') || '[]');
+  const container = document.getElementById('supporters');
+  container.innerHTML = '';
+  list.forEach(name => {
+    const div = document.createElement('div');
+    div.className = 'badge';
+    div.innerText = `❤️ ${name}`;
+    container.appendChild(div);
+  });
+}
+
+function support() {
+  const name = prompt('Your name for the community wall 🌊');
+
+  if (name) {
+    const list = JSON.parse(localStorage.getItem('supporters') || '[]');
+    list.push(name);
+    localStorage.setItem('supporters', JSON.stringify(list));
+    loadSupporters();
+    alert('Thank you for supporting LankaSwell ☕🌊');
+  } else {
+    alert('Thanks for the support ☕🌊');
+  }
+}
+
+loadSupporters();
 </script>
 
 </body>
