@@ -5,13 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LankaSwell</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Pacifico&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
       --ocean:#0aa3a3;
       --sand:#fff4e6;
-      --bg:#ffffff;
       --text:#132428;
       --muted:#5f6e6e;
       --card:#ffffff;
@@ -24,11 +23,12 @@
       color:var(--text);
     }
 
+    /* NAVBAR */
     nav{
       display:flex;
       justify-content:space-between;
       align-items:center;
-      padding:15px 30px;
+      padding:15px 20px;
       background:rgba(255,255,255,0.95);
       border-bottom:1px solid rgba(0,0,0,0.06);
       position:sticky;
@@ -40,19 +40,50 @@
       font-weight:800;
       font-size:1.4em;
       display:inline-block;
-      transform: scaleY(1.25);
-      transform-origin: left center;
-      font-family:'Poppins',sans-serif;
+      transform: scaleY(1.2);
     }
 
     .brand .lanka{color:#000;}
     .brand .swell{color:var(--ocean);}
 
+    .nav-links{
+      display:flex;
+      gap:15px;
+    }
+
     .nav-links a{
-      margin-left:15px;
       text-decoration:none;
       color:var(--muted);
       font-weight:600;
+    }
+
+    /* HAMBURGER */
+    .hamburger{
+      display:none;
+      font-size:1.8em;
+      cursor:pointer;
+    }
+
+    @media(max-width:768px){
+      .nav-links{
+        display:none;
+        flex-direction:column;
+        position:absolute;
+        top:60px;
+        right:20px;
+        background:white;
+        padding:15px;
+        border-radius:12px;
+        box-shadow:0 10px 25px rgba(0,0,0,0.1);
+      }
+
+      .nav-links.active{
+        display:flex;
+      }
+
+      .hamburger{
+        display:block;
+      }
     }
 
     header{
@@ -67,13 +98,12 @@
       object-fit:cover;
       background:white;
       box-shadow:0 10px 25px rgba(0,0,0,0.1);
+      display:block;
+      margin:0 auto;
     }
 
     .subtitle{
       margin-top:10px;
-      opacity:0.85;
-      font-family:'Poppins',sans-serif;
-      font-size:1.2em;
       font-weight:600;
       letter-spacing:0.5px;
     }
@@ -84,13 +114,10 @@
     }
 
     .highlight{
-      font-size:1.9em;
+      font-size:1.8em;
       font-weight:800;
-      font-family:'Poppins',sans-serif;
-      transform: scaleY(1.15);
-      display:inline-block;
-      margin-bottom:20px;
       text-transform:uppercase;
+      margin-bottom:20px;
     }
 
     .hl-black{color:#000;}
@@ -110,11 +137,6 @@
       box-shadow:0 8px 20px rgba(0,0,0,0.08);
       padding:20px;
       cursor:pointer;
-      transition:0.25s;
-    }
-
-    .card:hover{
-      transform:translateY(-6px);
     }
 
     .live{
@@ -126,7 +148,6 @@
       font-size:0.75em;
       font-weight:700;
       margin-bottom:10px;
-      text-transform:uppercase;
     }
 
     footer{
@@ -144,7 +165,10 @@
   <div class="brand">
     🌊 <span class="lanka">LANKA</span><span class="swell">SWELL</span>
   </div>
-  <div class="nav-links">
+
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+  <div class="nav-links" id="navLinks">
     <a href="#cams">CAMS</a>
     <a href="#about">ABOUT</a>
     <a href="#partners">PARTNERS</a>
@@ -162,20 +186,10 @@
   </div>
 
   <div class="spots">
-    <div class="card" onclick="openStream()">
+    <div class="card">
       <div class="live">LIVE</div>
       <h3>ARUGAM BAY</h3>
       <p>CLICK TO WATCH SURF CAM</p>
-    </div>
-
-    <div class="card">
-      <h3>WELIGAMA</h3>
-      <p>BEGINNER FRIENDLY WAVES</p>
-    </div>
-
-    <div class="card">
-      <h3>HIRIKETIYA</h3>
-      <p>CLEAN TROPICAL WAVES</p>
     </div>
   </div>
 </section>
@@ -185,100 +199,31 @@
     <span class="hl-black">KEEP</span> <span class="hl-black">LANKA</span><span class="hl-green">SWELL</span> <span class="hl-black">ALIVE</span>
   </div>
 
-  <img src="your-photo.jpg" class="logo" style="width:120px;height:120px;margin:0 auto 15px auto;display:block;">
+  <img src="your-photo.jpg" class="logo" style="width:120px;height:120px;">
 
   <p>
-    Hey there! I am Alex!
+    I am Alex Pellegrini — building LankaSwell while traveling Sri Lanka’s coast.
   </p>
 
   <p>
-    LankaSwell is my independent project to make surf conditions more visible and accessible in real time. It is self-funded and built step by step, with the goal of creating a free network of surf cams that help surfers, travelers, and locals understand the ocean before they enter it.
+    A free surf cam network for surfers, travelers and locals.
   </p>
-
-  <p>
-    If you like what I am building or you find it useful before a surf session, even a small coffee makes a real difference. It directly supports hosting, development, and expanding surf camera coverage along the coast of Sri Lanka ☕
-  </p>
-
-  <script src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js"
-    data-name="bmc-button"
-    data-slug="lankaswell"
-    data-color="#FFDD00"
-    data-emoji="☕"
-    data-font="Cookie"
-    data-text="Buy me a coffee"
-    data-outline-color="#000"
-    data-font-color="#000"
-    data-coffee-color="#fff">
-  </script>
 </section>
 
 <section id="partners">
   <div class="highlight">
     <span class="hl-black">OUR</span> <span class="hl-green">PARTNERS</span>
   </div>
-
-  <p style="margin-bottom:30px; opacity:0.8;">
-    Join LankaSwell as a surf cam partner. Your location becomes visible to thousands of surfers checking conditions every day.
-  </p>
-
-  <div class="spots">
-    <div class="card" style="text-align:left;">
-      <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21" style="width:100%;border-radius:12px;margin-bottom:10px;">
-      <h3>COASTAL CAFE – WELIGAMA</h3>
-      <p style="font-size:0.9em; opacity:0.8;">
-        Live surf cam installed facing the main break. Visitors check waves before arriving → increased foot traffic + visibility.
-      </p>
-      <p style="font-size:0.85em; font-weight:600; color:#0aa3a3;">
-        FEATURED ON LANKASWELL LIVE MAP
-      </p>
-    </div>
-
-    <div class="card" style="text-align:left;">
-      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" style="width:100%;border-radius:12px;margin-bottom:10px;">
-      <h3>SURF LODGE – HIRIKETIYA</h3>
-      <p style="font-size:0.9em; opacity:0.8;">
-        Real-time wave visibility attracts surfers directly to your accommodation. Perfect for backpackers planning daily surf sessions.
-      </p>
-      <p style="font-size:0.85em; font-weight:600; color:#0aa3a3;">
-        HIGH DAILY TRAFFIC SURF ZONE
-      </p>
-    </div>
-
-    <div class="card" style="text-align:left;">
-      <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470" style="width:100%;border-radius:12px;margin-bottom:10px;">
-      <h3>BEACH BAR – ARUGAM BAY</h3>
-      <p style="font-size:0.9em; opacity:0.8;">
-        Surf cam doubles as marketing exposure. Users watching waves also discover your location instantly.
-      </p>
-      <p style="font-size:0.85em; font-weight:600; color:#0aa3a3;">
-        PRIME VISIBILITY LOCATION
-      </p>
-    </div>
-  </div>
+  <p>COMING SOON</p>
 </section>
-
-<!-- MODAL -->
-<div id="modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
-  <div onclick="event.stopPropagation()">
-    <iframe src="https://player.twitch.tv/?channel=CHANNEL_NAME&parent=lankaswell.github.io&muted=true" 
-    style="width:90%;max-width:900px;height:500px;border:none;"></iframe>
-  </div>
-</div>
 
 <footer>© 2026 LANKASWELL</footer>
 
 <script>
-function openStream(){
-  document.getElementById('modal').style.display='flex';
+function toggleMenu(){
+  document.getElementById('navLinks').classList.toggle('active');
 }
-function closeStream(){
-  document.getElementById('modal').style.display='none';
-}
-
-document.addEventListener('click', function(e){
-  const modal=document.getElementById('modal');
-  if(e.target===modal) modal.style.display='none';
-});
 </script>
+
 </body>
 </html>
