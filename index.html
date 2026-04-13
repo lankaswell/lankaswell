@@ -3,247 +3,237 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🌊 LankaSwell</title>
-  <link rel="icon" href="logo.png" type="image/png">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <title>LankaSwell</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Pacifico&display=swap" rel="stylesheet">
+
   <style>
-    :root {
-      --ocean: #00a8a8;
-      --wave: #00d4ff;
-      --sand: #fff4e6;
-      --sun: #ff7b00;
-      --text: #1f2d3d;
+    :root{
+      --ocean:#0aa3a3;
+      --sand:#fff4e6;
+      --bg:#ffffff;
+      --text:#132428;
+      --muted:#5f6e6e;
+      --card:#ffffff;
     }
 
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(180deg, #dff6ff 0%, var(--sand) 100%);
-      color: var(--text);
+    body{
+      margin:0;
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(180deg,#ffffff 0%,var(--sand) 100%);
+      color:var(--text);
     }
 
-    /* NAVBAR */
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 30px;
-      background: rgba(255,255,255,0.8);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 10;
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:15px 30px;
+      background:rgba(255,255,255,0.95);
+      border-bottom:1px solid rgba(0,0,0,0.06);
+      position:sticky;
+      top:0;
+      z-index:10;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 20px;
-      font-weight: 600;
+    .brand{
+      font-weight:800;
+      font-size:1.4em;
+      display:inline-block;
+      transform: scaleY(1.25);
+      transform-origin: left center;
+      font-family:'Poppins',sans-serif;
     }
 
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text);
-      opacity: 0.8;
+    .brand .lanka{color:#000;}
+    .brand .swell{color:var(--ocean);}
+
+    .nav-links a{
+      margin-left:15px;
+      text-decoration:none;
+      color:var(--muted);
+      font-weight:600;
     }
 
-    .nav-links a:hover {
-      opacity: 1;
+    header{
+      text-align:center;
+      padding:50px 20px;
     }
 
-    header {
-      text-align: center;
-      padding: 60px 20px 40px;
+    .logo{
+      width:160px;
+      height:160px;
+      border-radius:50%;
+      object-fit:cover;
+      background:white;
+      box-shadow:0 10px 25px rgba(0,0,0,0.1);
     }
 
-    .logo {
-      width: 160px;
-      height: 160px;
-      object-fit: cover;
-      background: white;
-      padding: 12px;
-      border-radius: 50%;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    .subtitle{
+      margin-top:10px;
+      opacity:0.8;
     }
 
-    .subtitle {
-      font-size: 1.2em;
-      opacity: 0.8;
+    section{
+      padding:50px 20px;
+      text-align:center;
     }
 
-    section {
-      padding: 60px 20px;
-      text-align: center;
+    .highlight{
+      font-size:1.9em;
+      font-weight:800;
+      font-family:'Poppins',sans-serif;
+      transform: scaleY(1.15);
+      display:inline-block;
+      margin-bottom:20px;
+      text-transform:uppercase;
     }
 
-    .spots {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 30px;
+    .hl-black{color:#000;}
+    .hl-green{color:var(--ocean);}
+
+    .spots{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:20px;
     }
 
-    .card {
-      padding: 25px;
-      width: 260px;
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-      cursor: pointer;
-      position: relative;
+    .card{
+      width:260px;
+      background:var(--card);
+      border-radius:16px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.08);
+      padding:20px;
+      cursor:pointer;
+      transition:0.25s;
     }
 
-    .card:hover {
-      transform: translateY(-8px);
+    .card:hover{
+      transform:translateY(-6px);
     }
 
-    .live {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: var(--sun);
-      color: white;
-      font-size: 0.75em;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-weight: 700;
+    .live{
+      display:inline-block;
+      background:#ff6b4a;
+      color:#fff;
+      padding:4px 10px;
+      border-radius:999px;
+      font-size:0.75em;
+      font-weight:700;
+      margin-bottom:10px;
+      text-transform:uppercase;
     }
 
-    .highlight {
-      font-size: 1.6em;
-      font-weight: 800;
-      margin-bottom: 10px;
-      color: var(--ocean);
-    }
-
-    /* ABOUT SECTION */
-    .about {
-      max-width: 700px;
-      margin: auto;
-      text-align: center;
-    }
-
-    .profile {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 15px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-    }
-
-    footer {
-      text-align: center;
-      padding: 40px;
-      opacity: 0.6;
-      font-size: 0.9em;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.7);
-      justify-content: center;
-      align-items: center;
-    }
-
-    iframe {
-      width: 90%;
-      max-width: 900px;
-      height: 500px;
-      border: none;
+    footer{
+      text-align:center;
+      padding:40px;
+      opacity:0.6;
+      font-size:0.9em;
     }
   </style>
 </head>
+
 <body>
 
 <nav>
-  <div><strong>🌊 LankaSwell</strong></div>
+  <div class="brand">
+    🌊 <span class="lanka">LANKA</span><span class="swell">SWELL</span>
+  </div>
   <div class="nav-links">
-    <a href="#cams">Cams</a>
-    <a href="#about">About</a>
-    <a href="#partners">Partners</a>
+    <a href="#cams">CAMS</a>
+    <a href="#about">ABOUT</a>
+    <a href="#partners">PARTNERS</a>
   </div>
 </nav>
 
 <header>
   <img src="logo.png" class="logo">
-  <div class="subtitle">Watch the waves before you paddle out</div>
+  <div class="subtitle">WATCH THE WAVES BEFORE YOU PADDLE OUT</div>
 </header>
 
 <section id="cams">
-  <div class="highlight">Live surf cams</div>
+  <div class="highlight">
+    <span class="hl-black">LIVE</span> <span class="hl-green">SURF</span> <span class="hl-black">CAMS</span>
+  </div>
+
   <div class="spots">
     <div class="card" onclick="openStream()">
-      <div class="live">🔴 LIVE</div>
-      <h3>Arugam Bay</h3>
-      <p>Click to watch live surf</p>
+      <div class="live">LIVE</div>
+      <h3>ARUGAM BAY</h3>
+      <p>CLICK TO WATCH SURF CAM</p>
     </div>
+
     <div class="card">
-      <h3>Weligama</h3>
-      <p>Beginner friendly</p>
+      <h3>WELIGAMA</h3>
+      <p>BEGINNER FRIENDLY WAVES</p>
     </div>
+
     <div class="card">
-      <h3>Hiriketiya</h3>
-      <p>Clean waves</p>
+      <h3>HIRIKETIYA</h3>
+      <p>CLEAN TROPICAL WAVES</p>
     </div>
   </div>
 </section>
 
-<div id="modal" class="modal" onclick="closeStream()">
-  <iframe src="https://player.twitch.tv/?channel=CHANNEL_NAME&parent=localhost&muted=true"></iframe>
-</div>
-
-<section id="about" style="background:rgba(255,255,255,0.8);">
-  <div class="highlight">Keep LankaSwell alive 🌊</div>
-  <div class="about">
-    <img src="your-photo.jpg" class="profile">
-    <p>
-      Hey, I’m Alex — I’m building LankaSwell on my own while traveling and surfing around the world.
-      There’s no company behind this, just me trying to create something useful for surfers.
-    </p>
-    <p>
-      I want to keep this free for everyone as long as I can. But cameras, hosting and infrastructure cost money.
-      If you like this project, supporting it with a coffee really helps keep it alive ☕
-    </p>
-
-    <!-- Buy Me a Coffee button -->
-    <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js"
-      data-name="bmc-button"
-      data-slug="lankaswell"
-      data-color="#FFDD00"
-      data-emoji="☕"
-      data-font="Cookie"
-      data-text="Buy me a coffee"
-      data-outline-color="#000000"
-      data-font-color="#000000"
-      data-coffee-color="#ffffff">
-    </script>
+<section id="about">
+  <div class="highlight">
+    <span class="hl-black">KEEP</span> <span class="hl-black">LANKA</span><span class="hl-green">SWELL</span> <span class="hl-black">ALIVE</span>
   </div>
+
+  <img src="your-photo.jpg" class="logo" style="width:120px;height:120px;margin:0 auto 15px auto;display:block;">
+
+  <p>
+    I’m building LankaSwell alone while traveling in Sri Lanka.
+    I want to keep it free, but hosting and surf cams cost money.
+  </p>
+
+  <p>
+    If you like the project, a coffee helps keep it alive ☕
+  </p>
+
+  <script src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js"
+    data-name="bmc-button"
+    data-slug="lankaswell"
+    data-color="#FFDD00"
+    data-emoji="☕"
+    data-font="Cookie"
+    data-text="Buy me a coffee"
+    data-outline-color="#000"
+    data-font-color="#000"
+    data-coffee-color="#fff">
+  </script>
 </section>
 
 <section id="partners">
-  <div class="highlight">Partners</div>
-  <p>Surf camps, cafes and hotels coming soon 🌴</p>
+  <div class="highlight">
+    <span class="hl-black">OUR</span> <span class="hl-green">PARTNERS</span>
+  </div>
+  <p>COMING SOON</p>
 </section>
 
-<footer>© 2026 LankaSwell</footer>
+<!-- MODAL -->
+<div id="modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div onclick="event.stopPropagation()">
+    <iframe src="https://player.twitch.tv/?channel=CHANNEL_NAME&parent=lankaswell.github.io&muted=true" 
+    style="width:90%;max-width:900px;height:500px;border:none;"></iframe>
+  </div>
+</div>
+
+<footer>© 2026 LANKASWELL</footer>
 
 <script>
-function openStream() {
-  document.getElementById('modal').style.display = 'flex';
+function openStream(){
+  document.getElementById('modal').style.display='flex';
+}
+function closeStream(){
+  document.getElementById('modal').style.display='none';
 }
 
-function closeStream() {
-  document.getElementById('modal').style.display = 'none';
-}
+document.addEventListener('click', function(e){
+  const modal=document.getElementById('modal');
+  if(e.target===modal) modal.style.display='none';
+});
 </script>
-
 </body>
 </html>
