@@ -196,7 +196,7 @@
   </div>
 
   <div class="spots">
-    <div class="card" onclick="openStream()">
+    <a class="card" href="mirissa-parrot.html" style="text-decoration:none;color:inherit;">
       <div class="live">LIVE</div>
       <h3>MIRISSA</h3>
       <p>CLICK TO WATCH SURF CAM</p>
@@ -291,31 +291,6 @@
   </div>
 </section>
 
-<!-- MODAL -->
-<div id="modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);justify-content:center;align-items:center;z-index:9999;padding:20px;box-sizing:border-box;">
-
-  <div onclick="event.stopPropagation()" style="width:100%;height:100%;display:flex;justify-content:center;align-items:center;position:relative;">
-
-    <!-- CLOSE BUTTON -->
-    <div onclick="closeStream()" 
-         style="position:absolute;top:15px;right:20px;font-size:28px;color:white;cursor:pointer;font-weight:800;z-index:10000;">
-      ✕
-    </div>
-
-    <!-- LABEL -->
-    <div style="position:absolute;bottom:20px;left:20px;color:white;font-size:14px;background:rgba(0,0,0,0.4);padding:6px 10px;border-radius:8px;">
-      This view is from PAPPAGALLO restaurant.
-    </div>
-
-    <iframe 
-      src="https://player.twitch.tv/?channel=testament_zigos&parent=lankaswell.github.io&muted=true"
-      style="width:100%;height:100%;max-width:1400px;max-height:800px;border:none;border-radius:12px;aspect-ratio:16/9;"
-      allowfullscreen>
-    </iframe>
-
-  </div>
-</div>
-
 <section id="collaborate">
   <div class="highlight">
     <span class="hl-black">BE <span class="hl-green">PART</span> OF</span> <span class="hl-black">LANKA</span><span class="hl-green">SWELL</span>
@@ -356,19 +331,6 @@
 
 <footer>© 2026 LANKASWELL</footer>
 
-<script>
-function openStream(){
-  document.getElementById('modal').style.display='flex';
-}
-function closeStream(){
-  document.getElementById('modal').style.display='none';
-}
-
-document.addEventListener('click', function(e){
-  const modal=document.getElementById('modal');
-  if(e.target===modal) modal.style.display='none';
-});
-</script>
 <script>
 function toggleMenu(){
   document.getElementById('navLinks').classList.toggle('active');
