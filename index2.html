@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>LankaSwell</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --ocean:#0aa3a3;
+      --sand:#fff4e6;
+      --bg:#ffffff;
+      --text:#132428;
+      --muted:#5f6e6e;
+      --card:#ffffff;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(180deg,#ffffff 0%,var(--sand) 100%);
+      color:var(--text);
+    }
+
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:14px 22px;
+      background:rgba(255,255,255,0.96);
+      border-bottom:1px solid rgba(0,0,0,0.06);
+      position:sticky;
+      top:0;
+      z-index:100;
+      backdrop-filter:blur(8px);
+    }
+
+    .brand{
+      font-weight:800;
+      font-size:1.3rem;
+      letter-spacing:1px;
+    }
+
+    .brand .lanka{
+      color:#000;
+    }
+
+    .brand .swell{
+      color:var(--ocean);
+    }
+
+    .nav-links{
+      display:flex;
+      gap:18px;
+    }
+
+    .nav-links a{
+      text-decoration:none;
+      color:var(--muted);
+      font-weight:600;
+      font-size:0.95rem;
+      transition:0.2s;
+    }
+
+    .nav-links a:hover{
+      color:var(--ocean);
+    }
+
+    .hamburger{
+      display:none;
+      font-size:1.7rem;
+      cursor:pointer;
+    }
+
+    header{
+      text-align:center;
+      padding:28px 20px 10px;
+    }
+
+    .logo{
+      width:clamp(140px,26vw,260px);
+      height:clamp(140px,26vw,260px);
+      border-radius:50%;
+      object-fit:cover;
+      background:white;
+      box-shadow:0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .subtitle{
+      margin-top:16px;
+      font-size:1.15rem;
+      font-weight:700;
+      letter-spacing:0.4px;
+    }
+
+    .early-note{
+      margin-top:8px;
+      opacity:0.65;
+      font-size:0.9rem;
+    }
+
+    section{
+      padding:36px 20px;
+      text-align:center;
+    }
+
+    .highlight{
+      font-size:1.8rem;
+      font-weight:800;
+      text-transform:uppercase;
+      margin-bottom:22px;
+      line-height:1.2;
+    }
+
+    .hl-black{
+      color:#000;
+    }
+
+    .hl-green{
+      color:var(--ocean);
+    }
+
+    .spots{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:20px;
+      max-width:1200px;
+      margin:0 auto;
+    }
+
+    .card{
+      width:260px;
+      background:var(--card);
+      border-radius:18px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.08);
+      overflow:hidden;
+      transition:0.25s;
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+    }
+
+    .card-content{
+      padding:18px;
+    }
+
+    .card img{
+      width:100%;
+      aspect-ratio:16/9;
+      object-fit:cover;
+      display:block;
+    }
+
+    .card h3{
+      margin:0;
+      font-size:1.05rem;
+    }
+
+    .card p{
+      margin-top:10px;
+      font-size:0.92rem;
+      opacity:0.8;
+      line-height:1.5;
+    }
+
+    .live{
+      display:inline-block;
+      background:#ff6b4a;
+      color:#fff;
+      padding:4px 10px;
+      border-radius:999px;
+      font-size:0.72rem;
+      font-weight:700;
+      margin-left:8px;
+      vertical-align:middle;
+    }
+
+    .about-text,
+    .collab-text{
+      max-width:720px;
+      margin:0 auto 20px;
+      opacity:0.85;
+      line-height:1.8;
+    }
+
+    .profile-pic{
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      object-fit:cover;
+      margin-bottom:18px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .contact{
+      opacity:0.75;
+      margin-top:20px;
+    }
+
+    footer{
+      text-align:center;
+      padding:30px 20px;
+      opacity:0.6;
+      font-size:0.9rem;
+    }
+
+    @media(max-width:768px){
+
+      nav{
+        padding:14px 18px;
+      }
+
+      .hamburger{
+        display:block;
+      }
+
+      .nav-links{
+        display:none;
+        flex-direction:column;
+        position:absolute;
+        top:60px;
+        right:18px;
+        background:white;
+        padding:14px;
+        border-radius:14px;
+        box-shadow:0 10px 25px rgba(0,0,0,0.1);
+      }
+
+      .nav-links.active{
+        display:flex;
+      }
+
+      .card{
+        width:100%;
+        max-width:340px;
+      }
+
+      .highlight{
+        font-size:1.55rem;
+      }
+
+      .subtitle{
+        font-size:1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="brand">
+      🌊 <span class="lanka">LANKA</span><span class="swell">SWELL</span>
+    </div>
+
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+    <div class="nav-links" id="navLinks">
+      <a href="#cams">CAMS</a>
+      <a href="#about">ABOUT</a>
+      <a href="#collaborate">COLLABORATE</a>
+    </div>
+  </nav>
+
+  <header>
+    <img src="logo.png" class="logo" alt="LankaSwell logo">
+
+    <div class="subtitle">
+      DON’T CHASE WAVES. FIND THEM.
+    </div>
+
+    <div class="early-note">
+      Early project — more cameras and features coming soon.
+    </div>
+
+    <div style="margin-top:12px;">
+      <img src="https://visitor-badge.laobi.icu/badge?page_id=lankaswell.homepage" alt="visitor counter">
+    </div>
+  </header>
+
+  <section id="cams">
+
+    <div class="highlight">
+      <span class="hl-black">LIVE</span>
+      <span class="hl-green">SURF</span>
+      <span class="hl-black">CAMS</span>
+    </div>
+
+    <div class="spots">
+
+      <a class="card" href="mirissa-parrot.html">
+
+        <img src="mirissa-thumb.jpg" alt="Mirissa surf cam">
+
+        <div class="card-content">
+          <h3>
+            MIRISSA
+            <span class="live">LIVE</span>
+          </h3>
+        </div>
+
+      </a>
+
+      <a class="card" href="ahangama-marshmellow.html">
+
+        <img src="ahangama-thumb.jpg" alt="Ahangama surf cam">
+
+        <div class="card-content">
+          <h3>
+            AHANGAMA
+            <span class="live">LIVE</span>
+          </h3>
+        </div>
+
+      </a>
+
+      <div class="card">
+
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="Weligama">
+
+        <div class="card-content">
+          <h3>WELIGAMA — COMING SOON</h3>
+          <p>Beginner friendly waves and long mellow rides.</p>
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21" alt="Hiriketiya">
+
+        <div class="card-content">
+          <h3>HIRIKETIYA — COMING SOON</h3>
+          <p>Clean tropical surf in one of Sri Lanka’s most iconic bays.</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="about">
+
+    <div class="highlight">
+      <span class="hl-black">KEEP</span>
+      <span class="hl-black">LANKA</span><span class="hl-green">SWELL</span>
+      <span class="hl-black">ALIVE</span>
+    </div>
+
+    <img src="your-photo.jpg" class="profile-pic" alt="Alex">
+
+    <p>
+      Hey there! I’m Alex, nice to meet you.
+    </p>
+
+    <p class="about-text">
+      LankaSwell is my independent project to make surf conditions in Sri Lanka more visible and accessible in real time. The goal is to create a free network of surf cams that helps surfers, travelers, and locals understand the ocean before they enter it.
+    </p>
+
+    <p class="about-text">
+      Everything is self-funded and built step by step. If you enjoy the project or find it useful before a surf session, even a small coffee genuinely helps support hosting, development, and new cameras along the coast ☕
+    </p>
+
+    <script src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js"
+      data-name="bmc-button"
+      data-slug="lankaswell"
+      data-color="#FFDD00"
+      data-emoji="☕"
+      data-font="Cookie"
+      data-text="Buy me a coffee"
+      data-outline-color="#000"
+      data-font-color="#000"
+      data-coffee-color="#fff">
+    </script>
+
+  </section>
+
+  <section id="collaborate">
+
+    <div class="highlight">
+      <span class="hl-black">BE</span>
+      <span class="hl-green">PART</span>
+      <span class="hl-black">OF</span>
+      <span class="hl-black">LANKA</span><span class="hl-green">SWELL</span>
+    </div>
+
+    <p class="collab-text">
+      Some LankaSwell streaming nodes run on repurposed devices, giving a second life to hardware that would otherwise go unused. The network is built slowly and independently, one camera at a time.
+    </p>
+
+    <p class="collab-text">
+      Do you run a surf school, beachfront café, guesthouse, or have an ocean view? You might already be in the perfect spot to host a camera.
+    </p>
+
+    <div class="spots">
+
+      <div class="card">
+        <div class="card-content">
+          <h3>HOST A CAMERA</h3>
+          <p>
+            Turn your location into a live surf spot visible to surfers checking conditions every day.
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-content">
+          <h3>COLLABORATE</h3>
+          <p>
+            Have an idea, project, or way to work together? Let’s build something around the ocean.
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-content">
+          <h3>CONTRIBUTE</h3>
+          <p>
+            Old devices, technical help, or support — every contribution helps expand the network.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="contact">
+      Contact: <strong>lankaswellproject@gmail.com</strong>
+    </p>
+
+  </section>
+
+  <footer>
+    © 2026 LANKASWELL
+  </footer>
+
+  <script>
+    function toggleMenu(){
+      document.getElementById('navLinks').classList.toggle('active');
+    }
+  </script>
+
+</body>
+</html>
