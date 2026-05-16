@@ -10,27 +10,80 @@
 
 <style>
 
+:root{
+  --ocean:#0aa3a3;
+  --text:#132428;
+  --muted:#5f6e6e;
+}
+
+/* BASE */
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
   background:#f7f7f7;
-  color:#132428;
+  color:var(--text);
 }
 
-/* HEADER */
-header{
-  padding:14px 16px;
-  background:white;
-  border-bottom:1px solid rgba(0,0,0,0.08);
+/* NAVBAR (same style as homepage) */
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 22px;
+  background:rgba(255,255,255,0.96);
+  border-bottom:1px solid rgba(0,0,0,0.06);
   position:sticky;
   top:0;
+  z-index:100;
+  backdrop-filter:blur(8px);
 }
 
-.back{
+.brand{
+  font-weight:800;
+  font-size:1.3rem;
+  letter-spacing:1px;
+}
+
+.brand .lanka{color:#000;}
+.brand .swell{color:var(--ocean);}
+
+.nav-links{
+  display:flex;
+  gap:18px;
+}
+
+.nav-links a{
   text-decoration:none;
-  color:#0aa3a3;
-  font-weight:700;
+  color:var(--muted);
+  font-weight:600;
   font-size:0.95rem;
+}
+
+/* MOBILE MENU */
+.hamburger{
+  display:none;
+  font-size:1.7rem;
+  cursor:pointer;
+}
+
+@media(max-width:768px){
+  .hamburger{display:block;}
+
+  .nav-links{
+    display:none;
+    flex-direction:column;
+    position:absolute;
+    top:60px;
+    right:18px;
+    background:white;
+    padding:14px;
+    border-radius:14px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  }
+
+  .nav-links.active{
+    display:flex;
+  }
 }
 
 /* LAYOUT */
@@ -40,10 +93,10 @@ header{
   padding:16px;
 }
 
-/* TITLE ABOVE STREAM */
+/* TITLE */
 .stream-title{
   text-align:center;
-  margin:10px 0 12px;
+  margin:12px 0 12px;
   font-size:1.6rem;
   font-weight:800;
 }
@@ -72,7 +125,7 @@ header{
   border:none;
 }
 
-/* INFO CARD */
+/* INFO */
 .info{
   background:white;
   margin-top:16px;
@@ -85,6 +138,34 @@ header{
   opacity:0.75;
   font-size:0.9rem;
   line-height:1.6;
+}
+
+/* BUTTONS */
+.buttons{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  flex:1;
+  text-align:center;
+  padding:12px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:0.95rem;
+}
+
+.btn-primary{
+  background:var(--ocean);
+  color:white;
+}
+
+.btn-secondary{
+  background:#e9f7f7;
+  color:var(--ocean);
 }
 
 /* OFFERS */
@@ -112,9 +193,20 @@ footer{
 
 <body>
 
-<header>
-  <a class="back" href="index.html">← Back to cams</a>
-</header>
+<!-- NAVBAR -->
+<nav>
+  <div class="brand">
+    🌊 <span class="lanka">LANKA</span><span class="swell">SWELL</span>
+  </div>
+
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+  <div class="nav-links" id="navLinks">
+    <a href="index.html#cams">CAMS</a>
+    <a href="index.html#about">ABOUT</a>
+    <a href="index.html#partners">PARTNERS</a>
+  </div>
+</nav>
 
 <div class="container">
 
@@ -131,10 +223,22 @@ footer{
 
   <!-- INFO -->
   <div class="info">
+
     <p class="small">
       This live view is hosted from <strong>A++ Restaurant, Mirissa</strong>.  
       Conditions change in real time depending on swell, wind, and tide.
     </p>
+
+    <div class="buttons">
+
+      <a class="btn btn-primary"
+         href="https://www.google.com/maps"
+         target="_blank">
+        📍 Get Directions
+      </a>
+
+    </div>
+
   </div>
 
   <!-- OFFERS -->
@@ -146,7 +250,7 @@ footer{
     </p>
 
     <ul>
-      <li>☕ Surf morning coffee + pastry combo (coming soon)</li>
+      <li>☕ Surf coffee + pastry combo (coming soon)</li>
       <li>🍛 Local rice & curry discount for surfers</li>
       <li>🏄 Free WiFi for surf checks</li>
     </ul>
@@ -157,6 +261,12 @@ footer{
 <footer>
   © 2026 LankaSwell
 </footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById('navLinks').classList.toggle('active');
+}
+</script>
 
 </body>
 </html>
