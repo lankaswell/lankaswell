@@ -224,6 +224,14 @@ footer{
   line-height:1.5;
   opacity:0.8;
 }
+
+.offline-image{
+  width:100%;
+  display:block;
+  aspect-ratio:16/9;
+  object-fit:cover;
+}
+
 </style>
 </head>
 
@@ -253,9 +261,14 @@ footer{
   </div>
 
   <!-- STREAM -->
-  <div class="stream-box">
-    <iframe src="STREAM_URL" allowfullscreen></iframe>
-  </div>
+  <!-- STREAM PLACEHOLDER -->
+	<div class="stream-box">
+ 	 <img 
+ 	   src="images/stream-offline.webp" 
+ 	   alt="Stream Offline"
+ 	   class="offline-image"
+ 		 >
+	</div>
 
 	<!-- SURF SPOT MINI INFO -->
 <div class="spot-mini">
