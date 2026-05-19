@@ -188,6 +188,42 @@ footer{
   font-size:0.85rem;
 }
 
+
+/*SURFSPOT INFO*/
+/* MINI SURF INFO */
+.spot-mini{
+  margin-top:16px;
+  background:white;
+  padding:14px 16px;
+  border-radius:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.spot-mini-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.mini-item{
+  background:#f4f8f8;
+  border-radius:10px;
+  padding:10px;
+  font-size:0.85rem;
+  font-weight:600;
+  color:var(--muted);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.mini-text{
+  margin:0;
+  font-size:0.88rem;
+  line-height:1.5;
+  opacity:0.8;
+}
 </style>
 </head>
 
@@ -221,6 +257,38 @@ footer{
     <iframe src="STREAM_URL" allowfullscreen></iframe>
   </div>
 
+	<!-- SURF SPOT MINI INFO -->
+<div class="spot-mini">
+  <div class="spot-mini-grid">
+
+    <div class="mini-item">
+      <span>🌊</span>
+      Reef + beach break
+    </div>
+
+    <div class="mini-item">
+      <span>🏄</span>
+      Beginner → Intermediate
+    </div>
+
+    <div class="mini-item">
+      <span>📅</span>
+      Best: Nov – Apr
+    </div>
+
+    <div class="mini-item">
+      <span>🌡️</span>
+      Warm water all year
+    </div>
+
+  </div>
+
+  <p class="mini-text">
+    Playful tropical right-hander with mellow reef sections and fun long rides.
+    Best surf early morning on mid tide.
+  </p>
+</div>
+
   <!-- INFO -->
   <div class="info">
 
@@ -234,7 +302,7 @@ footer{
       <a class="btn btn-primary"
          href="https://www.google.com/maps"
          target="_blank">
-        📍 Get Directions
+        📍 Take me to this spot
       </a>
 
     </div>
