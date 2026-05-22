@@ -232,6 +232,60 @@ footer{
   object-fit:cover;
 }
 
+/*SERVICES*/
+.services{
+  margin-top:16px;
+  background:white;
+  padding:16px;
+  border-radius:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.services h3{
+  margin-top:0;
+  margin-bottom:16px;
+}
+
+.service-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:14px;
+}
+
+.service-card{
+  background:#f4f8f8;
+  border-radius:14px;
+  padding:16px;
+}
+
+.service-icon{
+  font-size:1.8rem;
+  margin-bottom:10px;
+}
+
+.service-card h4{
+  margin:0 0 8px;
+}
+
+.service-card p{
+  font-size:0.9rem;
+  opacity:0.75;
+  line-height:1.5;
+}
+
+.service-btn{
+  display:inline-block;
+  margin-top:12px;
+  padding:10px 14px;
+  background:var(--ocean);
+  color:white;
+  text-decoration:none;
+  border-radius:10px;
+  font-weight:700;
+  font-size:0.9rem;
+}
+
+
 </style>
 </head>
 
@@ -256,7 +310,7 @@ footer{
 
   <!-- TITLE -->
   <div class="stream-title">
-    MIRISSA POINT
+    <span class="lanka">MIRISSA</span><span class="swell">POINT</span>
 			<div class="live">LIVE view from A++ restaurant</div>
   </div>
 
@@ -309,6 +363,48 @@ footer{
     Mainly right-hand waves with mellow reef sections and fun rides.
     Best surf early morning on mid tide.
   </p>
+</div>
+
+
+<!-- SERVICES -->
+<div class="services">
+
+  <h3>Need something for your surf session?</h3>
+
+  <div class="service-grid">
+
+    <div class="service-card">
+      <div class="service-icon">🏄</div>
+      <h4>Surf Lessons</h4>
+      <p>Private and beginner-friendly lessons in Mirissa.</p>
+
+      <a href="https://wa.me/your-number" class="service-btn">
+        Book Lesson
+      </a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">📸</div>
+      <h4>Surf Photographer</h4>
+      <p>Get professional photos and videos of your session.</p>
+
+      <a href="https://instagram.com/" class="service-btn">
+        Contact
+      </a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🛵</div>
+      <h4>Scooter Rental</h4>
+      <p>Daily scooter rental for exploring nearby surf spots.</p>
+
+      <a href="#" class="service-btn">
+        Rent Scooter
+      </a>
+    </div>
+
+  </div>
+
 </div>
 
   <!-- OFFERS -->
