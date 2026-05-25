@@ -225,13 +225,6 @@ footer{
   opacity:0.8;
 }
 
-.offline-image{
-  width:100%;
-  display:block;
-  aspect-ratio:16/9;
-  object-fit:cover;
-}
-
 /*SERVICES*/
 .services{
   margin-top:16px;
@@ -285,6 +278,49 @@ footer{
   font-size:0.9rem;
 }
 
+.stream-box {
+  position: relative;
+  width: 100%;
+  height: 55vh;
+  background: black;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.offline {
+  position: absolute;
+  inset: 0;
+  background: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.offline.hidden {
+  display: none;
+}
+
+.offline h2 {
+  margin-bottom: 10px;
+  font-size: 1.6rem;
+}
+
+.offline p {
+  opacity: 0.8;
+  max-width: 400px;
+  line-height: 1.5;
+}
+
 
 </style>
 </head>
@@ -320,12 +356,13 @@ footer{
 	<video controls autoplay muted playsinline style="width:100%;border-radius:12px;">
   		<source src="http://178.105.34.75:8888/live/mirissapoint/index.m3u8" type="application/x-mpegURL">
 	</video>
- 	<!-- <img 
- 	   src="img/stream-offline.webp" 
- 	   alt="Stream Offline"
- 	   class="offline-image"
- 		 > -->
-	</div>
+ 	<div id="offline" class="offline">
+    <h2>Stream Offline</h2>
+    <p>
+      Please try again later.<br><br>
+      Streams will automatically reconnect after power or internet outages.
+    </p>
+  </div>	</div>
 
 	<!-- SURF SPOT MINI INFO -->
 <div class="spot-mini">
@@ -435,6 +472,80 @@ footer{
 function toggleMenu(){
   document.getElementById('navLinks').classList.toggle('active');
 }
+</script>
+
+<script>
+const video = document.getElementById("video");
+const offline = document.getElementById("offline");
+
+const STREAM_URL = "https://YOUR_DOMAIN/hls/mirissa/index.m3u8";
+
+let lastTime = 0;
+let stalledCounter = 0;
+
+// Show / hide UI
+function showOffline() {
+  offline.classList.remove("hidden");
+  video.style.display = "none";
+}
+
+function showOnline() {
+  offline.classList.add("hidden");
+  video.style.display = "block";
+}
+
+// Detect stall (very important for iPhone)
+function monitorStream() {
+  setInterval(() => {
+
+    if (video.readyState > 2) {
+      if (video.currentTime === lastTime) {
+        stalledCounter++;
+      } else {
+        stalledCounter = 0;
+      }
+
+      lastTime = video.currentTime;
+
+      // if stuck for ~15 seconds
+      if (stalledCounter > 5) {
+        showOffline();
+      } else {
+        showOnline();
+      }
+    }
+
+  }, 3000);
+}
+
+// Load stream (native HLS first)
+function initStream() {
+
+  if (video.canPlayType("application/vnd.apple.mpegurl")) {
+    video.src = STREAM_URL;
+  } else {
+    // fallback if needed (Android/Desktop)
+    const hls = new Hls();
+    hls.loadSource(STREAM_URL);
+    hls.attachMedia(video);
+  }
+
+  video.addEventListener("playing", () => {
+    showOnline();
+  });
+
+  video.addEventListener("error", () => {
+    showOffline();
+  });
+
+  video.play().catch(() => {
+    // autoplay blocked → still try showing UI
+  });
+
+  monitorStream();
+}
+
+initStream();
 </script>
 
 </body>
