@@ -474,16 +474,22 @@ function toggleMenu(){
 }
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
 <script>
 const video = document.getElementById("video");
 const offline = document.getElementById("offline");
 
-const STREAM_URL = "http://178.105.34.75:8888/live/mirissapoint/index.m3u8";
+const STREAM_URL =
+  "http://178.105.34.75:8888/live/mirissapoint/index.m3u8";
 
+let stallChecks = 0;
 let lastTime = 0;
-let stalledCounter = 0;
 
-// Show / hide UI
+// -------------------
+// UI
+// -------------------
+
 function showOffline() {
   offline.classList.remove("hidden");
   video.style.display = "none";
@@ -494,52 +500,87 @@ function showOnline() {
   video.style.display = "block";
 }
 
-// Detect stall (very important for iPhone)
+// -------------------
+// Monitor freezing
+// -------------------
+
 function monitorStream() {
+
   setInterval(() => {
 
-    if (video.readyState > 2) {
-      if (video.currentTime === lastTime) {
-        stalledCounter++;
-      } else {
-        stalledCounter = 0;
-      }
+    // no data yet
+    if (video.readyState < 2) {
+      return;
+    }
 
-      lastTime = video.currentTime;
+    // stream frozen
+    if (video.currentTime === lastTime) {
+      stallChecks++;
+    } else {
+      stallChecks = 0;
+    }
 
-      // if stuck for ~15 seconds
-      if (stalledCounter > 5) {
-        showOffline();
-      } else {
-        showOnline();
-      }
+    lastTime = video.currentTime;
+
+    // ~15 sec frozen
+    if (stallChecks >= 5) {
+      showOffline();
     }
 
   }, 3000);
 }
 
-// Load stream (native HLS first)
+// -------------------
+// Init stream
+// -------------------
+
 function initStream() {
 
+  // Native HLS (iPhone/Safari)
   if (video.canPlayType("application/vnd.apple.mpegurl")) {
+
     video.src = STREAM_URL;
-  } else {
-    // fallback if needed (Android/Desktop)
-    const hls = new Hls();
-    hls.loadSource(STREAM_URL);
-    hls.attachMedia(video);
+
+    video.addEventListener("loadedmetadata", () => {
+      video.play()
+        .then(() => {
+          showOnline();
+        })
+        .catch(console.error);
+    });
+
   }
 
-  video.addEventListener("playing", () => {
-    showOnline();
-  });
+  // hls.js fallback
+  else if (Hls.isSupported()) {
+
+    const hls = new Hls();
+
+    hls.loadSource(STREAM_URL);
+    hls.attachMedia(video);
+
+    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+
+      video.play()
+        .then(() => {
+          showOnline();
+        })
+        .catch(console.error);
+
+    });
+
+    hls.on(Hls.Events.ERROR, () => {
+      showOffline();
+    });
+  }
+
+  // unsupported
+  else {
+    showOffline();
+  }
 
   video.addEventListener("error", () => {
     showOffline();
-  });
-
-  video.play().catch(() => {
-    // autoplay blocked → still try showing UI
   });
 
   monitorStream();
