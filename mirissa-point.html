@@ -321,6 +321,37 @@ video {
   line-height: 1.5;
 }
 
+.status-overlay{
+  position:absolute;
+  inset:0;
+  background:black;
+  color:white;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  text-align:center;
+  padding:20px;
+  z-index:5;
+}
+
+.status-overlay.hidden{
+  display:none;
+}
+
+.status-overlay h2{
+  margin-bottom:12px;
+  font-size:1.7rem;
+}
+
+.status-overlay p{
+  opacity:0.8;
+  line-height:1.6;
+  max-width:400px;
+}
+
 
 </style>
 </head>
@@ -355,14 +386,15 @@ video {
 	<video id="video" controls autoplay muted playsinline style="width:100%;border-radius:12px;">
   		<source src="http://178.105.34.75:8888/live/mirissapoint/index.m3u8" type="application/x-mpegURL">
 	</video>
- 	<div id="offline" class="offline">
-    <h2>Stream Offline</h2>
-    <p>
-      Please try again later.<br><br>
-      Streams will automatically reconnect after power or internet outages.
-    </p>
-  </div>	
-</div>
+ 	<div id="statusOverlay" class="status-overlay">
+  <h2 id="statusTitle">Loading Stream</h2>
+
+  <p id="statusText">
+    Streaming is loading.<br>
+    It might take a few seconds.<br><br>
+    Be patient brother 🌊
+  </p>
+</div></div>
 <div class="buttons">
 	<a class="btn btn-primary" href="https://maps.app.goo.gl/CZzhHjNic3KPMdo29?g_st=ac" target="_blank">
    📍 Take me to this spot
@@ -473,42 +505,63 @@ function toggleMenu(){
 
 <script>
 const video = document.getElementById("video");
-const offline = document.getElementById("offline");
+
+const overlay = document.getElementById("statusOverlay");
+const title = document.getElementById("statusTitle");
+const text = document.getElementById("statusText");
 
 const STREAM_URL =
   "http://178.105.34.75:8888/live/mirissapoint/index.m3u8";
 
-let stallChecks = 0;
 let lastTime = 0;
+let stallChecks = 0;
 
-// -------------------
-// UI
-// -------------------
+// --------------------
+// UI STATES
+// --------------------
+
+function showLoading() {
+
+  overlay.classList.remove("hidden");
+
+  title.innerText = "Loading Stream";
+
+  text.innerHTML = `
+    Streaming is loading.<br>
+    It might take a few seconds.<br><br>
+    Be patient brother 🌊
+  `;
+}
 
 function showOffline() {
-  offline.classList.remove("hidden");
-  video.style.display = "none";
+
+  overlay.classList.remove("hidden");
+
+  title.innerText = "Stream Temporarily Offline";
+
+  text.innerHTML = `
+    Streams reconnect automatically after<br>
+    power or internet outages.<br><br>
+
+    Please try again later 🌊
+  `;
 }
 
 function showOnline() {
-  offline.classList.add("hidden");
-  video.style.display = "block";
+
+  overlay.classList.add("hidden");
 }
 
-// -------------------
-// Monitor freezing
-// -------------------
+// --------------------
+// Monitor freeze
+// --------------------
 
 function monitorStream() {
 
   setInterval(() => {
 
-    // no data yet
-    if (video.readyState < 2) {
-      return;
-    }
+    if (video.readyState < 2) return;
 
-    // stream frozen
     if (video.currentTime === lastTime) {
       stallChecks++;
     } else {
@@ -525,23 +578,29 @@ function monitorStream() {
   }, 3000);
 }
 
-// -------------------
+// --------------------
 // Init stream
-// -------------------
+// --------------------
 
 function initStream() {
 
-  // Native HLS (iPhone/Safari)
+  showLoading();
+
+  // Native HLS (iPhone)
   if (video.canPlayType("application/vnd.apple.mpegurl")) {
 
     video.src = STREAM_URL;
 
     video.addEventListener("loadedmetadata", () => {
+
       video.play()
         .then(() => {
           showOnline();
         })
-        .catch(console.error);
+        .catch(() => {
+          showOffline();
+        });
+
     });
 
   }
@@ -560,16 +619,18 @@ function initStream() {
         .then(() => {
           showOnline();
         })
-        .catch(console.error);
+        .catch(() => {
+          showOffline();
+        });
 
     });
 
     hls.on(Hls.Events.ERROR, () => {
       showOffline();
     });
+
   }
 
-  // unsupported
   else {
     showOffline();
   }
@@ -583,6 +644,5 @@ function initStream() {
 
 initStream();
 </script>
-
 </body>
 </html>
