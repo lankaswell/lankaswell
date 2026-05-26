@@ -513,55 +513,66 @@ const text = document.getElementById("statusText");
 const STREAM_URL =
   "http://178.105.34.75:8888/live/mirissapoint/index.m3u8";
 
+// --------------------
+// STATE
+// --------------------
+
 let lastTime = 0;
 let stallChecks = 0;
+let monitoringStarted = false;
+let startupTime = null;
 
 // --------------------
-// UI STATES
+// UI
 // --------------------
 
 function showLoading() {
-
   overlay.classList.remove("hidden");
-
   title.innerText = "Loading Stream";
-
-  text.innerHTML = `
-    Streaming is loading.<br>
-    It might take a few seconds.<br><br>
-    Be patient brother 🌊
-  `;
+  text.innerHTML =
+    "Streaming is loading.<br>" +
+    "It might take a few seconds.<br><br>" +
+    "Be patient brother 🌊";
 }
 
 function showOffline() {
-
   overlay.classList.remove("hidden");
-
   title.innerText = "Stream Temporarily Offline";
-
-  text.innerHTML = `
-    Streams reconnect automatically after<br>
-    power or internet outages.<br><br>
-
-    Please try again later 🌊
-  `;
+  text.innerHTML =
+    "Streams reconnect automatically after<br>" +
+    "power or internet outages.<br><br>" +
+    "Please try again later 🌊";
 }
 
 function showOnline() {
-
   overlay.classList.add("hidden");
 }
 
 // --------------------
-// Monitor freeze
+// MONITOR (FIXED)
 // --------------------
 
 function monitorStream() {
 
+  if (monitoringStarted) return;
+  monitoringStarted = true;
+
   setInterval(() => {
 
+    // wait until video is actually decoding
     if (video.readyState < 2) return;
 
+    // startup grace period (IMPORTANT)
+    if (!startupTime) {
+      startupTime = Date.now();
+      return;
+    }
+
+    if (Date.now() - startupTime < 15000) {
+      return;
+    }
+
+    // freeze detection
     if (video.currentTime === lastTime) {
       stallChecks++;
     } else {
@@ -570,7 +581,7 @@ function monitorStream() {
 
     lastTime = video.currentTime;
 
-    // ~15 sec frozen
+    // ~15 seconds freeze
     if (stallChecks >= 5) {
       showOffline();
     }
@@ -579,50 +590,36 @@ function monitorStream() {
 }
 
 // --------------------
-// Init stream
+// INIT STREAM
 // --------------------
 
 function initStream() {
 
   showLoading();
 
-  // Native HLS (iPhone)
+  // iPhone / Safari native HLS
   if (video.canPlayType("application/vnd.apple.mpegurl")) {
 
     video.src = STREAM_URL;
 
     video.addEventListener("loadedmetadata", () => {
-
-      video.play()
-        .then(() => {
-          showOnline();
-        })
-        .catch(() => {
-          showOffline();
-        });
-
+      video.play().catch(() => showOffline());
     });
 
   }
 
-  // hls.js fallback
+  // Android / Desktop fallback
   else if (Hls.isSupported()) {
 
-    const hls = new Hls();
+    const hls = new Hls({
+      lowLatencyMode: false
+    });
 
     hls.loadSource(STREAM_URL);
     hls.attachMedia(video);
 
     hls.on(Hls.Events.MANIFEST_PARSED, () => {
-
-      video.play()
-        .then(() => {
-          showOnline();
-        })
-        .catch(() => {
-          showOffline();
-        });
-
+      video.play().catch(() => showOffline());
     });
 
     hls.on(Hls.Events.ERROR, () => {
@@ -635,11 +632,15 @@ function initStream() {
     showOffline();
   }
 
+  // REAL playback start = show online + start monitor
+  video.addEventListener("playing", () => {
+    showOnline();
+    monitorStream();
+  });
+
   video.addEventListener("error", () => {
     showOffline();
   });
-
-  monitorStream();
 }
 
 initStream();
