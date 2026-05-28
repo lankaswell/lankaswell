@@ -47,10 +47,15 @@
     }
 
     .brand{
-      font-weight:800;
-      font-size:1.3rem;
-      letter-spacing:1px;
-    }
+		  font-weight:800;
+		  font-size:1.3rem;
+		  letter-spacing:1px;
+  		text-decoration:none;
+  		color:inherit;
+  		display:flex;
+  		align-items:center;
+  		gap:6px;
+		}
 
     .brand .lanka{
       color:#000;
@@ -278,10 +283,9 @@ header{
 <body>
 
   <nav>
-    <div class="brand">
-      🌊 <span class="lanka">LANKA</span><span class="swell">SWELL</span>
-    </div>
-
+  	<a href="index.html" class="brand">
+  		🌊 <span class="lanka">LANKA</span><span class="swell">SWELL</span>
+		</a>
     <div class="hamburger" onclick="toggleMenu()">☰</div>
 
     <div class="nav-links" id="navLinks">
