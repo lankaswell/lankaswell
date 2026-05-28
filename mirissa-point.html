@@ -352,50 +352,6 @@ video {
   max-width:400px;
 }
 
-<!-- FORECAST STYLE-->
-
-.forecast-box{
-  margin-top:16px;
-  background:white;
-  padding:18px;
-  border-radius:16px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.08);
-}
-
-.forecast-box h3{
-  margin-top:0;
-  margin-bottom:16px;
-}
-
-.forecast-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-}
-
-.forecast-item{
-  background:#f4f8f8;
-  padding:14px;
-  border-radius:12px;
-}
-
-.forecast-item span{
-  display:block;
-  font-size:0.85rem;
-  opacity:0.7;
-  margin-bottom:6px;
-}
-
-.forecast-item strong{
-  font-size:1.1rem;
-}
-
-.rating{
-  margin-top:18px;
-  font-size:1rem;
-  font-weight:700;
-}
-
 </style>
 </head>
 
@@ -438,41 +394,6 @@ video {
     Be patient brother 🌊
   </p>
 </div>
-</div>
-
-<div class="forecast-box">
-
-  <h3>🌊 Live Conditions</h3>
-
-  <div class="forecast-grid">
-
-    <div class="forecast-item">
-      <span>🌊 Swell</span>
-      <strong id="waveHeight">--</strong>
-    </div>
-
-    <div class="forecast-item">
-      <span>💨 Wind</span>
-      <strong id="windSpeed">--</strong>
-    </div>
-
-    <div class="forecast-item">
-      <span>🧭 Direction</span>
-      <strong id="windDir">--</strong>
-    </div>
-
-    <div class="forecast-item">
-      <span>🌡️ Water</span>
-      <strong id="waterTemp">--</strong>
-    </div>
-
-  </div>
-
-  <div class="rating">
-    Conditions:
-    <span id="ratingText">Loading...</span>
-  </div>
-
 </div>
 
 <div class="buttons">
@@ -725,84 +646,6 @@ function initStream() {
 
 initStream();
 </script>
-
-<script>
-
-async function loadForecast() {
-
-  // Mirissa coordinates
-  const lat = 5.9485;
-  const lon = 80.4580;
-
-  const url =
-    `https://marine-api.open-meteo.com/v1/marine` +
-    `?latitude=${lat}` +
-    `&longitude=${lon}` +
-    `&current=wave_height,sea_surface_temperature`;
-
-  try {
-
-    const response = await fetch(url);
-    const data = await response.json();
-
-    // marine data
-    const waveHeight =
-      data.current.wave_height;
-
-    const waterTemp =
-      data.current.sea_surface_temperature;
-
-    // fake wind for now
-    // next step we connect weather API too
-    const windSpeed = 12;
-    const windDir = "Offshore";
-
-    // update UI
-    document.getElementById("waveHeight")
-      .innerText = waveHeight + " m";
-
-    document.getElementById("waterTemp")
-      .innerText = waterTemp + "°C";
-
-    document.getElementById("windSpeed")
-      .innerText = windSpeed + " km/h";
-
-    document.getElementById("windDir")
-      .innerText = windDir;
-
-    // simple LankaSwell rating logic
-    let rating = "POOR";
-
-    if (waveHeight >= 0.8) {
-      rating = "FUN";
-    }
-
-    if (waveHeight >= 1.5) {
-      rating = "GOOD";
-    }
-
-    if (waveHeight >= 2.5) {
-      rating = "FIRING";
-    }
-
-    document.getElementById("ratingText")
-      .innerText = rating;
-
-  }
-
-  catch(err) {
-
-    console.error(err);
-
-    document.getElementById("ratingText")
-      .innerText = "Unavailable";
-  }
-}
-
-loadForecast();
-
-</script>
-
 
 </body>
 </html>
