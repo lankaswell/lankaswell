@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LankaSwell — Principles</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --ocean:#0aa3a3;
+  --text:#132428;
+  --muted:#5f6e6e;
+}
+
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:#f7f7f7;
+  color:var(--text);
+}
+
+/* NAVBAR */
+
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 22px;
+  background:rgba(255,255,255,0.96);
+  border-bottom:1px solid rgba(0,0,0,0.06);
+  position:sticky;
+  top:0;
+  z-index:100;
+  backdrop-filter:blur(8px);
+}
+
+.brand{
+  font-weight:800;
+  font-size:1.3rem;
+  letter-spacing:1px;
+  text-decoration:none;
+  color:inherit;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.lanka{
+  color:#000;
+}
+
+.swell{
+  color:var(--ocean);
+}
+
+.nav-links{
+  display:flex;
+  gap:18px;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:var(--muted);
+  font-weight:600;
+  font-size:0.95rem;
+}
+
+.hamburger{
+  display:none;
+  font-size:1.7rem;
+  cursor:pointer;
+}
+
+@media(max-width:768px){
+
+  .hamburger{
+    display:block;
+  }
+
+  .nav-links{
+    display:none;
+    flex-direction:column;
+    position:absolute;
+    top:60px;
+    right:18px;
+    background:white;
+    padding:14px;
+    border-radius:14px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  }
+
+  .nav-links.active{
+    display:flex;
+  }
+
+}
+
+/* PAGE */
+
+header{
+  text-align:center;
+  padding:40px 20px 10px;
+}
+
+header h1{
+  margin:0;
+  font-size:2rem;
+}
+
+header p{
+  opacity:0.7;
+  margin-top:10px;
+  line-height:1.6;
+}
+
+.container{
+  max-width:760px;
+  margin:0 auto;
+  padding:20px;
+}
+
+/* CARDS */
+
+.card{
+  background:white;
+  padding:20px;
+  border-radius:18px;
+  margin-bottom:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.card h3{
+  margin-top:0;
+  margin-bottom:10px;
+  font-size:1.05rem;
+}
+
+.card p{
+  margin:0;
+  line-height:1.7;
+  opacity:0.85;
+}
+
+/* FOOTER */
+
+.footer-note{
+  text-align:center;
+  margin-top:30px;
+  opacity:0.65;
+  line-height:1.6;
+  font-size:0.92rem;
+}
+
+.footer-note a{
+  color:var(--ocean);
+  text-decoration:none;
+  font-weight:700;
+}
+
+.back{
+  display:block;
+  text-align:center;
+  margin-top:24px;
+  text-decoration:none;
+  color:var(--ocean);
+  font-weight:700;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+
+  <a href="index.html" class="brand">
+    🌊 <span class="lanka">LANKA</span><span class="swell">SWELL</span>
+  </a>
+
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+  <div class="nav-links" id="navLinks">
+    <a href="index.html#cams">CAMS</a>
+    <a href="index.html#about">ABOUT</a>
+    <a href="wall-of-fame.html">WALL OF FAME</a>
+  </div>
+
+</nav>
+
+<!-- HEADER -->
+
+<header>
+  <h1>🌊 Principles</h1>
+
+  <p>
+    LankaSwell is a small independent project.<br>
+    These principles guide how it is built and why it exists.
+  </p>
+</header>
+
+<!-- CONTENT -->
+
+<div class="container">
+
+  <div class="card">
+    <h3>1. The ocean is public</h3>
+
+    <p>
+      LankaSwell does not create surf spots or expose secret locations.
+      The project simply shows real-time ocean conditions at places that already exist and are publicly accessible.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>2. Transparency over hype</h3>
+
+    <p>
+      The goal is not to exaggerate conditions or artificially attract crowds.
+      The goal is simple: help people understand what the ocean is doing before they enter the water.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>3. Built for surfers, travelers, and locals</h3>
+
+    <p>
+      LankaSwell exists to make surf conditions more visible and accessible in Sri Lanka while supporting the local surf ecosystem around the island.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>4. Always free</h3>
+
+    <p>
+      LankaSwell is free to use and aims to remain that way.
+      Donations simply help support hosting, maintenance, internet, electricity, and future cameras.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>5. Independent by design</h3>
+
+    <p>
+      There is no large company, investor pressure, or corporate ownership behind LankaSwell.
+      The project is built slowly and independently, one camera at a time.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>6. Privacy is respected</h3>
+
+    <p>
+      LankaSwell is a live-only system.
+      No video or audio is ever recorded, stored, archived, or replayed.
+      <br><br>
+      Streams are transmitted in real time only.
+      No media files are owned or retained by this project.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>7. Community over control</h3>
+
+    <p>
+      Surf culture is local, social, and built around respect.
+      LankaSwell aims to contribute useful information to the community — not replace it.
+    </p>
+  </div>
+
+  <div class="footer-note">
+
+    If you enjoy the project and want to help keep the cameras online,
+    you can support LankaSwell and appear on the
+    <a href="wall-of-fame.html">Wall of Fame</a> ❤️
+
+  </div>
+
+  <a class="back" href="index.html">
+    ← Back to LankaSwell
+  </a>
+
+</div>
+
+<script>
+
+function toggleMenu(){
+  document.getElementById('navLinks').classList.toggle('active');
+}
+
+</script>
+
+</body>
+</html>
