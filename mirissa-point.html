@@ -512,8 +512,6 @@ function toggleMenu(){
 }
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
 <script>
 const video = document.getElementById("video");
 const overlay = document.getElementById("statusOverlay");
@@ -522,25 +520,21 @@ const text = document.getElementById("statusText");
 
 const STREAM_URL = "https://www.lankaswell.com/live/mirissapoint/index.m3u8";
 
-// --------------------
-// UI
-// --------------------
-
 function showLoading() {
   overlay.classList.remove("hidden");
   title.innerText = "Loading Stream";
-  text.innerHTML = "Connecting to live stream...";
+  text.innerText = "Connecting...";
+}
+
+function hideOverlay() {
+  overlay.classList.add("hidden");
 }
 
 function showError() {
   overlay.classList.remove("hidden");
-  title.innerText = "Stream unavailable";
-  text.innerHTML = "Try refreshing the page.";
+  title.innerText = "Stream error";
+  text.innerText = "Please refresh.";
 }
-
-// --------------------
-// INIT STREAM
-// --------------------
 
 function startStream() {
   showLoading();
@@ -548,44 +542,36 @@ function startStream() {
   if (Hls.isSupported()) {
     const hls = new Hls({
       enableWorker: true,
-      lowLatencyMode: false
+      lowLatencyMode: false,
+      maxBufferLength: 10,
+      backBufferLength: 5
     });
 
     hls.loadSource(STREAM_URL);
     hls.attachMedia(video);
 
-    hls.on(Hls.Events.MANIFEST_PARSED, function () {
-      video.play();
+    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+      video.play().catch(() => {});
     });
 
-    hls.on(Hls.Events.ERROR, function (event, data) {
-      console.log("HLS error:", data);
-
+    // ONLY treat fatal errors as failure
+    hls.on(Hls.Events.ERROR, (event, data) => {
       if (data.fatal) {
+        console.log("Fatal HLS error:", data);
         hls.destroy();
         showError();
       }
+      // NON-fatal errors ignored completely
     });
 
-  } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-    // Safari native HLS
+  } else {
     video.src = STREAM_URL;
-    video.addEventListener("loadedmetadata", function () {
-      video.play();
-    });
   }
 
-  video.addEventListener("playing", function () {
-    overlay.classList.add("hidden");
-  });
+  video.addEventListener("playing", hideOverlay);
 }
-
-// --------------------
-// START
-// --------------------
 
 startStream();
 </script>
-
 </body>
 </html>
