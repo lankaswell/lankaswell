@@ -511,22 +511,11 @@ function toggleMenu(){
 
 <script>
 const video = document.getElementById("video");
-
 const overlay = document.getElementById("statusOverlay");
 const title = document.getElementById("statusTitle");
 const text = document.getElementById("statusText");
 
-const STREAM_URL =
-  "https://www.lankaswell.com/live/mirissapoint/index.m3u8";
-
-// --------------------
-// STATE
-// --------------------
-
-let lastTime = 0;
-let stallChecks = 0;
-let monitoringStarted = false;
-let startupTime = null;
+const STREAM_URL = "https://www.lankaswell.com/live/mirissapoint/index.m3u8";
 
 // --------------------
 // UI
@@ -535,121 +524,62 @@ let startupTime = null;
 function showLoading() {
   overlay.classList.remove("hidden");
   title.innerText = "Loading Stream";
-  text.innerHTML =
-    "Streaming is loading.<br>" +
-    "It might take a few seconds.<br><br>" +
-    "Be patient brother 🌊";
+  text.innerHTML = "Connecting to live stream...";
 }
 
-function showOffline() {
+function showError() {
   overlay.classList.remove("hidden");
-  title.innerText = "Stream Temporarily Offline";
-  text.innerHTML =
-    "Streams reconnect automatically after<br>" +
-    "power or internet outages.<br><br>" +
-    "Please try again later 🌊";
-}
-
-function showOnline() {
-  overlay.classList.add("hidden");
-}
-
-// --------------------
-// MONITOR (FIXED)
-// --------------------
-
-function monitorStream() {
-
-  if (monitoringStarted) return;
-  monitoringStarted = true;
-
-  setInterval(() => {
-
-    // wait until video is actually decoding
-    if (video.readyState < 2) return;
-
-    // startup grace period (IMPORTANT)
-    if (!startupTime) {
-      startupTime = Date.now();
-      return;
-    }
-
-    if (Date.now() - startupTime < 15000) {
-      return;
-    }
-
-    // freeze detection
-    if (video.currentTime === lastTime) {
-      stallChecks++;
-    } else {
-      stallChecks = 0;
-    }
-
-    lastTime = video.currentTime;
-
-    // ~15 seconds freeze
-    if (stallChecks >= 5) {
-      showOffline();
-    }
-
-  }, 3000);
+  title.innerText = "Stream unavailable";
+  text.innerHTML = "Try refreshing the page.";
 }
 
 // --------------------
 // INIT STREAM
 // --------------------
 
-function initStream() {
-
+function startStream() {
   showLoading();
 
-  // iPhone / Safari native HLS
-  if (video.canPlayType("application/vnd.apple.mpegurl")) {
-
-    video.src = STREAM_URL;
-
-    video.addEventListener("loadedmetadata", () => {
-      video.play().catch(() => showOffline());
-    });
-
-  }
-
-  // Android / Desktop fallback
-  else if (Hls.isSupported()) {
-
+  if (Hls.isSupported()) {
     const hls = new Hls({
+      enableWorker: true,
       lowLatencyMode: false
     });
 
     hls.loadSource(STREAM_URL);
     hls.attachMedia(video);
 
-    hls.on(Hls.Events.MANIFEST_PARSED, () => {
-      video.play().catch(() => showOffline());
+    hls.on(Hls.Events.MANIFEST_PARSED, function () {
+      video.play();
     });
 
-    hls.on(Hls.Events.ERROR, () => {
-      showOffline();
+    hls.on(Hls.Events.ERROR, function (event, data) {
+      console.log("HLS error:", data);
+
+      if (data.fatal) {
+        hls.destroy();
+        showError();
+      }
     });
 
+  } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+    // Safari native HLS
+    video.src = STREAM_URL;
+    video.addEventListener("loadedmetadata", function () {
+      video.play();
+    });
   }
 
-  else {
-    showOffline();
-  }
-
-  // REAL playback start = show online + start monitor
-  video.addEventListener("playing", () => {
-    showOnline();
-    monitorStream();
-  });
-
-  video.addEventListener("error", () => {
-    showOffline();
+  video.addEventListener("playing", function () {
+    overlay.classList.add("hidden");
   });
 }
 
-initStream();
+// --------------------
+// START
+// --------------------
+
+startStream();
 </script>
 
 </body>
