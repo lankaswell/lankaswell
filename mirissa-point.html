@@ -115,17 +115,24 @@ nav{
 }
 
 /* STREAM */
-.stream-box{
-  width:100%;
-  background:black;
-  border-radius:16px;
-  overflow:hidden;
-  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+.stream-box {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  background: black;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+
+  aspect-ratio: 16 / 9;
 }
 
-.stream-box iframe{
-  width:100%;
-  border:none;
+/* IMPORTANT: video, not iframe */
+.stream-box video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;  /* prevents zoom/crop */
+  display: block;
 }
 
 /* INFO */
