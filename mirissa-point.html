@@ -135,6 +135,13 @@ nav{
   display: block;
   object-fit: contain;
 }
+
+@media (max-width: 768px) {
+  .stream-box {
+    aspect-ratio: 16 / 10;   /* slightly shorter feel */
+    max-height: 40vh;        /* prevents “too tall” */
+  }
+}
 /* INFO */
 .info{
   background:white;
