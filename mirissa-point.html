@@ -556,7 +556,7 @@ function startStream() {
       video.play().catch(() => {});
     });
 
-    ONLY treat fatal errors as failure
+    //ONLY treat fatal errors as failure
     hls.on(Hls.Events.ERROR, (event, data) => {
       if (data.fatal) {
         console.log("Fatal HLS error:", data);
