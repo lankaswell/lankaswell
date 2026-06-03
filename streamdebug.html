@@ -392,9 +392,8 @@ video {
 
   <!-- STREAM -->
 	<div class="stream-box">
-	<video id="video" controls autoplay muted playsinline style="width:100%;border-radius:12px;">
-  		<source src="https://www.lankaswell.com/live/mirissapoint/index.m3u8" type="application/x-mpegURL">
-	</video>
+	<!-- Ensure your HTML video element looks exactly like this -->
+<video id="video" autoplay muted playsinline controls></video>
  	<div id="statusOverlay" class="status-overlay">
   <h2 id="statusTitle">Loading Stream</h2>
 
@@ -541,7 +540,7 @@ function showError() {
 function startStream() {
   showLoading();
 
-  // 1. Use hls.js for browsers that don't natively support HLS but support MediaSource Extensions (Chrome, Firefox, Edge)
+  // 1. Android / Chrome / Firefox (hls.js pipeline)
   if (Hls.isSupported()) {
     const hls = new Hls({
       enableWorker: true,
@@ -554,10 +553,11 @@ function startStream() {
     hls.attachMedia(video);
 
     hls.on(Hls.Events.MANIFEST_PARSED, () => {
-      video.play().catch(() => {});
+      video.play().catch((err) => {
+        console.log("Autoplay prevented on Android, waiting for interaction", err);
+      });
     });
 
-    // Handle ONLY fatal errors so your UI updates if the stream dies
     hls.on(Hls.Events.ERROR, (event, data) => {
       if (data.fatal) {
         console.error("Fatal HLS error:", data);
@@ -566,19 +566,31 @@ function startStream() {
       }
     });
 
-  // 2. Use Native Fallback for Safari and iOS devices
+    // Android/Chrome reliably hides overlay using the 'playing' listener
+    video.addEventListener("playing", hideOverlay);
+
+  // 2. iOS / Safari pipeline (Native HLS)
   } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
     video.src = STREAM_URL;
-    video.play().catch(() => {});
     
-  // 3. Browser completely unsupported
+    // Safari requires listening to 'loadedmetadata' before calling play safely
+    video.addEventListener('loadedmetadata', () => {
+      video.play()
+        .then(() => {
+          hideOverlay(); // Instantly clear loading screen on successful play
+        })
+        .catch((err) => {
+          console.error("iOS Autoplay blocked. User action required.", err);
+          // Don't show a stream error, just hide overlay so they can press the native play button
+          hideOverlay(); 
+        });
+    });
+
+  // 3. Fallback for completely unsupported environments
   } else {
     showError();
     text.innerText = "Your browser does not support HLS streaming.";
   }
-
-  // Hides overlay when actual video frames start rendering
-  video.addEventListener("playing", hideOverlay);
 }
 
 startStream();
