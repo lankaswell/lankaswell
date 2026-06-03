@@ -541,6 +541,7 @@ function showError() {
 function startStream() {
   showLoading();
 
+  // 1. Use hls.js for browsers that don't natively support HLS but support MediaSource Extensions (Chrome, Firefox, Edge)
   if (Hls.isSupported()) {
     const hls = new Hls({
       enableWorker: true,
@@ -556,10 +557,27 @@ function startStream() {
       video.play().catch(() => {});
     });
 
-  } else {
+    // Handle ONLY fatal errors so your UI updates if the stream dies
+    hls.on(Hls.Events.ERROR, (event, data) => {
+      if (data.fatal) {
+        console.error("Fatal HLS error:", data);
+        hls.destroy();
+        showError();
+      }
+    });
+
+  // 2. Use Native Fallback for Safari and iOS devices
+  } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
     video.src = STREAM_URL;
+    video.play().catch(() => {});
+    
+  // 3. Browser completely unsupported
+  } else {
+    showError();
+    text.innerText = "Your browser does not support HLS streaming.";
   }
 
+  // Hides overlay when actual video frames start rendering
   video.addEventListener("playing", hideOverlay);
 }
 
