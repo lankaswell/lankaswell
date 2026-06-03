@@ -117,6 +117,7 @@ nav{
 /* STREAM */
 
 .stream-box {
+  position: relative;
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
@@ -124,9 +125,17 @@ nav{
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+
   aspect-ratio: 16 / 9;
 }
 
+/* mobile override */
+@media (max-width: 768px) {
+  .stream-box {
+    aspect-ratio: 16 / 10;
+    max-height: 45vh;
+  }
+}
 /* INFO */
 .info{
   background:white;
