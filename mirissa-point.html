@@ -393,7 +393,7 @@ video {
   <!-- STREAM -->
 	<div class="stream-box">
 	<video id="video" controls autoplay muted playsinline style="width:100%;border-radius:12px;">
-  		<source src="https://www.lankaswell.com/live/mirissapoint/index.m3u8" type="application/x-mpegURL">
+  		<!--<source src="https://www.lankaswell.com/live/mirissapoint/index.m3u8" type="application/x-mpegURL">-->
 	</video>
  	<div id="statusOverlay" class="status-overlay">
   <h2 id="statusTitle">Loading Stream</h2>
@@ -520,7 +520,7 @@ const overlay = document.getElementById("statusOverlay");
 const title = document.getElementById("statusTitle");
 const text = document.getElementById("statusText");
 
-const STREAM_URL = "https://www.lankaswell.com/live/mirissapoint/index.m3u8";
+const STREAM_URL = "https://lankaswell.com/live/mirissapoint/index.m3u8";
 
 function showLoading() {
   overlay.classList.remove("hidden");
@@ -556,15 +556,15 @@ function startStream() {
       video.play().catch(() => {});
     });
 
-    // ONLY treat fatal errors as failure
-    //hls.on(Hls.Events.ERROR, (event, data) => {
-    //  if (data.fatal) {
-    //    console.log("Fatal HLS error:", data);
-    //    hls.destroy();
-    //    showError();
-    //  }
-    //  // NON-fatal errors ignored completely
-    //});
+    ONLY treat fatal errors as failure
+    hls.on(Hls.Events.ERROR, (event, data) => {
+      if (data.fatal) {
+        console.log("Fatal HLS error:", data);
+        hls.destroy();
+        showError();
+      }
+      // NON-fatal errors ignored completely
+    });
 
   } else {
     video.src = STREAM_URL;
