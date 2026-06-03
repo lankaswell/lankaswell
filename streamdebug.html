@@ -513,13 +513,15 @@ function toggleMenu(){
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
+<script src="https://jsdelivr.net"></script>
+
 <script>
 const video = document.getElementById("video");
 const overlay = document.getElementById("statusOverlay");
 const title = document.getElementById("statusTitle");
 const text = document.getElementById("statusText");
 
-const STREAM_URL = "https://www.lankaswell.com/live/mirissapoint/index.m3u8";
+const STREAM_URL = "https://lankaswell.com";
 
 function showLoading() {
   overlay.classList.remove("hidden");
@@ -531,17 +533,29 @@ function hideOverlay() {
   overlay.classList.add("hidden");
 }
 
-function showError() {
+function showError(reason = "Please refresh.") {
   overlay.classList.remove("hidden");
   title.innerText = "Stream error";
-  text.innerText = "Please refresh.";
+  text.innerText = reason;
 }
+
+// GLOBAL VIDEO MONITORING
+// This handles UI state shifts naturally for both Android and iOS pipelines
+video.addEventListener("waiting", showLoading);
+video.addEventListener("playing", hideOverlay);
+video.addEventListener("error", (e) => {
+  console.error("Native HTML5 Video Error event fired:", video.error);
+  showError("Failed to decode video stream.");
+});
 
 function startStream() {
   showLoading();
 
-  // 1. Android / Chrome / Firefox (hls.js pipeline)
-  if (Hls.isSupported()) {
+  // Detect iOS devices (iPhone/iPad/iPod)
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+  // 1. Android / Desktop Chrome / Firefox (MSE Engine)
+  if (Hls.isSupported() && !isIOS) {
     const hls = new Hls({
       enableWorker: true,
       lowLatencyMode: false,
@@ -553,46 +567,37 @@ function startStream() {
     hls.attachMedia(video);
 
     hls.on(Hls.Events.MANIFEST_PARSED, () => {
-      video.play().catch((err) => {
-        console.log("Autoplay prevented on Android, waiting for interaction", err);
-      });
+      video.play().catch(() => {});
     });
 
     hls.on(Hls.Events.ERROR, (event, data) => {
       if (data.fatal) {
-        console.error("Fatal HLS error:", data);
+        console.error("Fatal HLS.js error:", data);
         hls.destroy();
-        showError();
+        showError("Stream connection lost.");
       }
     });
 
-    // Android/Chrome reliably hides overlay using the 'playing' listener
-    video.addEventListener("playing", hideOverlay);
-
-  // 2. iOS / Safari pipeline (Native HLS)
-  } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+  // 2. iOS Safari / Native M3U8 Player pipeline
+  } else if (video.canPlayType('application/vnd.apple.mpegurl') || isIOS) {
+    // Inject the source directly into the video tag
     video.src = STREAM_URL;
+    video.load(); 
     
-    // Safari requires listening to 'loadedmetadata' before calling play safely
-    video.addEventListener('loadedmetadata', () => {
-      video.play()
-        .then(() => {
-          hideOverlay(); // Instantly clear loading screen on successful play
-        })
-        .catch((err) => {
-          console.error("iOS Autoplay blocked. User action required.", err);
-          // Don't show a stream error, just hide overlay so they can press the native play button
-          hideOverlay(); 
-        });
+    // Safely execute playback commands
+    video.play().catch((err) => {
+      console.warn("Autoplay blocked or delayed by iOS security:", err);
+      // Do NOT show an error. Just hide the loading indicator so the user can hit 'Play' manually.
+      hideOverlay();
     });
 
-  // 3. Fallback for completely unsupported environments
+  // 3. Fallback for completely incompatible platforms
   } else {
-    showError();
-    text.innerText = "Your browser does not support HLS streaming.";
+    showError("Your browser does not support HLS streaming.");
   }
 }
 
+// Initialize stream
 startStream();
 </script>
 </body>
