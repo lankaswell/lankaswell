@@ -400,6 +400,85 @@ footer{
   max-width:400px;
 }
 
+/* SURF INFO MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+
+  background:rgba(0,0,0,0.65);
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  z-index:9999;
+
+  opacity:0;
+  visibility:hidden;
+
+  transition:0.25s;
+}
+
+.modal.active{
+  opacity:1;
+  visibility:visible;
+}
+
+.modal-content{
+  background:white;
+
+  width:min(90%,700px);
+
+  max-height:85vh;
+  overflow-y:auto;
+
+  border-radius:20px;
+
+  padding:24px;
+
+  position:relative;
+
+  box-shadow:0 20px 50px rgba(0,0,0,0.2);
+}
+
+.modal-close{
+  position:absolute;
+  top:14px;
+  right:18px;
+
+  font-size:1.8rem;
+  cursor:pointer;
+
+  color:#666;
+}
+
+.modal h2{
+  margin-top:0;
+}
+
+.modal-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px;
+  margin:16px 0;
+}
+
+.modal-item{
+  background:#f4f8f8;
+  padding:12px;
+  border-radius:12px;
+  font-size:0.9rem;
+}
+
+.modal-section{
+  margin-top:20px;
+}
+
+.modal-section h3{
+  margin-bottom:8px;
+}
+
 </style>
 </head>
 
@@ -642,5 +721,103 @@ function startStream() {
 
 startStream();
 </script>
+
+<script>
+function openSurfModal(){
+  document
+    .getElementById("surfModal")
+    .classList.add("active");
+}
+
+function closeSurfModal(){
+  document
+    .getElementById("surfModal")
+    .classList.remove("active");
+}
+
+document
+  .getElementById("surfModal")
+  .addEventListener("click", function(e){
+
+    if(e.target === this){
+      closeSurfModal();
+    }
+
+});
+</script>
+
+
+<div class="modal" id="surfModal">
+
+  <div class="modal-content">
+
+    <span class="modal-close" onclick="closeSurfModal()">&times;</span>
+
+    <h2>🏄 Mirissa Point</h2>
+
+    <p>
+      Mirissa Point is one of the most popular surf breaks on Sri Lanka's south coast.
+      It offers long right-hand rides and generally mellow conditions compared to some
+      nearby reef breaks.
+    </p>
+
+    <div class="modal-grid">
+
+      <div class="modal-item">
+        🌊 Reef + Beach Break
+      </div>
+
+      <div class="modal-item">
+        🏄 Beginner → Intermediate
+      </div>
+
+      <div class="modal-item">
+        📅 Best Season: Nov–Apr
+      </div>
+
+      <div class="modal-item">
+        🌡️ Warm Water Year Round
+      </div>
+
+      <div class="modal-item">
+        📈 Best Tide: Mid Tide
+      </div>
+
+      <div class="modal-item">
+        ↗ Main Direction: Right-Hander
+      </div>
+
+    </div>
+
+    <div class="modal-section">
+      <h3>Wave Characteristics</h3>
+
+      <p>
+        Mostly right-hand waves peeling over a reef with some softer inside sections.
+        Good place for progressing surfers and fun long rides when the swell is clean.
+      </p>
+    </div>
+
+    <div class="modal-section">
+      <h3>Hazards</h3>
+
+      <p>
+        Shallow reef at low tide, crowds during peak season,
+        and occasional strong currents during larger swells.
+      </p>
+    </div>
+
+    <div class="modal-section">
+      <h3>Best Conditions</h3>
+
+      <p>
+        Clean morning winds, mid tide and south-west swells
+        generally provide the best surf.
+      </p>
+    </div>
+
+  </div>
+
+</div>
 </body>
 </html>
