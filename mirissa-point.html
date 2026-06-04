@@ -622,12 +622,9 @@ footer{
   		<source src="https://www.lankaswell.com/live/mirissapoint/index.m3u8" type="application/x-mpegURL">
 	</video>
  	<div id="statusOverlay" class="status-overlay" hidden>
-  <h2 id="statusTitle">Loading Stream</h2>
-
+  <img src="img/logo.webp">
+  <h2 id="statusTitle"></h2>
   <p id="statusText">
-    Stream is loading...<br>
-    It might take a few seconds.<br><br>
-    Hold tight brother and sisters ❤️🌊
   </p>
 </div>
 </div>
@@ -774,8 +771,8 @@ const STREAM_URL = "https://lankaswell.com/live/mirissapoint/index.m3u8";
 
 function showLoading() {
   overlay.classList.remove("hidden");
-  title.innerText = "Stream is Loading";
-  text.innerText = "LankaSwell is taking you to the waves...";
+  title.innerText = "Taking you to the waves";
+  text.innerText = "Stream is Loading...";
 }
 
 function hideOverlay() {
