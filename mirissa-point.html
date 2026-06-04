@@ -555,6 +555,39 @@ footer{
   color:var(--ocean);
 }
 
+.host-social{
+  display:flex;
+  gap:14px;
+  margin-top:12px;
+  align-items:center;
+}
+
+.social-icon{
+  width:38px;
+  height:38px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:10px;
+
+  background:#f4f8f8;
+
+  transition:0.2s;
+}
+
+.social-icon:hover{
+  transform:scale(1.05);
+  background:#e9f7f7;
+}
+
+.social-icon img{
+  width:18px;
+  height:18px;
+  opacity:0.8;
+}
+
 </style>
 </head>
 
@@ -614,7 +647,7 @@ footer{
 <div class="host-venue">
 
   <img
-    src="img/a++.webp"
+    src="images/aplus-restaurant.jpg"
     alt="A++ Restaurant Mirissa"
     class="host-image"
   >
@@ -628,46 +661,18 @@ footer{
     <h3>A++ Restaurant</h3>
 
     <p class="small">
-      Enjoy breakfast, coffee and local Sri Lankan food with a direct view
-      over Mirissa Point. This live camera is hosted by A++ Restaurant.
+      Oceanfront restaurant directly overlooking Mirissa Point surf break.
     </p>
 
-    <div class="host-features">
+    <!-- SOCIAL ICONS ONLY -->
+    <div class="host-social">
 
-      <div class="host-feature">
-        ☕ Coffee & Breakfast
-      </div>
-
-      <div class="host-feature">
-        🌊 Direct Surf View
-      </div>
-
-      <div class="host-feature">
-        📶 Free WiFi
-      </div>
-
-      <div class="host-feature">
-        🍛 Local Cuisine
-      </div>
-
-    </div>
-
-    <div class="host-buttons">
-
-      <a
-        href="https://maps.app.goo.gl/CZzhHjNic3KPMdo29"
-        target="_blank"
-        class="host-btn host-btn-primary"
-      >
-        📍 Get Directions
+      <a href="https://instagram.com/" target="_blank" class="social-icon">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" />
       </a>
 
-      <a
-        href="https://instagram.com/"
-        target="_blank"
-        class="host-btn host-btn-secondary"
-      >
-        📸 Instagram
+      <a href="https://facebook.com/" target="_blank" class="social-icon">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" />
       </a>
 
     </div>
@@ -675,7 +680,6 @@ footer{
   </div>
 
 </div>
-
 <!-- SERVICES -->
 <div class="services">
 
