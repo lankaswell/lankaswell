@@ -789,10 +789,24 @@ function showError() {
   text.innerText = "Please refresh.";
 }
 
+/* attach ALL events FIRST (important for iOS) */
+video.addEventListener("loadedmetadata", hideOverlay);
+video.addEventListener("canplay", hideOverlay);
+video.addEventListener("playing", hideOverlay);
+
+video.addEventListener("error", () => {
+  console.log("Video element error:", video.error);
+  showError();
+});
+
 function startStream() {
   showLoading();
 
+  // =========================
+  // HLS.js path (Chrome/Android/Desktop)
+  // =========================
   if (Hls.isSupported()) {
+
     const hls = new Hls({
       enableWorker: true,
       lowLatencyMode: false,
@@ -804,38 +818,47 @@ function startStream() {
     hls.attachMedia(video);
 
     hls.on(Hls.Events.MANIFEST_PARSED, () => {
-      video.play().catch(() => {});
+      video.play().catch(err => {
+        console.log("Play blocked:", err);
+      });
     });
 
-    //ONLY treat fatal errors as failure
     hls.on(Hls.Events.ERROR, (event, data) => {
       if (data.fatal) {
         console.log("Fatal HLS error:", data);
         hls.destroy();
         showError();
       }
-      // NON-fatal errors ignored completely
     });
 
-  } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+  }
 
-  video.src = STREAM_URL;
+  // =========================
+  // Safari (iPhone/iPad native HLS)
+  // =========================
+  else if (video.canPlayType("application/vnd.apple.mpegurl")) {
 
-  video.addEventListener('loadedmetadata', () => {
-    video.play().catch(err => {
-      console.log(err);
+    video.src = STREAM_URL;
+
+    video.addEventListener("loadedmetadata", () => {
+      const p = video.play();
+      if (p) {
+        p.catch(err => {
+          console.log("Safari play error:", err);
+          // do NOT instantly fail — iOS sometimes delays playback
+        });
+      }
     });
-  });
 
-} else {
-  showError();
-}
-  video.addEventListener("playing", hideOverlay);
+  }
+
+  else {
+    showError();
+  }
 }
 
 startStream();
 </script>
-
 <script>
 function openSurfModal(){
   document
