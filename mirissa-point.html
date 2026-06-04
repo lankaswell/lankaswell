@@ -817,10 +817,19 @@ function startStream() {
       // NON-fatal errors ignored completely
     });
 
-  } else {
-    video.src = STREAM_URL;
-  }
+  } } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
 
+  video.src = STREAM_URL;
+
+  video.addEventListener('loadedmetadata', () => {
+    video.play().catch(err => {
+      console.log(err);
+    });
+  });
+
+} else {
+  showError();
+}
   video.addEventListener("playing", hideOverlay);
 }
 
