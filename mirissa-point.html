@@ -479,6 +479,82 @@ footer{
   margin-bottom:8px;
 }
 
+/* HOST VENUE */
+
+.host-venue{
+  margin-top:16px;
+  background:white;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.host-image{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  display:block;
+}
+
+.host-content{
+  padding:18px;
+}
+
+.host-badge{
+  display:inline-block;
+  background:#e9f7f7;
+  color:var(--ocean);
+  font-weight:700;
+  font-size:0.8rem;
+  padding:6px 10px;
+  border-radius:999px;
+  margin-bottom:12px;
+}
+
+.host-content h3{
+  margin:0 0 10px;
+}
+
+.host-features{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin:14px 0;
+}
+
+.host-feature{
+  background:#f4f8f8;
+  padding:10px;
+  border-radius:10px;
+  font-size:0.9rem;
+}
+
+.host-buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:14px;
+}
+
+.host-btn{
+  flex:1;
+  text-align:center;
+  text-decoration:none;
+  padding:12px;
+  border-radius:12px;
+  font-weight:700;
+}
+
+.host-btn-primary{
+  background:var(--ocean);
+  color:white;
+}
+
+.host-btn-secondary{
+  background:#e9f7f7;
+  color:var(--ocean);
+}
+
 </style>
 </head>
 
@@ -532,6 +608,72 @@ footer{
    onclick="openSurfModal(); return false;">
    🌊 Surf Spot Info
 </a>
+</div>
+
+<!-- HOST VENUE -->
+<div class="host-venue">
+
+  <img
+    src="images/aplus-restaurant.jpg"
+    alt="A++ Restaurant Mirissa"
+    class="host-image"
+  >
+
+  <div class="host-content">
+
+    <div class="host-badge">
+      📍 Camera Hosted By
+    </div>
+
+    <h3>A++ Restaurant</h3>
+
+    <p class="small">
+      Enjoy breakfast, coffee and local Sri Lankan food with a direct view
+      over Mirissa Point. This live camera is hosted by A++ Restaurant.
+    </p>
+
+    <div class="host-features">
+
+      <div class="host-feature">
+        ☕ Coffee & Breakfast
+      </div>
+
+      <div class="host-feature">
+        🌊 Direct Surf View
+      </div>
+
+      <div class="host-feature">
+        📶 Free WiFi
+      </div>
+
+      <div class="host-feature">
+        🍛 Local Cuisine
+      </div>
+
+    </div>
+
+    <div class="host-buttons">
+
+      <a
+        href="https://maps.app.goo.gl/CZzhHjNic3KPMdo29"
+        target="_blank"
+        class="host-btn host-btn-primary"
+      >
+        📍 Get Directions
+      </a>
+
+      <a
+        href="https://instagram.com/"
+        target="_blank"
+        class="host-btn host-btn-secondary"
+      >
+        📸 Instagram
+      </a>
+
+    </div>
+
+  </div>
+
 </div>
 
 <!-- SERVICES -->
@@ -604,21 +746,6 @@ footer{
   </div>
 
 </div>
-  <!-- OFFERS -->
-  <div class="offer">
-    <h3>Special Offers from A++ Restaurant</h3>
-
-    <p class="small">
-      Surf-friendly offers available for visitors checking conditions through LankaSwell.
-    </p>
-
-    <ul>
-      <li>☕ Surf coffee + pastry combo (coming soon)</li>
-      <li>🍛 Local rice & curry discount for surfers</li>
-      <li>🏄 Free WiFi for surf checks</li>
-    </ul>
-  </div>
-
 </div>
 
 <footer>
