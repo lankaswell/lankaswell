@@ -8,7 +8,8 @@
   content="Live surf cameras from Sri Lanka. Check current wave conditions, surf spot information, and local surf services with LankaSwell."
 >
 
-<title>Marshmallow Surf Cam Live | Sri Lanka Surf Camera | LankaSwell</title>
+<title>Mirissa Surf Cam Live | Sri Lanka Surf Camera | LankaSwell</title>
+
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 
@@ -592,55 +593,6 @@ footer{
   opacity:0.8;
 }
 
-/* WATCHERS */
-.watch-badge{
-  position:absolute;
-  top:12px;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:10;
-
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-
-  background:rgba(230,0,35,0.9);
-  color:white;
-
-  padding:4px 10px;
-  border-radius:999px;
-
-  font-weight:600;
-  font-size:0.75rem;
-
-  box-shadow:0 4px 10px rgba(0,0,0,0.25);
-  backdrop-filter:blur(6px);
-}
-
-@media (max-width: 768px){
-  .watch-badge{
-    font-size:0.6rem;
-    padding:2px 6px;
-    top:8px;
-  }
-}
-
-.live-dot{
-  width:8px;
-  height:8px;
-  background:white;
-  border-radius:50%;
-  display:inline-block;
-
-  animation:pulse 1.5s infinite;
-}
-
-@keyframes pulse{
-  0% { transform:scale(1); opacity:1; }
-  50% { transform:scale(1.6); opacity:0.5; }
-  100% { transform:scale(1); opacity:1; }
-}
-
 </style>
 </head>
 
@@ -676,17 +628,13 @@ footer{
   <!-- TITLE -->
   <div class="stream-title">
     <span>MIRISSA POINT</span>
+			<div class="live">LIVE view from A++ restaurant</div>
   </div>
 
   <!-- STREAM -->
 	<div class="stream-box">
-		<!--WATCHING NOW-->
-	<div class="watch-badge">
-	  <span class="live-dot"></span> <span id="watchers"></span>
-	</div>
-
 	<video id="video" controls autoplay muted playsinline style="width:100%;border-radius:12px;">
-  		<!--<source src="https://lankaswell.com/live/marshmallow/index.m3u8" type="application/x-mpegURL">-->
+  		<source src="https://lankaswell.com/live/mirissapoint/index.m3u8" type="application/x-mpegURL">
 	</video>
  	<div id="statusOverlay" class="status-overlay">
   <!-- <img src="img/logo.webp" style="background:white; border-radius:50%" width="130" height="130">-->
@@ -836,115 +784,41 @@ const text = document.getElementById("statusText");
 
 const STREAM_URL = "https://lankaswell.com/live/mirissapoint/index.m3u8";
 
-let hls = null;
-let retryCount = 0;
-
-/* -----------------------------
-   TIME LOGIC (NIGHT MODE)
------------------------------ */
-
-function isNightTime() {
-  const parts = new Intl.DateTimeFormat("en-US", {
-    timeZone: "Asia/Colombo",
-    hour: "numeric",
-    hour12: false
-  }).formatToParts(new Date());
-
-  const hour = parseInt(parts.find(p => p.type === "hour").value);
-
-  return hour >= 18 || hour < 6;
-}
-/* -----------------------------
-   OVERLAY STATES
------------------------------ */
-
 function showLoading() {
   overlay.classList.remove("hidden");
-
-  title.innerText = "🌊 Taking you to the waves";
-
-  text.innerText = "Connecting to the camera...";
-}
-
-function showUnavailable() {
-  overlay.classList.remove("hidden");
-
-  title.innerText = "🌊 No live view right now";
-
-  text.innerText =
-    "The camera may be offline, temporarily unavailable, or experiencing connectivity issues.";
-}
-
-function showNightMode() {
-  overlay.classList.remove("hidden");
-
-  title.innerText = "🌙 Camera sleeping";
-
-  text.innerText =
-    "This camera rests overnight and will wake up again in the morning.";
+  title.innerText = "Taking you to the waves";
+  text.innerText = "Stream is Loading...";
 }
 
 function hideOverlay() {
   overlay.classList.add("hidden");
-  retryCount = 0;
 }
 
-/* -----------------------------
-   RETRY SYSTEM
------------------------------ */
-
-function scheduleRetry() {
-  retryCount++;
-
-  console.log("Retry attempt:", retryCount);
-
-  if (retryCount >= 3) {
-    if (isNightTime()) {
-      showNightMode();
-    } else {
-      showUnavailable();
-    }
-    return;
-  }
-
-  setTimeout(() => {
-    startStream();
-  }, 4000);
+function showError() {
+  overlay.classList.remove("hidden");
+  title.innerText = "Stream error";
+  text.innerText = "Please refresh.";
 }
 
-/* -----------------------------
-   VIDEO EVENTS
------------------------------ */
-
-video.addEventListener("playing", hideOverlay);
-video.addEventListener("canplay", hideOverlay);
+/* attach ALL events FIRST (important for iOS) */
 video.addEventListener("loadedmetadata", hideOverlay);
+video.addEventListener("canplay", hideOverlay);
+video.addEventListener("playing", hideOverlay);
 
 video.addEventListener("error", () => {
   console.log("Video element error:", video.error);
-  scheduleRetry();
+  showError();
 });
-
-/* -----------------------------
-   STREAM START
------------------------------ */
 
 function startStream() {
   showLoading();
 
-  // clean old instance
-  if (hls) {
-    hls.destroy();
-    hls = null;
-  }
-
-  /* -------------------------
-     HLS.JS (Chrome / Android)
-  -------------------------- */
-
+  // =========================
+  // HLS.js path (Chrome/Android/Desktop)
+  // =========================
   if (Hls.isSupported()) {
 
-    hls = new Hls({
+    const hls = new Hls({
       enableWorker: true,
       lowLatencyMode: false,
       maxBufferLength: 10,
@@ -961,52 +835,41 @@ function startStream() {
     });
 
     hls.on(Hls.Events.ERROR, (event, data) => {
-
-      if (!data.fatal) return;
-
-      console.log("Fatal HLS error:", data);
-
-      scheduleRetry();
+      if (data.fatal) {
+        console.log("Fatal HLS error:", data);
+        hls.destroy();
+        showError();
+      }
     });
 
   }
 
-  /* -------------------------
-     SAFARI / iOS NATIVE HLS
-  -------------------------- */
-
+  // =========================
+  // Safari (iPhone/iPad native HLS)
+  // =========================
   else if (video.canPlayType("application/vnd.apple.mpegurl")) {
 
     video.src = STREAM_URL;
 
     video.addEventListener("loadedmetadata", () => {
       const p = video.play();
-
       if (p) {
         p.catch(err => {
-          console.log("iOS play error:", err);
+          console.log("Safari play error:", err);
+          // do NOT instantly fail — iOS sometimes delays playback
         });
       }
-    }, { once: true });
+    });
 
   }
 
-  /* -------------------------
-     NO SUPPORT
-  -------------------------- */
-
   else {
-    if (isNightTime()) {
-      showNightMode();
-    } else {
-      showUnavailable();
-    }
+    showError();
   }
 }
 
 startStream();
 </script>
-
 <script>
 function openSurfModal(){
   document
@@ -1029,29 +892,6 @@ document
     }
 
 });
-</script>
-
-<script>
-async function updateWatchers(){
-  try {
-    const res = await fetch("/api/v3/paths/list");
-    const data = await res.json();
-
-    const stream = data.items.find(i =>
-      i.name.includes("teststream")
-    );
-
-    const count = stream?.readers?.length ?? 0;
-
-    document.getElementById("watchers").innerText =
-      count + " watching now";
-
-  } catch(e){
-    console.log(e);
-  }
-}
-setInterval(updateWatchers, 5000);
-updateWatchers();
 </script>
 
 
