@@ -8,8 +8,7 @@
   content="Live surf cameras from Sri Lanka. Check current wave conditions, surf spot information, and local surf services with LankaSwell."
 >
 
-<title>Mirissa Surf Cam Live | Sri Lanka Surf Camera | LankaSwell</title>
-
+<title>Marshmallow Surf Cam Live | Sri Lanka Surf Camera | LankaSwell</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 
@@ -593,6 +592,55 @@ footer{
   opacity:0.8;
 }
 
+/* WATCHERS */
+.watch-badge{
+  position:absolute;
+  top:12px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:10;
+
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+
+  background:rgba(230,0,35,0.9);
+  color:white;
+
+  padding:4px 10px;
+  border-radius:999px;
+
+  font-weight:600;
+  font-size:0.75rem;
+
+  box-shadow:0 4px 10px rgba(0,0,0,0.25);
+  backdrop-filter:blur(6px);
+}
+
+@media (max-width: 768px){
+  .watch-badge{
+    font-size:0.6rem;
+    padding:2px 6px;
+    top:8px;
+  }
+}
+
+.live-dot{
+  width:8px;
+  height:8px;
+  background:white;
+  border-radius:50%;
+  display:inline-block;
+
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  0% { transform:scale(1); opacity:1; }
+  50% { transform:scale(1.6); opacity:0.5; }
+  100% { transform:scale(1); opacity:1; }
+}
+
 </style>
 </head>
 
@@ -627,14 +675,18 @@ footer{
 
   <!-- TITLE -->
   <div class="stream-title">
-    <span>MIRISSA POINT</span>
-			<div class="live">LIVE view from A++ restaurant</div>
+    <span>MARSHMALLOW</span>
   </div>
 
   <!-- STREAM -->
 	<div class="stream-box">
+		<!--WATCHING NOW-->
+	<div class="watch-badge">
+	  <span class="live-dot"></span> <span id="watchers"></span>
+	</div>
+
 	<video id="video" controls autoplay muted playsinline style="width:100%;border-radius:12px;">
-  		<!-- <source src="https://lankaswell.com/live/mirissapoint/index.m3u8" type="application/x-mpegURL"> -->
+  		<!--<source src="https://lankaswell.com/live/marshmallow/index.m3u8" type="application/x-mpegURL">-->
 	</video>
  	<div id="statusOverlay" class="status-overlay">
   <!-- <img src="img/logo.webp" style="background:white; border-radius:50%" width="130" height="130">-->
@@ -670,7 +722,7 @@ footer{
       📍 Camera Hosted By
     </div>
 
-    <h3>A++ Restaurant</h3>
+    <h3>Follow The White Rabbit</h3>
 
     <p class="small">
       Oceanfront restaurant directly overlooking Mirissa Point surf break.
@@ -892,6 +944,29 @@ document
     }
 
 });
+</script>
+
+<script>
+async function updateWatchers(){
+  try {
+    const res = await fetch("/api/v3/paths/list");
+    const data = await res.json();
+
+    const stream = data.items.find(i =>
+      i.name.includes("marshmallow")
+    );
+
+    const count = stream?.readers?.length ?? 0;
+
+    document.getElementById("watchers").innerText =
+      count + " watching now";
+
+  } catch(e){
+    console.log(e);
+  }
+}
+setInterval(updateWatchers, 5000);
+updateWatchers();
 </script>
 
 
