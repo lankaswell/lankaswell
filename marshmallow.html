@@ -592,6 +592,42 @@ footer{
   opacity:0.8;
 }
 
+/* WATCHERS */
+.watch-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+
+  background:#e60023; /* strong red */
+  color:white;
+
+  padding:6px 12px;
+  border-radius:999px;
+
+  font-weight:700;
+  font-size:0.85rem;
+
+  box-shadow:0 6px 15px rgba(230,0,35,0.25);
+
+  margin:10px auto;
+}
+
+.live-dot{
+  width:8px;
+  height:8px;
+  background:white;
+  border-radius:50%;
+  display:inline-block;
+
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  0% { transform:scale(1); opacity:1; }
+  50% { transform:scale(1.6); opacity:0.5; }
+  100% { transform:scale(1); opacity:1; }
+}
+
 </style>
 </head>
 
@@ -627,8 +663,12 @@ footer{
   <!-- TITLE -->
   <div class="stream-title">
     <span>MARSHMALLOW</span>
-			<div id="watchers">0 watching now</div>
   </div>
+
+	<!--WATCHING NOW-->
+<div class="watch-badge">
+  <span class="live-dot"></span> <span id="watchers">0</span> 👤 watching now
+</div>
 
   <!-- STREAM -->
 	<div class="stream-box">
