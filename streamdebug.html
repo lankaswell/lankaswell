@@ -844,11 +844,16 @@ let retryCount = 0;
 ----------------------------- */
 
 function isNightTime() {
-  const now = new Date();
-  const hour = now.getHours();
-  return (hour >= 18 || hour < 6);
-}
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Colombo",
+    hour: "numeric",
+    hour12: false
+  }).formatToParts(new Date());
 
+  const hour = parseInt(parts.find(p => p.type === "hour").value);
+
+  return hour >= 18 || hour < 6;
+}
 /* -----------------------------
    OVERLAY STATES
 ----------------------------- */
