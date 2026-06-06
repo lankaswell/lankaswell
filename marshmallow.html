@@ -627,7 +627,7 @@ footer{
   <!-- TITLE -->
   <div class="stream-title">
     <span>MARSHMALLOW</span>
-			<div class="live">LIVE view from Follow The White Rabbit</div>
+			<div id="watchers">0 watching now</div>
   </div>
 
   <!-- STREAM -->
@@ -891,6 +891,28 @@ document
     }
 
 });
+</script>
+
+<script>
+async function updateWatchers(){
+  try {
+    const res = await fetch("/api/v3/paths/list");
+    const data = await res.json();
+
+    const stream = data.items.find(i =>
+      i.name === "live/marshmallow"
+    );
+
+    document.getElementById("watchers").innerText =
+      (stream?.readerCount || 0) + " watching now";
+
+  } catch(e){
+    console.log(e);
+  }
+}
+
+setInterval(updateWatchers, 5000);
+updateWatchers();
 </script>
 
 
