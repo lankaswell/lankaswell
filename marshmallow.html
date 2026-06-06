@@ -900,17 +900,18 @@ async function updateWatchers(){
     const data = await res.json();
 
     const stream = data.items.find(i =>
-      i.name === "live/marshmallow"
+      i.name.includes("marshmallow")
     );
 
+    const count = stream?.readers?.length ?? 0;
+
     document.getElementById("watchers").innerText =
-      (stream?.readerCount || 0) + " watching now";
+      count + " watching now";
 
   } catch(e){
     console.log(e);
   }
 }
-
 setInterval(updateWatchers, 5000);
 updateWatchers();
 </script>
