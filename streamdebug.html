@@ -836,41 +836,110 @@ const text = document.getElementById("statusText");
 
 const STREAM_URL = "https://lankaswell.com/live/teststream/index.m3u8";
 
+let hls = null;
+let retryCount = 0;
+
+/* -----------------------------
+   TIME LOGIC (NIGHT MODE)
+----------------------------- */
+
+function isNightTime() {
+  const now = new Date();
+  const hour = now.getHours();
+  return (hour >= 18 || hour < 6);
+}
+
+/* -----------------------------
+   OVERLAY STATES
+----------------------------- */
+
 function showLoading() {
   overlay.classList.remove("hidden");
-  title.innerText = "Taking you to the waves";
-  text.innerText = "Stream is Loading...";
+
+  title.innerText = "🌊 Taking you to the waves";
+
+  text.innerText = "Connecting to the camera...";
+}
+
+function showUnavailable() {
+  overlay.classList.remove("hidden");
+
+  title.innerText = "🌊 No live view right now";
+
+  text.innerText =
+    "The camera may be offline, temporarily unavailable, or experiencing connectivity issues.";
+}
+
+function showNightMode() {
+  overlay.classList.remove("hidden");
+
+  title.innerText = "🌙 Camera sleeping";
+
+  text.innerText =
+    "This camera rests overnight and will wake up again in the morning.";
 }
 
 function hideOverlay() {
   overlay.classList.add("hidden");
+  retryCount = 0;
 }
 
-function showError() {
-  overlay.classList.remove("hidden");
-  title.innerText = "Stream error";
-  text.innerText = "Please refresh.";
+/* -----------------------------
+   RETRY SYSTEM
+----------------------------- */
+
+function scheduleRetry() {
+  retryCount++;
+
+  console.log("Retry attempt:", retryCount);
+
+  if (retryCount >= 3) {
+    if (isNightTime()) {
+      showNightMode();
+    } else {
+      showUnavailable();
+    }
+    return;
+  }
+
+  setTimeout(() => {
+    startStream();
+  }, 4000);
 }
 
-/* attach ALL events FIRST (important for iOS) */
-video.addEventListener("loadedmetadata", hideOverlay);
-video.addEventListener("canplay", hideOverlay);
+/* -----------------------------
+   VIDEO EVENTS
+----------------------------- */
+
 video.addEventListener("playing", hideOverlay);
+video.addEventListener("canplay", hideOverlay);
+video.addEventListener("loadedmetadata", hideOverlay);
 
 video.addEventListener("error", () => {
   console.log("Video element error:", video.error);
-  showError();
+  scheduleRetry();
 });
+
+/* -----------------------------
+   STREAM START
+----------------------------- */
 
 function startStream() {
   showLoading();
 
-  // =========================
-  // HLS.js path (Chrome/Android/Desktop)
-  // =========================
+  // clean old instance
+  if (hls) {
+    hls.destroy();
+    hls = null;
+  }
+
+  /* -------------------------
+     HLS.JS (Chrome / Android)
+  -------------------------- */
+
   if (Hls.isSupported()) {
 
-    const hls = new Hls({
+    hls = new Hls({
       enableWorker: true,
       lowLatencyMode: false,
       maxBufferLength: 10,
@@ -887,41 +956,52 @@ function startStream() {
     });
 
     hls.on(Hls.Events.ERROR, (event, data) => {
-      if (data.fatal) {
-        console.log("Fatal HLS error:", data);
-        hls.destroy();
-        showError();
-      }
+
+      if (!data.fatal) return;
+
+      console.log("Fatal HLS error:", data);
+
+      scheduleRetry();
     });
 
   }
 
-  // =========================
-  // Safari (iPhone/iPad native HLS)
-  // =========================
+  /* -------------------------
+     SAFARI / iOS NATIVE HLS
+  -------------------------- */
+
   else if (video.canPlayType("application/vnd.apple.mpegurl")) {
 
     video.src = STREAM_URL;
 
     video.addEventListener("loadedmetadata", () => {
       const p = video.play();
+
       if (p) {
         p.catch(err => {
-          console.log("Safari play error:", err);
-          // do NOT instantly fail — iOS sometimes delays playback
+          console.log("iOS play error:", err);
         });
       }
-    });
+    }, { once: true });
 
   }
 
+  /* -------------------------
+     NO SUPPORT
+  -------------------------- */
+
   else {
-    showError();
+    if (isNightTime()) {
+      showNightMode();
+    } else {
+      showUnavailable();
+    }
   }
 }
 
 startStream();
 </script>
+
 <script>
 function openSurfModal(){
   document
