@@ -594,11 +594,17 @@ footer{
 
 /* WATCHERS */
 .watch-badge{
+  position:absolute;
+  top:12px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:10;
+
   display:inline-flex;
   align-items:center;
   gap:6px;
 
-  background:#e60023;
+  background:rgba(230,0,35,0.9);
   color:white;
 
   padding:4px 10px;
@@ -607,11 +613,9 @@ footer{
   font-weight:600;
   font-size:0.75rem;
 
-  box-shadow:0 4px 10px rgba(230,0,35,0.2);
-
-  margin:8px auto;
+  box-shadow:0 4px 10px rgba(0,0,0,0.25);
+  backdrop-filter:blur(6px);
 }
-
 @media (max-width: 768px){
   .watch-badge{
     font-size:0.7rem;
@@ -673,13 +677,13 @@ footer{
     <span>MARSHMALLOW</span>
   </div>
 
-	<!--WATCHING NOW-->
-<div class="watch-badge">
-  <span class="live-dot"></span> <span id="watchers"></span>
-</div>
-
   <!-- STREAM -->
 	<div class="stream-box">
+		<!--WATCHING NOW-->
+	<div class="watch-badge">
+	  <span class="live-dot"></span> <span id="watchers"></span>
+	</div>
+
 	<video id="video" controls autoplay muted playsinline style="width:100%;border-radius:12px;">
   		<source src="https://lankaswell.com/live/marshmallow/index.m3u8" type="application/x-mpegURL">
 	</video>
