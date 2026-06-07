@@ -1038,7 +1038,7 @@ async function updateWatchers(){
     const data = await res.json();
 
     const stream = data.items.find(i =>
-      i.name.includes("teststream")
+      i.name.includes("mirissapoint")
     );
 
     const count = stream?.readers?.length ?? 0;
