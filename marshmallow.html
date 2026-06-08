@@ -641,6 +641,36 @@ footer{
   100% { transform:scale(1); opacity:1; }
 }
 
+
+.host-discover-btn{
+  display:block;
+
+  margin-top:16px;
+
+  text-align:center;
+
+  text-decoration:none;
+
+  background:linear-gradient(
+    135deg,
+    #0aa3a3,
+    #0cc7c7
+  );
+
+  color:white;
+
+  padding:14px;
+
+  border-radius:12px;
+
+  font-weight:700;
+
+  transition:0.2s;
+}
+
+.host-discover-btn:hover{
+  transform:translateY(-2px);
+}
 </style>
 </head>
 
@@ -712,7 +742,7 @@ footer{
 
   <img
     src="img/a++.webp"
-    alt="A++ Restaurant Mirissa"
+    alt="Follow The White Rabbit"
     class="host-image"
   >
 
@@ -725,19 +755,35 @@ footer{
     <h3>Follow The White Rabbit</h3>
 
     <p class="small">
-      Oceanfront restaurant directly overlooking Mirissa Point surf break.
+      Oceanfront restaurant directly overlooking Marshmallow surf spot.
     </p>
+
+			<a href="#"class="host-discover-btn"onclick="openVenueModal(); return false;">
+ 			 🎁 Discover the Host & Get Your Surfer Discount
+			</a>
 
     <!-- SOCIAL ICONS ONLY -->
     <div class="host-social">
 
-      <a href="https://instagram.com/" target="_blank" class="social-icon">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" />
-      </a>
+      <div class="host-social">
 
-      <a href="https://facebook.com/" target="_blank" class="social-icon">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" />
-      </a>
+  <a href="https://instagram.com/youraccount" target="_blank" class="social-icon">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg">
+  </a>
+
+  <a href="https://facebook.com/yourpage" target="_blank" class="social-icon">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg">
+  </a>
+
+  <a href="tel:+94771234567" class="social-icon">
+    <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/telephone-fill.svg">
+  </a>
+
+  <a href="https://yourwebsite.com" target="_blank" class="social-icon">
+    <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/globe.svg">
+  </a>
+
+</div>
 
     </div>
 
@@ -1032,6 +1078,30 @@ document
 </script>
 
 <script>
+function openVenueModal(){
+  document
+    .getElementById("venueModal")
+    .classList.add("active");
+}
+
+function closeVenueModal(){
+  document
+    .getElementById("venueModal")
+    .classList.remove("active");
+}
+
+document
+  .getElementById("venueModal")
+  .addEventListener("click", function(e){
+
+    if(e.target === this){
+      closeVenueModal();
+    }
+
+});
+</script>
+
+<script>
 async function updateWatchers(){
   try {
     const res = await fetch("/api/v3/paths/list");
@@ -1128,5 +1198,81 @@ updateWatchers();
   </div>
 
 </div>
+
+<div class="modal" id="venueModal">
+
+  <div class="modal-content">
+
+    <span
+      class="modal-close"
+      onclick="closeVenueModal()"
+    >
+      &times;
+    </span>
+
+    <h2>🍽️ Follow The White Rabbit</h2>
+
+    <p>
+      Located directly in front of Marshmallow surf spot,
+      Follow The White Rabbit offers ocean views,
+      specialty coffee, breakfast, fresh seafood and
+      sunset dining.
+    </p>
+
+    <img
+      src="img/a++.webp"
+      style="
+        width:100%;
+        border-radius:14px;
+        margin:12px 0;
+      "
+    >
+
+    <h3>🎁 Exclusive LankaSwell Offer</h3>
+
+    <p>
+      Show this page at the restaurant and receive:
+    </p>
+
+    <div class="modal-grid">
+
+      <div class="modal-item">
+        ☕ Free coffee with breakfast
+      </div>
+
+      <div class="modal-item">
+        🍹 10% off drinks
+      </div>
+
+      <div class="modal-item">
+        🍛 Surfer meal special
+      </div>
+
+      <div class="modal-item">
+        📶 Free WiFi
+      </div>
+
+    </div>
+
+    <h3>🏄 Discount Code</h3>
+
+    <div
+      style="
+        background:#f4f8f8;
+        padding:16px;
+        border-radius:12px;
+        text-align:center;
+        font-size:1.3rem;
+        font-weight:800;
+        letter-spacing:2px;
+      "
+    >
+      LANKASWELL10
+    </div>
+
+  </div>
+
+</div>
+
 </body>
 </html>
