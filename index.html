@@ -297,48 +297,26 @@ header{
   		opacity:0.8;	
 		}
 
+		.live-update{
+  max-width:900px;
+  margin:20px auto 0;
 
-	.news-banner{
   background:white;
+
+  padding:14px 18px;
+
+  border-radius:14px;
+
+  box-shadow:0 8px 20px rgba(0,0,0,0.06);
 
   display:flex;
   align-items:center;
-  gap:14px;
+  justify-content:center;
+  gap:10px;
 
-  padding:12px 20px;
-
-  border-bottom:1px solid rgba(0,0,0,0.06);
-
-  box-shadow:0 4px 12px rgba(0,0,0,0.04);
+  font-weight:600;
 }
 
-.news-label{
-  background:var(--ocean);
-  color:white;
-
-  font-size:0.75rem;
-  font-weight:700;
-
-  padding:5px 10px;
-  border-radius:999px;
-
-  flex-shrink:0;
-}
-
-.news-text{
-  font-size:0.9rem;
-  color:var(--muted);
-}
-
-@media(max-width:768px){
-
-  .news-banner{
-    flex-direction:column;
-    text-align:center;
-    gap:8px;
-  }
-
-}
   </style>
 </head>
 
@@ -383,12 +361,11 @@ header{
       <img src="https://visitor-badge.laobi.icu/badge?page_id=lankaswell.homepage" alt="visitor counter">
     </div>
   </header>
-	<div class="news-banner">
-  <div class="ticker">
-    📷 Marshmallow camera is now live • 🎉 Temple Point now online • 🤝 Looking for camera hosts • ❤️ Support LankaSwell and help fund new cameras
-  </div>
-	</div>
 
+<div class="live-update">
+  <span class="live-dot"></span>
+  Marshmallow Surf Cam has just joined the LankaSwell network.
+</div>
   
   <section id="about">
 
