@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta
+  name="description"
+  content="Live surf cameras from Sri Lanka. Check current wave conditions, surf spot information, and local surf services with LankaSwell."
+>
+
+<title>Marshmallow Surf Cam Live | Sri Lanka Surf Camera | LankaSwell</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --ocean:#0aa3a3;
+  --text:#132428;
+  --muted:#5f6e6e;
+}
+
+/* BASE */
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:#f7f7f7;
+  color:var(--text);
+}
+
+/* NAVBAR (same style as homepage) */
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 22px;
+  background:rgba(255,255,255,0.96);
+  border-bottom:1px solid rgba(0,0,0,0.06);
+  position:sticky;
+  top:0;
+  z-index:100;
+  backdrop-filter:blur(8px);
+}
+
+.brand{
+  font-weight:800;
+  font-size:1.3rem;
+  letter-spacing:1px;
+  text-decoration:none;
+  color:inherit;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.brand .lanka{color:#000;}
+.brand .swell{color:var(--ocean);}
+
+.nav-links{
+  display:flex;
+  gap:18px;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:var(--muted);
+  font-weight:600;
+  font-size:0.95rem;
+}
+
+/* MOBILE MENU */
+.hamburger{
+  display:none;
+  font-size:1.7rem;
+  cursor:pointer;
+}
+
+@media(max-width:768px){
+  .hamburger{display:block;}
+
+  .nav-links{
+    display:none;
+    flex-direction:column;
+    position:absolute;
+    top:60px;
+    right:18px;
+    background:white;
+    padding:14px;
+    border-radius:14px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  }
+
+  .nav-links.active{
+    display:flex;
+  }
+}
+
+/* LAYOUT */
+.container{
+  max-width:900px;
+  margin:0 auto;
+  padding:16px;
+}
+
+/* TITLE */
+.stream-title{
+  text-align:center;
+  margin:12px 0 12px;
+  font-size:1.6rem;
+  font-weight:800;
+}
+
+.live{
+  color:#00b36b;
+  font-size:0.75rem;
+  font-weight:800;
+  letter-spacing:1px;
+  margin-bottom:6px;
+}
+
+/* STREAM */
+
+.stream-box {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  background: black;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+
+  aspect-ratio: 16 / 9;
+}
+
+.stream-box video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .stream-box {
+    aspect-ratio: 16 / 10;   /* slightly shorter feel */
+    max-height: 40vh;        /* prevents “too tall” */
+  }
+}
+/* INFO */
+.info{
+  background:white;
+  margin-top:16px;
+  padding:16px;
+  border-radius:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.small{
+  opacity:0.75;
+  font-size:0.9rem;
+  line-height:1.6;
+}
+
+/* BUTTONS */
+.buttons{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  flex:1;
+  text-align:center;
+  padding:12px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:0.95rem;
+}
+
+.btn-primary{
+  background:var(--ocean);
+  color:white;
+}
+
+.btn-secondary{
+  background:#e9f7f7;
+  color:var(--ocean);
+}
+
+/* OFFERS */
+.offer{
+  margin-top:16px;
+  background:white;
+  padding:16px;
+  border-radius:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.offer h3{
+  margin-top:0;
+}
+
+footer{
+  text-align:center;
+  padding:30px;
+  opacity:0.6;
+  font-size:0.85rem;
+}
+
+
+/*SURFSPOT INFO*/
+/* MINI SURF INFO */
+.spot-mini{
+  margin-top:16px;
+  background:white;
+  padding:14px 16px;
+  border-radius:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.spot-mini-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.mini-item{
+  background:#f4f8f8;
+  border-radius:10px;
+  padding:10px;
+  font-size:0.85rem;
+  font-weight:600;
+  color:var(--muted);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.mini-text{
+  margin:0;
+  font-size:0.88rem;
+  line-height:1.5;
+  opacity:0.8;
+}
+
+/*SERVICES*/
+.services{
+  margin-top:16px;
+  background:white;
+  padding:16px;
+  border-radius:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.services h3{
+  margin-top:0;
+  margin-bottom:16px;
+}
+
+.service-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:14px;
+}
+
+.service-card{
+  background:#f4f8f8;
+  border-radius:14px;
+  padding:16px;
+}
+
+.service-icon{
+  font-size:1.8rem;
+  margin-bottom:10px;
+}
+
+.service-card h4{
+  margin:0 0 8px;
+}
+
+.service-card p{
+  font-size:0.9rem;
+  opacity:0.75;
+  line-height:1.5;
+}
+
+.service-btn{
+  display:inline-block;
+  margin-top:12px;
+  padding:10px 14px;
+  background:var(--ocean);
+  color:white;
+  text-decoration:none;
+  border-radius:10px;
+  font-weight:700;
+  font-size:0.9rem;
+}
+
+.featured-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:16px;
+  margin-bottom:20px;
+}
+
+.featured-card{
+  position:relative;
+  background:linear-gradient(
+    135deg,
+    #f5ffff,
+    #ffffff
+  );
+
+  border:2px solid rgba(10,163,163,0.25);
+
+  border-radius:16px;
+
+  padding:20px;
+
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.featured-badge{
+  position:absolute;
+  top:12px;
+  right:12px;
+
+  background:var(--ocean);
+
+  color:white;
+
+  font-size:0.7rem;
+
+  font-weight:700;
+
+  padding:5px 10px;
+
+  border-radius:999px;
+}
+
+.featured-card h4{
+  margin-top:8px;
+}
+
+.offline {
+  position: absolute;
+  inset: 0;
+  background: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.offline.hidden {
+  display: none;
+}
+
+.offline h2 {
+  margin-bottom: 10px;
+  font-size: 1.6rem;
+}
+
+.offline p {
+  opacity: 0.8;
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+.status-overlay{
+  position:absolute;
+  inset:0;
+  background:black;
+  color:white;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  text-align:center;
+  padding:20px;
+  z-index:5;
+}
+
+.status-overlay.hidden{
+  display:none;
+}
+
+.status-overlay h2{
+  margin-bottom:12px;
+  font-size:1.7rem;
+}
+
+.status-overlay p{
+  opacity:0.8;
+  line-height:1.6;
+  max-width:400px;
+}
+
+/* SURF INFO MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+
+  background:rgba(0,0,0,0.65);
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  z-index:9999;
+
+  opacity:0;
+  visibility:hidden;
+
+  transition:0.25s;
+}
+
+.modal.active{
+  opacity:1;
+  visibility:visible;
+}
+
+.modal-content{
+  background:white;
+
+  width:min(90%,700px);
+
+  max-height:85vh;
+  overflow-y:auto;
+
+  border-radius:20px;
+
+  padding:24px;
+
+  position:relative;
+
+  box-shadow:0 20px 50px rgba(0,0,0,0.2);
+}
+
+.modal-close{
+  position:absolute;
+  top:14px;
+  right:18px;
+
+  font-size:1.8rem;
+  cursor:pointer;
+
+  color:#666;
+}
+
+.modal h2{
+  margin-top:0;
+}
+
+.modal-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px;
+  margin:16px 0;
+}
+
+.modal-item{
+  background:#f4f8f8;
+  padding:12px;
+  border-radius:12px;
+  font-size:0.9rem;
+}
+
+.modal-section{
+  margin-top:20px;
+}
+
+.modal-section h3{
+  margin-bottom:8px;
+}
+
+/* HOST VENUE */
+
+.host-venue{
+  margin-top:16px;
+  background:white;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.host-image{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  object-position: center bottom;
+}
+
+.host-content{
+  padding:18px;
+}
+
+.host-badge{
+  display:inline-block;
+  background:#e9f7f7;
+  color:var(--ocean);
+  font-weight:700;
+  font-size:0.8rem;
+  padding:6px 10px;
+  border-radius:999px;
+  margin-bottom:12px;
+}
+
+.host-content h3{
+  margin:0 0 10px;
+}
+
+.host-features{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin:14px 0;
+}
+
+.host-feature{
+  background:#f4f8f8;
+  padding:10px;
+  border-radius:10px;
+  font-size:0.9rem;
+}
+
+.host-buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:14px;
+}
+
+.host-btn{
+  flex:1;
+  text-align:center;
+  text-decoration:none;
+  padding:12px;
+  border-radius:12px;
+  font-weight:700;
+}
+
+.host-btn-primary{
+  background:var(--ocean);
+  color:white;
+}
+
+.host-btn-secondary{
+  background:#e9f7f7;
+  color:var(--ocean);
+}
+
+.host-social{
+  display:flex;
+  gap:14px;
+  margin-top:12px;
+  align-items:center;
+}
+
+.social-icon{
+  width:38px;
+  height:38px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:10px;
+
+  background:#f4f8f8;
+
+  transition:0.2s;
+}
+
+.social-icon:hover{
+  transform:scale(1.05);
+  background:#e9f7f7;
+}
+
+.social-icon img{
+  width:18px;
+  height:18px;
+  opacity:0.8;
+}
+
+/* WATCHERS */
+.watch-badge{
+  position:absolute;
+  top:12px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:10;
+
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+
+  background:rgba(230,0,35,0.9);
+  color:white;
+
+  padding:4px 10px;
+  border-radius:999px;
+
+  font-weight:600;
+  font-size:0.75rem;
+
+  box-shadow:0 4px 10px rgba(0,0,0,0.25);
+  backdrop-filter:blur(6px);
+}
+
+@media (max-width: 768px){
+  .watch-badge{
+    font-size:0.6rem;
+    padding:2px 6px;
+    top:8px;
+  }
+}
+
+.live-dot{
+  width:8px;
+  height:8px;
+  background:white;
+  border-radius:50%;
+  display:inline-block;
+
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  0% { transform:scale(1); opacity:1; }
+  50% { transform:scale(1.6); opacity:0.5; }
+  100% { transform:scale(1); opacity:1; }
+}
+
+
+.host-discover-btn{
+  display:block;
+
+  margin-top:16px;
+
+  text-align:center;
+
+  text-decoration:none;
+
+  background:linear-gradient(
+    135deg,
+    #0aa3a3,
+    #0cc7c7
+  );
+
+  color:white;
+
+  padding:14px;
+
+  border-radius:12px;
+
+  font-weight:700;
+
+  transition:0.2s;
+}
+
+.host-discover-btn:hover{
+  transform:translateY(-2px);
+}
+</style>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E4KWH67BDJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-E4KWH67BDJ');
+</script>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html" class="brand">
+  <img src="img/logo.webp" width="40" height="40"> <span class="lanka">LANKA</span><span class="swell">SWELL</span>
+</a>
+
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+  <div class="nav-links" id="navLinks">
+      <a href="#about" onclick="toggleMenu()">ABOUT</a>
+      <a href="#cams" onclick="toggleMenu()">CAMS</a>
+      <a href="#collaborate" onclick="toggleMenu()">COLLABORATE</a>
+    </div>
+</nav>
+
+<div class="container">
+
+  <!-- TITLE -->
+  <div class="stream-title">
+    <span>MARSHMALLOW</span>
+  </div>
+
+  <!-- STREAM -->
+	<div class="stream-box">
+		<!--WATCHING NOW-->
+	<div class="watch-badge">
+	  <span class="live-dot"></span> <span id="watchers"></span>
+	</div>
+
+	<video id="video" controls autoplay muted playsinline style="width:100%;border-radius:12px;">
+  		<!--<source src="https://lankaswell.com/live/marshmallow/index.m3u8" type="application/x-mpegURL">-->
+	</video>
+ 	<div id="statusOverlay" class="status-overlay">
+  <!-- <img src="img/logo.webp" style="background:white; border-radius:50%" width="130" height="130">-->
+  <h2 id="statusTitle"></h2>
+  <p id="statusText">
+  </p>
+</div>
+</div>
+
+<div class="buttons">
+	<a class="btn btn-primary" href="https://maps.app.goo.gl/CZzhHjNic3KPMdo29?g_st=ac" target="_blank">
+   📍 Let's go!
+  </a>
+<a class="btn btn-secondary"
+   href="#"
+   onclick="openSurfModal(); return false;">
+   ℹ️ Surf Spot Info
+</a>
+</div>
+
+<!-- HOST VENUE -->
+<div class="host-venue">
+
+  <img
+    src="img/a++.webp"
+    alt="Follow The White Rabbit"
+    class="host-image"
+  >
+
+  <div class="host-content">
+
+    <div class="host-badge">
+      📍 Camera Hosted By
+    </div>
+
+    <h3>Follow The White Rabbit</h3>
+
+    <p class="small">
+      Oceanfront restaurant directly overlooking Marshmallow surf spot.
+    </p>
+
+			<a href="#"class="host-discover-btn"onclick="openVenueModal(); return false;">
+ 			 🎁 Discover the Host & Get Your Surfer Discount
+			</a>
+
+    <!-- SOCIAL ICONS ONLY -->
+    <div class="host-social">
+
+      <div class="host-social">
+
+  <a href="https://instagram.com/youraccount" target="_blank" class="social-icon">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg">
+  </a>
+
+  <a href="https://facebook.com/yourpage" target="_blank" class="social-icon">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg">
+  </a>
+
+  <a href="tel:+94771234567" class="social-icon">
+    <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/telephone-fill.svg">
+  </a>
+
+  <a href="https://yourwebsite.com" target="_blank" class="social-icon">
+    <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/globe.svg">
+  </a>
+
+</div>
+
+    </div>
+
+  </div>
+
+</div>
+<!-- SERVICES -->
+<div class="services">
+
+  <h3>⭐ Featured Partners</h3>
+
+  <div class="featured-grid">
+
+    <div class="featured-card">
+      <div class="featured-badge">FEATURED</div>
+
+      <div class="service-icon">🏄</div>
+
+      <h4>Surf School</h4>
+
+      <p>
+        Private surf lessons for beginners and intermediate surfers
+        directly at Marshmallow Point.
+      </p>
+
+      <a href="https://wa.me/YOURNUMBER" class="service-btn">
+        Book Lesson
+      </a>
+    </div>
+
+    <div class="featured-card">
+      <div class="featured-badge">FEATURED</div>
+
+      <div class="service-icon">📸</div>
+
+      <h4>Marshmallow Surf Photography</h4>
+
+      <p>
+        Surf photography and drone footage for your best waves.
+      </p>
+
+      <a href="https://instagram.com/" class="service-btn">
+        Contact
+      </a>
+    </div>
+
+  </div>
+
+  <h3 style="margin-top:24px;">More Services Near This Spot</h3>
+
+  <div class="service-grid">
+
+    <div class="service-card">
+      <div class="service-icon">🛵</div>
+      <h4>Scooter Rental</h4>
+      <p>Daily scooter rentals.</p>
+      <a href="#" class="service-btn">Rent Scooter</a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🏄</div>
+      <h4>Surf Shop</h4>
+      <p>Wax, fins, leashes and board rentals.</p>
+      <a href="#" class="service-btn">Visit Shop</a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🏨</div>
+      <h4>Accommodation</h4>
+      <p>Stay within walking distance of the break.</p>
+      <a href="#" class="service-btn">View Options</a>
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+<footer>
+  © 2026 LankaSwell
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById('navLinks').classList.toggle('active');
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<script>
+const video = document.getElementById("video");
+const overlay = document.getElementById("statusOverlay");
+const title = document.getElementById("statusTitle");
+const text = document.getElementById("statusText");
+
+const STREAM_URL = "https://lankaswell.com/live/marshmallow/index.m3u8";
+
+let hls = null;
+let retryCount = 0;
+
+/* -----------------------------
+   TIME LOGIC (NIGHT MODE)
+----------------------------- */
+
+function isNightTime() {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Colombo",
+    hour: "numeric",
+    hour12: false
+  }).formatToParts(new Date());
+
+  const hour = parseInt(parts.find(p => p.type === "hour").value);
+
+  return hour >= 18 || hour < 6;
+}
+/* -----------------------------
+   OVERLAY STATES
+----------------------------- */
+
+function showLoading() {
+  overlay.classList.remove("hidden");
+
+  title.innerText = "🌊 Taking you to the waves";
+
+  text.innerText = "Connecting to the camera...";
+}
+
+function showUnavailable() {
+  overlay.classList.remove("hidden");
+
+  title.innerText = "🌊 No live view right now";
+
+  text.innerText =
+    "The camera may be offline, temporarily unavailable, or experiencing connectivity issues.";
+}
+
+function showNightMode() {
+  overlay.classList.remove("hidden");
+
+  title.innerText = "🌙 Camera sleeping";
+
+  text.innerText =
+    "This camera rests overnight and will wake up again in the morning.";
+}
+
+function hideOverlay() {
+  overlay.classList.add("hidden");
+  retryCount = 0;
+}
+
+/* -----------------------------
+   RETRY SYSTEM
+----------------------------- */
+
+function scheduleRetry() {
+  retryCount++;
+
+  console.log("Retry attempt:", retryCount);
+
+  if (retryCount >= 3) {
+    if (isNightTime()) {
+      showNightMode();
+    } else {
+      showUnavailable();
+    }
+    return;
+  }
+
+  setTimeout(() => {
+    startStream();
+  }, 4000);
+}
+
+/* -----------------------------
+   VIDEO EVENTS
+----------------------------- */
+
+video.addEventListener("playing", hideOverlay);
+video.addEventListener("canplay", hideOverlay);
+video.addEventListener("loadedmetadata", hideOverlay);
+
+video.addEventListener("error", () => {
+  console.log("Video element error:", video.error);
+  scheduleRetry();
+});
+
+/* -----------------------------
+   STREAM START
+----------------------------- */
+
+function startStream() {
+  showLoading();
+
+  // clean old instance
+  if (hls) {
+    hls.destroy();
+    hls = null;
+  }
+
+  /* -------------------------
+     HLS.JS (Chrome / Android)
+  -------------------------- */
+
+  if (Hls.isSupported()) {
+
+    hls = new Hls({
+      enableWorker: true,
+      lowLatencyMode: false,
+      maxBufferLength: 10,
+      backBufferLength: 5
+    });
+
+    hls.loadSource(STREAM_URL);
+    hls.attachMedia(video);
+
+    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+      video.play().catch(err => {
+        console.log("Play blocked:", err);
+      });
+    });
+
+    hls.on(Hls.Events.ERROR, (event, data) => {
+
+      if (!data.fatal) return;
+
+      console.log("Fatal HLS error:", data);
+
+      scheduleRetry();
+    });
+
+  }
+
+  /* -------------------------
+     SAFARI / iOS NATIVE HLS
+  -------------------------- */
+
+  else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+
+    video.src = STREAM_URL;
+
+    video.addEventListener("loadedmetadata", () => {
+      const p = video.play();
+
+      if (p) {
+        p.catch(err => {
+          console.log("iOS play error:", err);
+        });
+      }
+    }, { once: true });
+
+  }
+
+  /* -------------------------
+     NO SUPPORT
+  -------------------------- */
+
+  else {
+    if (isNightTime()) {
+      showNightMode();
+    } else {
+      showUnavailable();
+    }
+  }
+}
+
+startStream();
+</script>
+
+<script>
+function openSurfModal(){
+  document
+    .getElementById("surfModal")
+    .classList.add("active");
+}
+
+function closeSurfModal(){
+  document
+    .getElementById("surfModal")
+    .classList.remove("active");
+}
+
+document
+  .getElementById("surfModal")
+  .addEventListener("click", function(e){
+
+    if(e.target === this){
+      closeSurfModal();
+    }
+
+});
+</script>
+
+<script>
+function openVenueModal(){
+  document
+    .getElementById("venueModal")
+    .classList.add("active");
+}
+
+function closeVenueModal(){
+  document
+    .getElementById("venueModal")
+    .classList.remove("active");
+}
+
+document
+  .getElementById("venueModal")
+  .addEventListener("click", function(e){
+
+    if(e.target === this){
+      closeVenueModal();
+    }
+
+});
+</script>
+
+<script>
+async function updateWatchers(){
+  try {
+    const res = await fetch("/api/v3/paths/list");
+    const data = await res.json();
+
+    const stream = data.items.find(i =>
+      i.name.includes("marshmallow")
+    );
+
+    const count = stream?.readers?.length ?? 0;
+
+    document.getElementById("watchers").innerText =
+      count + " watching now";
+
+  } catch(e){
+    console.log(e);
+  }
+}
+setInterval(updateWatchers, 5000);
+updateWatchers();
+</script>
+
+
+<div class="modal" id="surfModal">
+
+  <div class="modal-content">
+
+    <span class="modal-close" onclick="closeSurfModal()">&times;</span>
+
+    <h2>🏄 Marshmallow</h2>
+
+    <p>
+      Marshmallow is a fun and forgiving beach break located on Sri Lanka's south coast.
+      Known for its softer waves and sandy bottom, it is a favorite spot for beginners,
+      surf lessons and surfers looking for playful conditions. This live surf cam helps
+      you check wave size, crowd levels and weather conditions before heading out.
+    </p>
+
+    <div class="modal-grid">
+
+      <div class="modal-item">
+        🌊 Beach Break
+      </div>
+
+      <div class="modal-item">
+        🏄 Beginner Friendly
+      </div>
+
+      <div class="modal-item">
+        📅 Best Season: Nov–Apr
+      </div>
+
+      <div class="modal-item">
+        🌡️ Warm Water Year Round
+      </div>
+
+      <div class="modal-item">
+        📈 Best Tide: Mid Tide
+      </div>
+
+      <div class="modal-item">
+        ↔ Lefts & Rights
+      </div>
+
+    </div>
+
+    <div class="modal-section">
+      <h3>Wave Characteristics</h3>
+
+      <p>
+        Soft, rolling waves breaking over sand. Marshmallow offers a mellow takeoff zone
+        and forgiving conditions that make it ideal for learning, improving fundamentals
+        and enjoying relaxed surf sessions. On bigger swells it can provide longer rides
+        and fun walls for intermediate surfers.
+      </p>
+    </div>
+
+    <div class="modal-section">
+      <h3>Hazards</h3>
+
+      <p>
+        Generally one of the safer breaks in the area thanks to its sandy bottom.
+        The main hazards are crowds during peak season, beginner traffic in the lineup
+        and occasional currents when larger swells are running.
+      </p>
+    </div>
+
+    <div class="modal-section">
+      <h3>Best Conditions</h3>
+
+      <p>
+        Clean morning winds and small-to-medium south-west swells usually provide the
+        best conditions. Marshmallow works across a wide range of tides but is often at
+        its most user-friendly around mid tide.
+      </p>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="modal" id="venueModal">
+
+  <div class="modal-content">
+
+    <span
+      class="modal-close"
+      onclick="closeVenueModal()"
+    >
+      &times;
+    </span>
+
+    <h2>🍽️ Follow The White Rabbit</h2>
+
+    <p>
+      Located directly in front of Marshmallow surf spot,
+      Follow The White Rabbit offers ocean views,
+      specialty coffee, breakfast, fresh seafood and
+      sunset dining.
+    </p>
+
+    <img
+      src="img/a++.webp"
+      style="
+        width:100%;
+        border-radius:14px;
+        margin:12px 0;
+      "
+    >
+
+    <h3>🎁 Exclusive LankaSwell Offer</h3>
+
+    <p>
+      Show this page at the restaurant and receive:
+    </p>
+
+    <div class="modal-grid">
+
+      <div class="modal-item">
+        ☕ Free coffee with breakfast
+      </div>
+
+      <div class="modal-item">
+        🍹 10% off drinks
+      </div>
+
+      <div class="modal-item">
+        🍛 Surfer meal special
+      </div>
+
+      <div class="modal-item">
+        📶 Free WiFi
+      </div>
+
+    </div>
+
+    <h3>🏄 Discount Code</h3>
+
+    <div
+      style="
+        background:#f4f8f8;
+        padding:16px;
+        border-radius:12px;
+        text-align:center;
+        font-size:1.3rem;
+        font-weight:800;
+        letter-spacing:2px;
+      "
+    >
+      LANKASWELL10
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
