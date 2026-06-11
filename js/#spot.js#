@@ -1,0 +1,156 @@
+console.log("🚀 spot.js loaded");
+
+window.spot = null;
+
+/* -----------------------------
+   LOAD SPOT
+----------------------------- */
+
+async function loadSpot() {
+  try {
+    const id =
+      new URLSearchParams(window.location.search).get("id") ||
+      "marshmallow";
+
+    console.log("📍 Spot ID:", id);
+
+    const res = await fetch("/data/spots.json");
+    const data = await res.json();
+
+    window.spot = data[id];
+
+    if (!window.spot) {
+      document.body.innerHTML = "<h1>Spot not found</h1>";
+      return;
+    }
+
+    initPage();
+
+  } catch (err) {
+    console.error("🔥 Load error:", err);
+  }
+}
+
+/* -----------------------------
+   INIT PAGE
+----------------------------- */
+
+function initPage() {
+  console.log("✅ Spot loaded:", window.spot);
+
+  setupTitle();
+  startStream();
+  updateWatchers();
+}
+
+/* -----------------------------
+   TITLE / UI
+----------------------------- */
+
+function setupTitle() {
+  const title = document.querySelector(".stream-title span");
+  if (title) title.innerText = window.spot.name;
+}
+
+/* -----------------------------
+   STREAM (uses existing logic)
+----------------------------- */
+
+const video = document.getElementById("video");
+const overlay = document.getElementById("statusOverlay");
+
+let hls = null;
+
+function startStream() {
+  const STREAM_URL = window.spot.stream;
+
+  console.log("🎥 Stream URL:", STREAM_URL);
+
+  if (hls) {
+    hls.destroy();
+    hls = null;
+  }
+
+  if (window.Hls && Hls.isSupported()) {
+    hls = new Hls();
+    hls.loadSource(STREAM_URL);
+    hls.attachMedia(video);
+
+    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+      video.play().catch(()=>{});
+    });
+
+  } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+    video.src = STREAM_URL;
+  }
+}
+
+/* -----------------------------
+   WATCHERS
+----------------------------- */
+
+async function updateWatchers() {
+  try {
+    const res = await fetch("/api/v3/paths/list");
+    const data = await res.json();
+
+    const stream = data.items.find(i =>
+      i.name.includes(window.spot.path)
+    );
+
+    const count = stream?.readers?.length ?? 0;
+
+    const el = document.getElementById("watchers");
+    if (el) el.innerText = count + " watching now";
+
+  } catch (e) {
+    console.log("watchers error", e);
+  }
+}
+
+setInterval(updateWatchers, 5000);
+
+/* -----------------------------
+   MODAL (simple dynamic fill)
+----------------------------- */
+
+function openVenueModal() {
+  const m = document.getElementById("venueModal");
+
+  const h = m.querySelector("h2");
+  const desc = m.querySelector("p");
+
+  if (window.spot?.host) {
+    h.innerText = "🍽️ " + window.spot.host.name;
+    desc.innerText = window.spot.host.description;
+  }
+
+  m.classList.add("active");
+}
+
+function closeVenueModal() {
+  document.getElementById("venueModal").classList.remove("active");
+}
+
+function openSurfModal() {
+  document.getElementById("surfModal").classList.add("active");
+}
+
+function closeSurfModal() {
+  document.getElementById("surfModal").classList.remove("active");
+}
+
+/* -----------------------------
+   GLOBAL BINDINGS
+----------------------------- */
+
+window.openVenueModal = openVenueModal;
+window.closeVenueModal = closeVenueModal;
+window.openSurfModal = openSurfModal;
+window.closeSurfModal = closeSurfModal;
+
+/* -----------------------------
+   START
+----------------------------- */
+
+document.addEventListener("DOMContentLoaded", loadSpot);

@@ -1,0 +1,39 @@
+{
+  "marshmallow": {
+    "name": "MARSHMALLOW",
+    "description": "Fun and forgiving beach break on Sri Lanka’s south coast.",
+    "heroImage": "img/marshmallow.webp",
+
+    "stats": [
+      "🌊 Beach Break",
+      "🏄 Beginner Friendly",
+      "📅 Nov–Apr",
+      "🌡️ Warm Water",
+      "📈 Mid Tide",
+      "↔ Lefts & Rights"
+    ],
+
+    "waves": "Soft rolling waves over sand, perfect for learning.",
+    "hazards": "Crowds and occasional currents.",
+    "best": "Morning glassy conditions with SW swell.",
+
+    "discount": {
+      "enabled": true,
+      "code": "LANKASWELLTEST",
+      "perks": [
+        "☕ Free coffee",
+        "🍹 10% off drinks",
+        "🍛 Surfer menu"
+      ]
+    },
+
+    "host": {
+      "name": "Follow The White Rabbit",
+      "image": "img/a++.webp",
+      "instagram": "https://instagram.com/youraccount",
+      "facebook": "https://facebook.com/yourpage",
+      "phone": "+94771234567",
+      "website": "https://yourwebsite.com"
+    }
+  }
+}
