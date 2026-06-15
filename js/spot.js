@@ -261,11 +261,11 @@ function renderHostVenue(spot) {
   hostSection.style.display = "";
 
   hostSection.innerHTML = `
-    <!--<img
+    <img
       src="${escapeHTML(host.image || "")}"
       alt="${escapeHTML(host.name || "Camera host")}"
       class="host-image"
-    >-->
+    >
 
     <div class="host-content">
       <div class="host-badge">Camera Hosted By</div>
