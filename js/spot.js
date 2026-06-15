@@ -204,6 +204,12 @@ setInterval(updateWatchers, 5000);
 function setupUI() {
   const titleEl = document.querySelector(".stream-title span");
   if (titleEl) titleEl.innerText = window.spot.name;
+
+  titleEl = document.querySelector("host-content h3");
+  if (titleEl) titleEl.innerText = window.spot.host[name];
+
+  
+
 }
 
 /* =========================================================

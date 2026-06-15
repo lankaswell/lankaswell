@@ -1,6 +1,6 @@
 {
   "marshmallow": {
-    "nname": "MARSHMALLOW",
+    "name": "MARSHMALLOW",
     "description": "Fun and forgiving beach break on Sri Lanka’s south coast.",
     "heroImage": "img/marshmallow.webp",
 
@@ -28,12 +28,12 @@
     },
 
     "host": {
-      "name": "Follow The White Rabbit",
-      "image": "img/a++.webp",
-      "instagram": "https://instagram.com/youraccount",
-      "facebook": "https://facebook.com/yourpage",
-      "phone": "+94771234567",
-      "website": "https://yourwebsite.com"
+      "name": "Follow The White RabbitSSS",
+      "image": "img/ftwr.webp",
+      "instagram": "https://www.instagram.com/followthewhiterabbitahangama",
+      "facebook": "https://www.facebook.com/fwrabbitahangama",
+      "phone": "+94773100884",
+      "website": "https://fwrsrilanka.com/"
     }
   }
 }
