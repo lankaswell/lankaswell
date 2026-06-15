@@ -671,6 +671,55 @@ footer{
 .host-discover-btn:hover{
   transform:translateY(-2px);
 }
+
+.partner-cta{
+  margin-top:14px;
+  background:#ffffff;
+  border:2px solid rgba(10,163,163,0.25);
+  border-left:6px solid var(--ocean);
+  border-radius:14px;
+  padding:14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.partner-cta strong{
+  display:block;
+  font-size:1rem;
+}
+
+.partner-cta p{
+  margin:4px 0 0;
+  font-size:0.9rem;
+  line-height:1.45;
+  color:var(--muted);
+}
+
+.partner-cta a{
+  flex-shrink:0;
+  background:var(--ocean);
+  color:white;
+  text-decoration:none;
+  font-weight:800;
+  padding:11px 14px;
+  border-radius:10px;
+  font-size:0.9rem;
+  text-align:center;
+}
+
+@media(max-width:768px){
+  .partner-cta{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .partner-cta a{
+    width:100%;
+  }
+}
 </style>
 </head>
 
@@ -717,6 +766,17 @@ footer{
       <h4 id="statusTitle"></h4>
       <p id="statusText"></p>
     </div>
+  </div>
+  
+  <div class="partner-cta">
+	  <div>
+		<strong>Own a business near this surf spot?</strong>
+		<p>Get listed on LankaSwell and reach surfers checking the waves before they go.</p>
+	  </div>
+
+	  <a href="YOUR_GOOGLE_FORM_URL" target="_blank">
+		Get Listed in 1 Minute
+	  </a>
   </div>
 
   <div class="buttons"></div>
