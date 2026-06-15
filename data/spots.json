@@ -2,7 +2,7 @@
   "marshmallow": {
     "name": "MARSHMALLOW",
     "description": "Marshmallow is a fun, forgiving beach break on Sri Lanka's south coast. It is popular with beginners, surf schools, and surfers looking for soft playful waves close to shore.",
-    "stream": "https://example.com/live/marshmallow/index.m3u8",
+    "stream": "https://lankaswell.com/live/marshmallow/index.m3u8",
     "path": "marshmallow",
     "mapUrl": "https://maps.app.goo.gl/CZzhHjNic3KPMdo29?g_st=ac",
 
@@ -85,7 +85,7 @@
   "mirissa-point": {
     "name": "MIRISSA POINT",
     "description": "Mirissa Point is a scenic reef and point setup with long walls on the right swell. A great spot to check before driving across the south coast.",
-    "stream": "https://example.com/live/mirissapoint/index.m3u8",
+    "stream": "https://lankaswell.com/live/mirissapoint/index.m3u8",
     "path": "mirissa-point",
     "mapUrl": "https://maps.google.com/?q=Mirissa+Point+Sri+Lanka",
 
@@ -146,7 +146,7 @@
   "temple-point": {
     "name": "TEMPLE POINT",
     "description": "Temple Point is a beautiful surf zone with clear water, tropical scenery, and changing conditions depending on swell and tide.",
-    "stream": "https://example.com/live/templepoint/index.m3u8",
+    "stream": "https://lankaswell.com/live/templepoint/index.m3u8",
     "path": "temple-point",
     "mapUrl": "https://maps.google.com/?q=Temple+Point+Sri+Lanka",
 
