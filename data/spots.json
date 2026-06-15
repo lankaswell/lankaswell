@@ -85,7 +85,7 @@
   "mirissa-point": {
     "name": "MIRISSA POINT",
     "description": "Mirissa Point is a scenic reef and point setup with long walls on the right swell. A great spot to check before driving across the south coast.",
-    "stream": "https://example.com/live/mirissa-point/index.m3u8",
+    "stream": "https://example.com/live/mirissapoint/index.m3u8",
     "path": "mirissa-point",
     "mapUrl": "https://maps.google.com/?q=Mirissa+Point+Sri+Lanka",
 
@@ -146,7 +146,7 @@
   "temple-point": {
     "name": "TEMPLE POINT",
     "description": "Temple Point is a beautiful surf zone with clear water, tropical scenery, and changing conditions depending on swell and tide.",
-    "stream": "https://example.com/live/temple-point/index.m3u8",
+    "stream": "https://example.com/live/templepoint/index.m3u8",
     "path": "temple-point",
     "mapUrl": "https://maps.google.com/?q=Temple+Point+Sri+Lanka",
 
