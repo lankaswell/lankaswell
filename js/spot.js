@@ -202,11 +202,270 @@ setInterval(updateWatchers, 5000);
 ========================================================= */
 
 function setupUI() {
-  const titleEl = document.querySelector(".stream-title span");
-  if (titleEl) titleEl.innerText = window.spot.name;
+  const spot = window.spot;
+  if (!spot) return;
 
-  titleEl = document.querySelector("host-content h3");
-  if (titleEl) titleEl.innerText = window.spot.host[name];
+  document.title = `${spot.name} Surf Cam Live | Sri Lanka Surf Camera | LankaSwell`;
+
+  setText(".stream-title span", spot.name);
+
+  renderButtons(spot);
+  renderHostVenue(spot);
+  renderServices(spot);
+  renderSurfModal(spot);
+  renderVenueModal(spot);
+}
+
+function setText(selector, value) {
+  const el = document.querySelector(selector);
+  if (el) el.textContent = value || "";
+}
+
+function escapeHTML(value = "") {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function renderButtons(spot) {
+  const buttons = document.querySelector(".buttons");
+  if (!buttons) return;
+
+  const mapUrl = spot.mapUrl || "#";
+
+  buttons.innerHTML = `
+    <a class="btn btn-primary" href="${escapeHTML(mapUrl)}" target="_blank">
+      Let's go!
+    </a>
+
+    <a class="btn btn-secondary" href="#" onclick="openSurfModal(); return false;">
+      Surf Spot Info
+    </a>
+  `;
+}
+
+function renderHostVenue(spot) {
+  const hostSection = document.querySelector(".host-venue");
+  if (!hostSection) return;
+
+  const host = spot.host;
+
+  if (!host) {
+    hostSection.style.display = "none";
+    return;
+  }
+
+  hostSection.style.display = "";
+
+  hostSection.innerHTML = `
+    <img
+      src="${escapeHTML(host.image || "")}"
+      alt="${escapeHTML(host.name || "Camera host")}"
+      class="host-image"
+    >
+
+    <div class="host-content">
+      <div class="host-badge">Camera Hosted By</div>
+
+      <h3>${escapeHTML(host.name)}</h3>
+
+      <p class="small">
+        ${escapeHTML(host.description || "Local venue supporting the LankaSwell camera network.")}
+      </p>
+
+      <a href="#" class="host-discover-btn" onclick="openVenueModal(); return false;">
+        Discover the Host & Get Your Surfer Discount
+      </a>
+
+      <div class="host-social">
+        ${host.instagram ? socialLink(host.instagram, "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg", "Instagram") : ""}
+        ${host.facebook ? socialLink(host.facebook, "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg", "Facebook") : ""}
+        ${host.phone ? socialLink("tel:" + host.phone, "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/telephone-fill.svg", "Phone") : ""}
+        ${host.website ? socialLink(host.website, "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/globe.svg", "Website") : ""}
+      </div>
+    </div>
+  `;
+}
+
+function socialLink(url, icon, label) {
+  const target = url.startsWith("tel:") ? "" : 'target="_blank"';
+
+  return `
+    <a href="${escapeHTML(url)}" ${target} class="social-icon" aria-label="${escapeHTML(label)}">
+      <img src="${escapeHTML(icon)}" alt="">
+    </a>
+  `;
+}
+
+function renderServices(spot) {
+  const servicesSection = document.querySelector(".services");
+  if (!servicesSection) return;
+
+  const featured = spot.featuredPartners || [];
+  const services = spot.services || [];
+
+  if (!featured.length && !services.length) {
+    servicesSection.style.display = "none";
+    return;
+  }
+
+  servicesSection.style.display = "";
+
+  servicesSection.innerHTML = `
+    ${featured.length ? `
+      <h3>Featured Partners</h3>
+
+      <div class="featured-grid">
+        ${featured.map(renderFeaturedCard).join("")}
+      </div>
+    ` : ""}
+
+    ${services.length ? `
+      <h3 style="margin-top:24px;">More Services Near This Spot</h3>
+
+      <div class="service-grid">
+        ${services.map(renderServiceCard).join("")}
+      </div>
+    ` : ""}
+  `;
+}
+
+function renderFeaturedCard(item) {
+  return `
+    <div class="featured-card">
+      <div class="featured-badge">FEATURED</div>
+
+      <div class="service-icon">${escapeHTML(item.icon || "")}</div>
+
+      <h4>${escapeHTML(item.title)}</h4>
+
+      <p>${escapeHTML(item.description)}</p>
+
+      ${item.url ? `
+        <a href="${escapeHTML(item.url)}" class="service-btn" target="_blank">
+          ${escapeHTML(item.buttonText || "Contact")}
+        </a>
+      ` : ""}
+    </div>
+  `;
+}
+
+function renderServiceCard(item) {
+  return `
+    <div class="service-card">
+      <div class="service-icon">${escapeHTML(item.icon || "")}</div>
+
+      <h4>${escapeHTML(item.title)}</h4>
+
+      <p>${escapeHTML(item.description)}</p>
+
+      ${item.url ? `
+        <a href="${escapeHTML(item.url)}" class="service-btn" target="_blank">
+          ${escapeHTML(item.buttonText || "Contact")}
+        </a>
+      ` : ""}
+    </div>
+  `;
+}
+
+function renderSurfModal(spot) {
+  const modalContent = document.querySelector("#surfModal .modal-content");
+  if (!modalContent) return;
+
+  const stats = spot.stats || [];
+
+  modalContent.innerHTML = `
+    <span class="modal-close" onclick="closeSurfModal()">&times;</span>
+
+    <h2>${escapeHTML(spot.name)}</h2>
+
+    <p>${escapeHTML(spot.description)}</p>
+
+    ${stats.length ? `
+      <div class="modal-grid">
+        ${stats.map(item => `
+          <div class="modal-item">${escapeHTML(item)}</div>
+        `).join("")}
+      </div>
+    ` : ""}
+
+    ${spot.waves ? modalSection("Wave Characteristics", spot.waves) : ""}
+    ${spot.hazards ? modalSection("Hazards", spot.hazards) : ""}
+    ${spot.best ? modalSection("Best Conditions", spot.best) : ""}
+  `;
+}
+
+function modalSection(title, text) {
+  return `
+    <div class="modal-section">
+      <h3>${escapeHTML(title)}</h3>
+      <p>${escapeHTML(text)}</p>
+    </div>
+  `;
+}
+
+function renderVenueModal(spot) {
+  const modalContent = document.querySelector("#venueModal .modal-content");
+  if (!modalContent) return;
+
+  const host = spot.host;
+  const discount = spot.discount;
+
+  if (!host) {
+    modalContent.innerHTML = `
+      <span class="modal-close" onclick="closeVenueModal()">&times;</span>
+      <h2>No host information yet</h2>
+    `;
+    return;
+  }
+
+  modalContent.innerHTML = `
+    <span class="modal-close" onclick="closeVenueModal()">&times;</span>
+
+    <h2>${escapeHTML(host.name)}</h2>
+
+    <p>${escapeHTML(host.description || "Local venue supporting this LankaSwell camera.")}</p>
+
+    ${host.image ? `
+      <img
+        src="${escapeHTML(host.image)}"
+        alt="${escapeHTML(host.name)}"
+        style="width:100%;border-radius:14px;margin:12px 0;"
+      >
+    ` : ""}
+
+    ${discount?.enabled ? `
+      <h3>Exclusive LankaSwell Offer</h3>
+
+      ${discount.perks?.length ? `
+        <div class="modal-grid">
+          ${discount.perks.map(perk => `
+            <div class="modal-item">${escapeHTML(perk)}</div>
+          `).join("")}
+        </div>
+      ` : ""}
+
+      ${discount.code ? `
+        <h3>Discount Code</h3>
+
+        <div style="
+          background:#f4f8f8;
+          padding:16px;
+          border-radius:12px;
+          text-align:center;
+          font-size:1.3rem;
+          font-weight:800;
+          letter-spacing:2px;
+        ">
+          ${escapeHTML(discount.code)}
+        </div>
+      ` : ""}
+    ` : ""}
+  `;
+}
 
   
 

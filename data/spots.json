@@ -1,39 +1,201 @@
 {
   "marshmallow": {
     "name": "MARSHMALLOW",
-    "description": "Fun and forgiving beach break on Sri Lanka’s south coast.",
-    "heroImage": "img/marshmallow.webp",
+    "description": "Marshmallow is a fun, forgiving beach break on Sri Lanka's south coast. It is popular with beginners, surf schools, and surfers looking for soft playful waves close to shore.",
+    "stream": "https://example.com/live/marshmallow/index.m3u8",
+    "path": "marshmallow",
+    "mapUrl": "https://maps.app.goo.gl/CZzhHjNic3KPMdo29?g_st=ac",
 
     "stats": [
-      "🌊 Beach Break
-      "🏄 Beginner Friendly",
-      "📅 Nov–Apr",
-      "🌡️ Warm Water",
-      "📈 Mid Tide",
-      "↔ Lefts & Rights"
+      "Beach Break",
+      "Beginner Friendly",
+      "Best Season: Nov-Apr",
+      "Warm Water Year Round",
+      "Best Tide: Mid Tide",
+      "Lefts & Rights"
     ],
 
-    "waves": "Soft rolling waves over sand, perfect for learning.",
-    "hazards": "Crowds and occasional currents.",
-    "best": "Morning glassy conditions with SW swell.",
-
-    "discount": {
-      "enabled": true,
-      "code": "LANKASWELLTEST",
-      "perks": [
-        "☕ Free coffee",
-        "🍹 10% off drinks",
-        "🍛 Surfer menu"
-      ]
-    },
+    "waves": "Soft, rolling waves breaking over sand. Marshmallow has a mellow takeoff zone and forgiving conditions, making it ideal for learning, improving fundamentals, and enjoying relaxed surf sessions.",
+    "hazards": "Generally one of the safer breaks in the area thanks to its sandy bottom. Main hazards are crowds during peak season, beginner traffic in the lineup, and occasional currents when larger swells are running.",
+    "best": "Clean morning winds and small-to-medium south-west swells usually provide the best conditions. Marshmallow works across a wide tide range but is often most user-friendly around mid tide.",
 
     "host": {
-      "name": "Follow The White RabbitSSS",
-      "image": "img/ftwr.webp",
+      "name": "Follow The White Rabbit",
+      "description": "Oceanfront restaurant directly overlooking Marshmallow surf spot, with coffee, breakfast, seafood, sunset drinks, and a clear view of the lineup.",
+      "image": "img/a++.webp",
       "instagram": "https://www.instagram.com/followthewhiterabbitahangama",
       "facebook": "https://www.facebook.com/fwrabbitahangama",
       "phone": "+94773100884",
       "website": "https://fwrsrilanka.com/"
-    }
+    },
+
+    "discount": {
+      "enabled": true,
+      "code": "LANKASWELL9",
+      "perks": [
+        "Free coffee with breakfast",
+        "10% off drinks",
+        "Surfer meal special",
+        "Free WiFi"
+      ]
+    },
+
+    "featuredPartners": [
+      {
+        "icon": "🏄",
+        "title": "Marshmallow Surf School",
+        "description": "Private beginner and intermediate surf lessons directly at Marshmallow Point.",
+        "buttonText": "Book Lesson",
+        "url": "https://wa.me/94773100884"
+      },
+      {
+        "icon": "📸",
+        "title": "Surf Photography",
+        "description": "Water photography, beach shots, and drone clips for your best waves.",
+        "buttonText": "Contact",
+        "url": "https://instagram.com/"
+      }
+    ],
+
+    "services": [
+      {
+        "icon": "🛵",
+        "title": "Scooter Rental",
+        "description": "Daily scooter rentals close to the surf spot.",
+        "buttonText": "Rent Scooter",
+        "url": "https://wa.me/94773100884"
+      },
+      {
+        "icon": "🏄",
+        "title": "Surf Shop",
+        "description": "Wax, fins, leashes, ding repair, and board rentals nearby.",
+        "buttonText": "Visit Shop",
+        "url": "https://example.com"
+      },
+      {
+        "icon": "🏨",
+        "title": "Accommodation",
+        "description": "Guesthouses and rooms within walking distance of the break.",
+        "buttonText": "View Options",
+        "url": "https://example.com"
+      }
+    ]
+  },
+
+  "mirissa-point": {
+    "name": "MIRISSA POINT",
+    "description": "Mirissa Point is a scenic reef and point setup with long walls on the right swell. A great spot to check before driving across the south coast.",
+    "stream": "https://example.com/live/mirissa-point/index.m3u8",
+    "path": "mirissa-point",
+    "mapUrl": "https://maps.google.com/?q=Mirissa+Point+Sri+Lanka",
+
+    "stats": [
+      "Point Break",
+      "Intermediate",
+      "Best Season: Nov-Apr",
+      "Reef & Rock",
+      "Best Tide: Mid to High",
+      "Mostly Rights"
+    ],
+
+    "waves": "Longer, cleaner walls can appear when the swell direction lines up. Smaller days can be playful, while bigger days are better for experienced surfers.",
+    "hazards": "Reef, rocks, crowds, and changing currents. Respect local surfers and avoid paddling out beyond your ability.",
+    "best": "Early mornings with light offshore wind and organised south-west swell are usually best.",
+
+    "host": {
+      "name": "Mirissa Beach Partner",
+      "description": "A local ocean-view partner helping keep the Mirissa Point camera online.",
+      "image": "img/mirissa-point-thumb.webp",
+      "instagram": "https://instagram.com/",
+      "facebook": "https://facebook.com/",
+      "phone": "+94770000000",
+      "website": "https://example.com"
+    },
+
+    "discount": {
+      "enabled": true,
+      "code": "MIRISSASWELL",
+      "perks": [
+        "10% off breakfast",
+        "Board storage available",
+        "Free water refill"
+      ]
+    },
+
+    "featuredPartners": [
+      {
+        "icon": "☕",
+        "title": "Beach Coffee",
+        "description": "Coffee and breakfast close to the point.",
+        "buttonText": "See Location",
+        "url": "https://example.com"
+      }
+    ],
+
+    "services": [
+      {
+        "icon": "🏄",
+        "title": "Board Rental",
+        "description": "Shortboards, funboards, and longboards available nearby.",
+        "buttonText": "Contact",
+        "url": "https://wa.me/94770000000"
+      }
+    ]
+  },
+
+  "temple-point": {
+    "name": "TEMPLE POINT",
+    "description": "Temple Point is a beautiful surf zone with clear water, tropical scenery, and changing conditions depending on swell and tide.",
+    "stream": "https://example.com/live/temple-point/index.m3u8",
+    "path": "temple-point",
+    "mapUrl": "https://maps.google.com/?q=Temple+Point+Sri+Lanka",
+
+    "stats": [
+      "Reef Break",
+      "Intermediate",
+      "Best Season: Nov-Apr",
+      "Warm Water",
+      "Best Tide: Mid Tide",
+      "Scenic Lineup"
+    ],
+
+    "waves": "Can produce clean, fun walls when swell and tide match. Best for surfers who are comfortable around reef.",
+    "hazards": "Reef, shallow sections, currents, and occasional crowd pressure.",
+    "best": "Morning sessions with clean wind and moderate swell are usually the safest bet.",
+
+    "host": {
+      "name": "Temple Point Host",
+      "description": "Local host supporting the LankaSwell camera network near Temple Point.",
+      "image": "img/templepoint-thumb.webp",
+      "instagram": "https://instagram.com/",
+      "facebook": "https://facebook.com/",
+      "phone": "+94771111111",
+      "website": "https://example.com"
+    },
+
+    "discount": {
+      "enabled": false,
+      "code": "",
+      "perks": []
+    },
+
+    "featuredPartners": [],
+
+    "services": [
+      {
+        "icon": "🍽️",
+        "title": "Local Food",
+        "description": "Rice and curry, fresh juice, and post-surf meals nearby.",
+        "buttonText": "Explore",
+        "url": "https://example.com"
+      },
+      {
+        "icon": "🛵",
+        "title": "Transport",
+        "description": "Tuk-tuk and scooter options for moving between surf spots.",
+        "buttonText": "Contact",
+        "url": "https://wa.me/94771111111"
+      }
+    ]
   }
 }
