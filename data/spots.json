@@ -1,10 +1,11 @@
 {
   "marshmallow": {
     "name": "MARSHMALLOW",
+	"title": "Marshmallow",
     "description": "Marshmallow is a fun, forgiving beach break on Sri Lanka's south coast. It is popular with beginners, surf schools, and surfers looking for soft playful waves close to shore.",
     "stream": "https://lankaswell.com/live/marshmallow/index.m3u8",
     "path": "marshmallow",
-    "mapUrl": "https://maps.app.goo.gl/CZzhHjNic3KPMdo29?g_st=ac",
+    "mapUrl": "https://maps.app.goo.gl/hNimKrzkVmMymEft7",
 
     "stats": [
       "Beach Break",
@@ -22,7 +23,7 @@
     "host": {
       "name": "Follow The White Rabbit",
       "description": "Oceanfront restaurant directly overlooking Marshmallow surf spot, with coffee, breakfast, seafood, sunset drinks, and a clear view of the lineup.",
-      "image": "img/a++.webp",
+      "image": "img/ftwr-thumb.webp",
       "instagram": "https://www.instagram.com/followthewhiterabbitahangama",
       "facebook": "https://www.facebook.com/fwrabbitahangama",
       "phone": "+94773100884",
@@ -84,10 +85,11 @@
 
   "mirissa-point": {
     "name": "MIRISSA POINT",
+	"title": "Mirissa Point",
     "description": "Mirissa Point is a scenic reef and point setup with long walls on the right swell. A great spot to check before driving across the south coast.",
     "stream": "https://lankaswell.com/live/mirissapoint/index.m3u8",
     "path": "mirissa-point",
-    "mapUrl": "https://maps.google.com/?q=Mirissa+Point+Sri+Lanka",
+    "mapUrl": "https://maps.app.goo.gl/7FfEvJTWzLL12WdG7",
 
     "stats": [
       "Point Break",
@@ -103,13 +105,13 @@
     "best": "Early mornings with light offshore wind and organised south-west swell are usually best.",
 
     "host": {
-      "name": "Mirissa Beach Partner",
+      "name": "A++ Restaurant",
       "description": "A local ocean-view partner helping keep the Mirissa Point camera online.",
-      "image": "img/mirissa-point-thumb.webp",
-      "instagram": "https://instagram.com/",
-      "facebook": "https://facebook.com/",
-      "phone": "+94770000000",
-      "website": "https://example.com"
+      "image": "img/odins-thumb.webp",
+      "instagram": "https://www.instagram.com/a_plus_plus_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+      "facebook": "https://www.facebook.com/p/A-Plus-plus-100083418226840/",
+      "phone": "+94785809083",
+      "website": "https://www.tripadvisor.com/Restaurant_Review-g1407334-d26670625-Reviews-A_Cafe_Mirissa-Mirissa_Southern_Province.html"
     },
 
     "discount": {
@@ -145,10 +147,11 @@
 
   "temple-point": {
     "name": "TEMPLE POINT",
+	"title": "Temple Point",
     "description": "Temple Point is a beautiful surf zone with clear water, tropical scenery, and changing conditions depending on swell and tide.",
     "stream": "https://lankaswell.com/live/templepoint/index.m3u8",
     "path": "temple-point",
-    "mapUrl": "https://maps.google.com/?q=Temple+Point+Sri+Lanka",
+    "mapUrl": "https://maps.app.goo.gl/e7xhajqLyXe1Zxzo8",
 
     "stats": [
       "Reef Break",
@@ -164,13 +167,11 @@
     "best": "Morning sessions with clean wind and moderate swell are usually the safest bet.",
 
     "host": {
-      "name": "Temple Point Host",
+      "name": "Odin's",
       "description": "Local host supporting the LankaSwell camera network near Temple Point.",
-      "image": "img/templepoint-thumb.webp",
-      "instagram": "https://instagram.com/",
-      "facebook": "https://facebook.com/",
-      "phone": "+94771111111",
-      "website": "https://example.com"
+      "image": "img/odins-thumb.webp",
+      "instagram": "https://www.instagram.com/odins.lk/?hl=en",
+      "phone": "+94779465776"
     },
 
     "discount": {

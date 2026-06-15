@@ -205,7 +205,7 @@ function setupUI() {
   const spot = window.spot;
   if (!spot) return;
 
-  document.title = `${spot.name} Surf Cam Live | Sri Lanka Surf Camera | LankaSwell`;
+  document.title = `${spot.title} Surf Cam Live | Sri Lanka Surf Camera | LankaSwell`;
 
   setText(".stream-title span", spot.name);
 
