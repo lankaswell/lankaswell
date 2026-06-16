@@ -6,6 +6,8 @@
     "stream": "https://lankaswell.com/live/marshmallow/index.m3u8",
     "path": "marshmallow",
     "mapUrl": "https://maps.app.goo.gl/hNimKrzkVmMymEft7",
+	"lat": "5.973371876984806",
+	"lng": "80.35753405630781",
 
     "stats": [
       "Beach Break",
@@ -90,6 +92,8 @@
     "stream": "https://lankaswell.com/live/mirissapoint/index.m3u8",
     "path": "mirissapoint",
     "mapUrl": "https://maps.app.goo.gl/7FfEvJTWzLL12WdG7",
+	"lat": "5.94367887022686",
+	"lng": "80.45492100038744",
 
     "stats": [
       "Point Break",
@@ -152,6 +156,8 @@
     "stream": "https://lankaswell.com/live/templepoint/index.m3u8",
     "path": "templepoint",
     "mapUrl": "https://maps.app.goo.gl/e7xhajqLyXe1Zxzo8",
+	"lat": "5.938463202710493", 
+	"lng": "80.46808120169506",
 
     "stats": [
       "Reef Break",
