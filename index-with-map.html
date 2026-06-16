@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
   <link
     rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"
   />
 
   <style>
@@ -374,15 +374,15 @@ header{
     }
 
     .map-marker{
-  display:block;
-  width:22px;
-  height:22px;
-  background:var(--ocean);
-  border:3px solid white;
-  border-radius:50%;
-  box-shadow:0 4px 12px rgba(0,0,0,0.3);
-  position:relative;
-}
+      display:block;
+      width:22px;
+      height:22px;
+      background:var(--ocean);
+      border:3px solid white;
+      border-radius:50%;
+      box-shadow:0 4px 12px rgba(0,0,0,0.3);
+      position:relative;
+    }
 
     .map-marker::after{
       content:"";
@@ -652,13 +652,17 @@ header{
   </footer>
 
     <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js">
   </script>
 
   <script>
     async function initCameraMap(){
       const mapEl = document.getElementById("cameraMap");
-      if (!mapEl || !window.L) return;
+      if (!mapEl) return;
+      if (!window.L) {
+        mapEl.innerHTML = '<p class="map-note" style="padding:40px 20px;">Map library could not load. Please refresh the page.</p>';
+        return;
+      }
 
       const map = L.map(mapEl, {
         scrollWheelZoom: false
@@ -713,24 +717,31 @@ header{
     }
 
     function getSpotCoords(spot){
-  const lat = Number(spot.lat);
-  const lng = Number(spot.lng);
+      const lat = Number(spot.lat);
+      const lng = Number(spot.lng);
 
-  if (Number.isFinite(lat) && Number.isFinite(lng)) {
-    return [lat, lng];
-  }
+      if (Number.isFinite(lat) && Number.isFinite(lng)) {
+        return [lat, lng];
+      }
 
-  if (spot.location) {
-    const locationLat = Number(spot.location.lat);
-    const locationLng = Number(spot.location.lng);
+      if (spot.location) {
+        const locationLat = Number(spot.location.lat);
+        const locationLng = Number(spot.location.lng);
 
-    if (Number.isFinite(locationLat) && Number.isFinite(locationLng)) {
-      return [locationLat, locationLng];
+        if (Number.isFinite(locationLat) && Number.isFinite(locationLng)) {
+          return [locationLat, locationLng];
+        }
+      }
+
+      const url = spot.mapUrl || "";
+      const atMatch = url.match(/@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/);
+      if (atMatch) return [Number(atMatch[1]), Number(atMatch[2])];
+
+      const queryMatch = url.match(/[?&]q=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/);
+      if (queryMatch) return [Number(queryMatch[1]), Number(queryMatch[2])];
+
+      return null;
     }
-  }
-
-  return null;
-}
 
     function shortText(text){
       return text.length > 105 ? text.slice(0, 102).trim() + "..." : text;
@@ -755,5 +766,9 @@ header{
 
 </body>
 </html>
+
+
+
+
 
 
