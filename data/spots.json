@@ -88,7 +88,7 @@
 	"title": "Mirissa Point",
     "description": "Mirissa Point is a scenic reef and point setup with long walls on the right swell. A great spot to check before driving across the south coast.",
     "stream": "https://lankaswell.com/live/mirissapoint/index.m3u8",
-    "path": "mirissa-point",
+    "path": "mirissapoint",
     "mapUrl": "https://maps.app.goo.gl/7FfEvJTWzLL12WdG7",
 
     "stats": [
@@ -150,7 +150,7 @@
 	"title": "Temple Point",
     "description": "Temple Point is a beautiful surf zone with clear water, tropical scenery, and changing conditions depending on swell and tide.",
     "stream": "https://lankaswell.com/live/templepoint/index.m3u8",
-    "path": "temple-point",
+    "path": "templepoint",
     "mapUrl": "https://maps.app.goo.gl/e7xhajqLyXe1Zxzo8",
 
     "stats": [
