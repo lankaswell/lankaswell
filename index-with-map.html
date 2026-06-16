@@ -664,9 +664,10 @@ header{
         return;
       }
 
-      const map = L.map(mapEl, {
+            const map = L.map(mapEl, {
         scrollWheelZoom: false
       });
+      mapEl._leaflet_map = map;
 
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 18,
@@ -706,6 +707,7 @@ header{
 
         if (bounds.length) {
           map.fitBounds(bounds, { padding: [34, 34], maxZoom: 12 });
+          setTimeout(() => map.invalidateSize(), 100);
         } else {
           map.setView([7.8731, 80.7718], 7);
           mapEl.insertAdjacentHTML("afterend", "<p class='map-note'>Add lat and lng values to /data/spots.json to show camera markers.</p>");
@@ -756,7 +758,24 @@ header{
         .replaceAll("'", "&#039;");
     }
 
-    document.addEventListener("DOMContentLoaded", initCameraMap);
+        function startCameraMap(){
+      initCameraMap();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", startCameraMap);
+    } else {
+      startCameraMap();
+    }
+
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        const mapEl = document.getElementById("cameraMap");
+        if (mapEl && mapEl._leaflet_map) {
+          mapEl._leaflet_map.invalidateSize();
+        }
+      }, 300);
+    });
   </script>
   <script>
     function toggleMenu(){
@@ -766,6 +785,8 @@ header{
 
 </body>
 </html>
+
+
 
 
 
