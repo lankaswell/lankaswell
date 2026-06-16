@@ -374,14 +374,15 @@ header{
     }
 
     .map-marker{
-      width:22px;
-      height:22px;
-      background:var(--ocean);
-      border:3px solid white;
-      border-radius:50%;
-      box-shadow:0 4px 12px rgba(0,0,0,0.3);
-      position:relative;
-    }
+  display:block;
+  width:22px;
+  height:22px;
+  background:var(--ocean);
+  border:3px solid white;
+  border-radius:50%;
+  box-shadow:0 4px 12px rgba(0,0,0,0.3);
+  position:relative;
+}
 
     .map-marker::after{
       content:"";
@@ -712,23 +713,24 @@ header{
     }
 
     function getSpotCoords(spot){
-      if (Number.isFinite(spot.lat) && Number.isFinite(spot.lng)) {
-        return [spot.lat, spot.lng];
-      }
+  const lat = Number(spot.lat);
+  const lng = Number(spot.lng);
 
-      if (spot.location && Number.isFinite(spot.location.lat) && Number.isFinite(spot.location.lng)) {
-        return [spot.location.lat, spot.location.lng];
-      }
+  if (Number.isFinite(lat) && Number.isFinite(lng)) {
+    return [lat, lng];
+  }
 
-      const url = spot.mapUrl || "";
-      const atMatch = url.match(/@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/);
-      if (atMatch) return [Number(atMatch[1]), Number(atMatch[2])];
+  if (spot.location) {
+    const locationLat = Number(spot.location.lat);
+    const locationLng = Number(spot.location.lng);
 
-      const queryMatch = url.match(/[?&]q=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/);
-      if (queryMatch) return [Number(queryMatch[1]), Number(queryMatch[2])];
-
-      return null;
+    if (Number.isFinite(locationLat) && Number.isFinite(locationLng)) {
+      return [locationLat, locationLng];
     }
+  }
+
+  return null;
+}
 
     function shortText(text){
       return text.length > 105 ? text.slice(0, 102).trim() + "..." : text;
