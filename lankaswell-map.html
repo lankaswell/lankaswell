@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LANKASWELL | The Southern Frontier</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,700&f[]=instrument-sans@700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bone:    #FBFAF8;
+      --obsidian:#1A1D1F;
+      --reef:    #2A5C5A;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bone);
+      color: var(--obsidian);
+      font-family: 'Satoshi', sans-serif;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    /* ── MAP ── */
+    #map {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: var(--bone);
+    }
+    .leaflet-tile-pane {
+      filter: grayscale(0.6) contrast(1.3) brightness(0.9);
+    }
+    .leaflet-container { background: var(--bone) !important; }
+    .leaflet-control-attribution { display: none !important; }
+    .leaflet-popup-content-wrapper {
+      border-radius: 8px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 4px 8px;
+    }
+    .leaflet-popup-tip { box-shadow: none; }
+
+    /* ── SONAR ── */
+    @keyframes sonar {
+      0%   { transform: scale(0.5); opacity: 0.6; }
+      100% { transform: scale(2.8); opacity: 0; }
+    }
+    .marker-dot {
+      position: relative;
+      width: 14px; height: 14px;
+    }
+    .marker-dot .core {
+      position: absolute; inset: 0;
+      background: var(--reef);
+      border: 2px solid var(--bone);
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(42,92,90,0.35);
+      z-index: 2;
+    }
+    .marker-dot .ring {
+      position: absolute;
+      top: -5px; left: -5px;
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      border: 1.5px solid var(--reef);
+      opacity: 0;
+      animation: sonar 2.5s ease-out infinite;
+    }
+
+    /* ── OVERLAY ── */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 2.5rem 3rem 0;
+      pointer-events: auto;
+    }
+    .brand-logo {
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+      color: var(--obsidian);
+    }
+    .brand-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.625rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--obsidian);
+      opacity: 0.45;
+      margin-top: 2px;
+    }
+    .coord-display {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.625rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--obsidian);
+      opacity: 0.45;
+      text-align: right;
+      line-height: 1.6;
+    }
+    .header-rule {
+      margin: 1rem 3rem 0;
+      height: 1px;
+      background: rgba(26,29,31,0.1);
+    }
+
+    /* ── SIDEBAR NAV ── */
+    .location-nav {
+      position: absolute;
+      right: 3rem;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: auto;
+      text-align: right;
+    }
+    .nav-item {
+      display: block;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: clamp(1.75rem, 3.5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--obsidian);
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 0.75rem;
+      opacity: 0.25;
+      transform: translateX(0);
+      transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1),
+                  transform 0.4s cubic-bezier(0.23,1,0.32,1);
+    }
+    .nav-item:hover, .nav-item:focus {
+      opacity: 1;
+      transform: translateX(-12px);
+      outline: none;
+    }
+    .nav-item:focus-visible {
+      outline: 2px solid var(--reef);
+      border-radius: 4px;
+    }
+    .nav-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--obsidian);
+      opacity: 0.4;
+      margin-top: 1rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 0 3rem 1.5rem;
+      pointer-events: auto;
+    }
+    .footer-rule {
+      height: 1px;
+      background: rgba(26,29,31,0.1);
+      margin-bottom: 0.75rem;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+    }
+    .footer-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--obsidian);
+      opacity: 0.35;
+    }
+
+    /* popup typography */
+    .popup-name {
+      font-family: 'Instrument Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--obsidian);
+    }
+    .popup-coords {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(26,29,31,0.45);
+      margin-top: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- UI Overlay -->
+  <div class="overlay">
+
+    <div>
+      <header>
+        <div>
+          <div class="brand-logo">Lankaswell</div>
+          <div class="brand-sub">The Southern Frontier</div>
+        </div>
+        <div class="coord-display">
+          Sri Lanka / South Coast<br>5.938°N, 80.468°E
+        </div>
+      </header>
+      <div class="header-rule"></div>
+    </div>
+
+    <nav class="location-nav">
+      <button class="nav-item" onclick="flyTo(5.973371876984806, 80.35753405630781)">Ahangama</button>
+      <button class="nav-item" onclick="flyTo(5.94367887022686,  80.45492100038744)">Midigama</button>
+      <button class="nav-item" onclick="flyTo(5.938463202710493, 80.46808120169506)">Weligama</button>
+      <div class="nav-meta">3 Locations · South Coast</div>
+    </nav>
+
+    <footer>
+      <div class="footer-rule"></div>
+      <div class="footer-inner">
+        <span class="footer-text">© Lankaswell 2025</span>
+        <span class="footer-text">Luminous Latitude</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Map -->
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // ── Init map ──────────────────────────────────────────────
+    const map = L.map('map', {
+      center: [5.955, 80.41],
+      zoom: 13,
+      zoomControl: false,
+      attributionControl: false
+    });
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      maxZoom: 19
+    }).addTo(map);
+
+    // ── Custom pulse icon ─────────────────────────────────────
+    function pulseIcon() {
+      return L.divIcon({
+        className: '',
+        html: `<div class="marker-dot">
+                 <div class="core"></div>
+                 <div class="ring"></div>
+               </div>`,
+        iconSize: [14, 14],
+        iconAnchor: [7, 7],
+        popupAnchor: [0, -14]
+      });
+    }
+
+    // ── Locations ─────────────────────────────────────────────
+    const locations = [
+      { name: 'Ahangama', lat: 5.973371876984806, lng: 80.35753405630781 },
+      { name: 'Midigama', lat: 5.94367887022686,  lng: 80.45492100038744 },
+      { name: 'Weligama', lat: 5.938463202710493, lng: 80.46808120169506 }
+    ];
+
+    locations.forEach(loc => {
+      const popup = `
+        <div class="popup-name">${loc.name}</div>
+        <div class="popup-coords">${loc.lat.toFixed(4)}°N, ${loc.lng.toFixed(4)}°E</div>
+      `;
+      L.marker([loc.lat, loc.lng], { icon: pulseIcon() })
+        .addTo(map)
+        .bindPopup(popup, { closeButton: false });
+    });
+
+    // ── Fly-to ────────────────────────────────────────────────
+    function flyTo(lat, lng) {
+      map.flyTo([lat, lng], 15, { duration: 2, easeLinearity: 0.25 });
+    }
+  </script>
+
+</body>
+</html>
