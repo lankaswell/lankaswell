@@ -1,301 +1,491 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LANKASWELL | The Southern Frontier</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,700&f[]=instrument-sans@700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+<title>LANKASWELL | The Southern Frontier</title>
 
-  <style>
-    :root {
-      --bone:    #FBFAF8;
-      --obsidian:#1A1D1F;
-      --reef:    #2A5C5A;
-    }
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,700&f[]=instrument-sans@700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
 
-    body {
-      background: var(--bone);
-      color: var(--obsidian);
-      font-family: 'Satoshi', sans-serif;
-      overflow: hidden;
-      height: 100vh;
-    }
+<style>
+:root{
+  --bone:#FBFAF8;
+  --obsidian:#1A1D1F;
+  --reef:#00E0D0;
+}
 
-    /* ── MAP ── */
-    #map {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background: var(--bone);
-    }
-    .leaflet-tile-pane {
-      filter: contrast(1.15) saturate(1.3) brightness(0.92);
-    }
-    .leaflet-container { background: var(--bone) !important; }
-    .leaflet-control-attribution { display: none !important; }
-    .leaflet-popup-content-wrapper {
-      border-radius: 8px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-      padding: 4px 8px;
-    }
-    .leaflet-popup-tip { box-shadow: none; }
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-    /* ── SONAR ── */
-    @keyframes sonar {
-      0%   { transform: scale(0.5); opacity: 0.6; }
-      100% { transform: scale(2.8); opacity: 0; }
-    }
-    .marker-dot {
-      position: relative;
-      width: 14px; height: 14px;
-    }
-    .marker-dot .core {
-      position: absolute; inset: 0;
-      background: var(--reef);
-      border: 2px solid var(--bone);
-      border-radius: 50%;
-      box-shadow: 0 0 12px rgba(42,92,90,0.35);
-      z-index: 2;
-    }
-    .marker-dot .ring {
-      position: absolute;
-      top: -5px; left: -5px;
-      width: 24px; height: 24px;
-      border-radius: 50%;
-      border: 1.5px solid var(--reef);
-      opacity: 0;
-      animation: sonar 2.5s ease-out infinite;
-    }
+html,body{
+  width:100%;
+  height:100%;
+}
 
-    /* ── OVERLAY ── */
-    .overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 10;
-      pointer-events: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
+body{
+  background:#0f1112;
+  color:var(--bone);
+  font-family:'Satoshi',sans-serif;
+  overflow:hidden;
+}
 
-    /* ── HEADER ── */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      padding: 2.5rem 3rem 0;
-      pointer-events: auto;
-    }
-    .brand-logo {
-      font-family: 'Instrument Sans', sans-serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      letter-spacing: -0.05em;
-      text-transform: uppercase;
-      color: var(--obsidian);
-    }
-    .brand-sub {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.625rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--obsidian);
-      opacity: 0.45;
-      margin-top: 2px;
-    }
-    .coord-display {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.625rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--obsidian);
-      opacity: 0.45;
-      text-align: right;
-      line-height: 1.6;
-    }
-    .header-rule {
-      margin: 1rem 3rem 0;
-      height: 1px;
-      background: rgba(26,29,31,0.1);
-    }
+/* =========================
+   MAP
+========================= */
 
-    /* ── SIDEBAR NAV ── */
-    .location-nav {
-      position: absolute;
-      right: 3rem;
-      top: 50%;
-      transform: translateY(-50%);
-      pointer-events: auto;
-      text-align: right;
-    }
-    .nav-item {
-      display: block;
-      font-family: 'Instrument Sans', sans-serif;
-      font-size: clamp(1.75rem, 3.5vw, 3rem);
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      color: var(--obsidian);
-      background: none;
-      border: none;
-      cursor: pointer;
-      margin-bottom: 0.75rem;
-      opacity: 0.25;
-      transform: translateX(0);
-      transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1),
-                  transform 0.4s cubic-bezier(0.23,1,0.32,1);
-    }
-    .nav-item:hover, .nav-item:focus {
-      opacity: 1;
-      transform: translateX(-12px);
-      outline: none;
-    }
-    .nav-item:focus-visible {
-      outline: 2px solid var(--reef);
-      border-radius: 4px;
-    }
-    .nav-meta {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--obsidian);
-      opacity: 0.4;
-      margin-top: 1rem;
-    }
+#map{
+  position:absolute;
+  inset:0;
+  z-index:1;
+}
 
-    /* ── FOOTER ── */
-    footer {
-      padding: 0 3rem 1.5rem;
-      pointer-events: auto;
-    }
-    .footer-rule {
-      height: 1px;
-      background: rgba(26,29,31,0.1);
-      margin-bottom: 0.75rem;
-    }
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-    }
-    .footer-text {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--obsidian);
-      opacity: 0.35;
-    }
+.leaflet-container{
+  background:#0f1112 !important;
+}
 
-    /* popup typography */
-    .popup-name {
-      font-family: 'Instrument Sans', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      color: var(--obsidian);
-    }
-    .popup-coords {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(26,29,31,0.45);
-      margin-top: 2px;
-    }
-  </style>
+.leaflet-control-attribution{
+  display:none !important;
+}
+
+.leaflet-tile-pane{
+  filter:
+    contrast(1.15)
+    saturate(1.15)
+    brightness(.92);
+}
+
+.leaflet-popup-content-wrapper{
+  border-radius:12px;
+  background:#16191b;
+  color:white;
+  box-shadow:0 8px 30px rgba(0,0,0,.35);
+}
+
+.leaflet-popup-tip{
+  background:#16191b;
+}
+
+.popup-name{
+  font-family:'Instrument Sans',sans-serif;
+  font-size:.9rem;
+  font-weight:700;
+}
+
+.popup-coords{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.6rem;
+  opacity:.6;
+  margin-top:4px;
+}
+
+/* =========================
+   SONAR MARKER
+========================= */
+
+@keyframes sonar{
+  0%{
+    transform:scale(.6);
+    opacity:.8;
+  }
+
+  100%{
+    transform:scale(3.2);
+    opacity:0;
+  }
+}
+
+.marker-dot{
+  position:relative;
+  width:16px;
+  height:16px;
+}
+
+.marker-dot .core{
+  position:absolute;
+  inset:0;
+
+  background:var(--reef);
+  border:3px solid white;
+  border-radius:50%;
+
+  box-shadow:
+    0 0 10px rgba(0,224,208,.9),
+    0 0 24px rgba(0,224,208,.45);
+
+  z-index:2;
+}
+
+.marker-dot .ring{
+  position:absolute;
+
+  top:-8px;
+  left:-8px;
+
+  width:32px;
+  height:32px;
+
+  border-radius:50%;
+  border:2px solid var(--reef);
+
+  animation:sonar 2.5s infinite;
+}
+
+/* =========================
+   OVERLAY
+========================= */
+
+.overlay{
+  position:absolute;
+  inset:0;
+  z-index:1000;
+
+  pointer-events:none;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+  padding:2rem 3rem 0;
+
+  display:flex;
+  justify-content:space-between;
+
+  pointer-events:auto;
+}
+
+.brand-logo{
+  font-family:'Instrument Sans',sans-serif;
+  font-size:1.5rem;
+  font-weight:700;
+  letter-spacing:-0.04em;
+
+  color:white;
+}
+
+.brand-sub{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;
+
+  letter-spacing:.12em;
+  text-transform:uppercase;
+
+  opacity:.5;
+  margin-top:2px;
+}
+
+.header-rule{
+  height:1px;
+  margin:1rem 3rem 0;
+
+  background:rgba(255,255,255,.08);
+}
+
+/* =========================
+   DESKTOP NAV
+========================= */
+
+.location-nav{
+  position:absolute;
+
+  right:3rem;
+  top:50%;
+
+  transform:translateY(-50%);
+
+  text-align:right;
+  pointer-events:auto;
+}
+
+.nav-item{
+  display:block;
+
+  border:none;
+  background:none;
+
+  color:white;
+  cursor:pointer;
+
+  font-family:'Instrument Sans',sans-serif;
+  font-weight:700;
+
+  font-size:clamp(1.6rem,3vw,2.8rem);
+
+  opacity:.35;
+
+  transition:.3s;
+
+  margin-bottom:.75rem;
+}
+
+.nav-item:hover{
+  opacity:1;
+  transform:translateX(-10px);
+}
+
+.nav-item.active{
+  opacity:1;
+  color:var(--reef);
+}
+
+.nav-meta{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+
+  opacity:.45;
+
+  margin-top:1rem;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  padding:0 3rem 1.5rem;
+  pointer-events:auto;
+}
+
+.footer-rule{
+  height:1px;
+  background:rgba(255,255,255,.08);
+  margin-bottom:.75rem;
+}
+
+.footer-inner{
+  display:flex;
+  justify-content:space-between;
+}
+
+.footer-text{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.55rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  opacity:.4;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width:768px){
+
+  header{
+    padding:1rem 1rem 0;
+  }
+
+  .header-rule{
+    margin:.75rem 1rem 0;
+  }
+
+  .brand-logo{
+    font-size:1.2rem;
+  }
+
+  .location-nav{
+
+    top:auto;
+    bottom:5rem;
+
+    left:50%;
+    right:auto;
+
+    transform:translateX(-50%);
+
+    text-align:center;
+
+    background:rgba(10,10,10,.72);
+
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    padding:1rem 1.25rem;
+
+    width:calc(100% - 2rem);
+    max-width:320px;
+  }
+
+  .nav-item{
+    font-size:1rem;
+    margin-bottom:.4rem;
+    opacity:.85;
+  }
+
+  .nav-meta{
+    display:none;
+  }
+
+  footer{
+    padding:0 1rem 1rem;
+  }
+
+  .footer-text{
+    font-size:.5rem;
+  }
+}
+
+</style>
 </head>
+
 <body>
 
-  <!-- UI Overlay -->
-  <div class="overlay">
+<div id="map"></div>
 
-    <div>
-      <header>
-        <div>
-          <div class="brand-logo">LankaSwell</div>
-          <div class="brand-sub">The Southern Frontier</div>
-        </div>
-        <!--<div class="coord-display">
-          Sri Lanka / South Coast<br>5.938°N, 80.468°E
-        </div>-->
-      </header>
-      <div class="header-rule"></div>
-    </div>
+<div class="overlay">
 
-    <nav class="location-nav">
-      <button class="nav-item" onclick="flyTo(5.973371876984806, 80.35753405630781)">Marshmallow</button>
-      <button class="nav-item" onclick="flyTo(5.94367887022686,  80.45492100038744)">Mirissa Point</button>
-      <button class="nav-item" onclick="flyTo(5.938463202710493, 80.46808120169506)">Temple Point</button>
-      <div class="nav-meta">3 Locations · South Coast</div>
-    </nav>
-
-    <footer>
-      <div class="footer-rule"></div>
-      <div class="footer-inner">
-        <span class="footer-text">© Lankaswell 2025</span>
-        <span class="footer-text">Luminous Latitude</span>
+  <div>
+    <header>
+      <div>
+        <div class="brand-logo">LankaSwell</div>
+        <div class="brand-sub">The Southern Frontier</div>
       </div>
-    </footer>
+    </header>
 
+    <div class="header-rule"></div>
   </div>
 
-  <!-- Map -->
-  <div id="map"></div>
+  <nav class="location-nav">
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    // ── Init map ──────────────────────────────────────────────
-    const map = L.map('map', {
-      center: [5.955, 80.41],
-      zoom: 13,
-      zoomControl: false,
-      attributionControl: false
-    });
+    <button class="nav-item active"
+      onclick="flyTo(5.973371876984806,80.35753405630781,this)">
+      Marshmallow
+    </button>
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-      maxZoom: 19
-    }).addTo(map);
+    <button class="nav-item"
+      onclick="flyTo(5.94367887022686,80.45492100038744,this)">
+      Mirissa Point
+    </button>
 
-    // ── Custom pulse icon ─────────────────────────────────────
-    function pulseIcon() {
-      return L.divIcon({
-        className: '',
-        html: `<div class="marker-dot">
-                 <div class="core"></div>
-                 <div class="ring"></div>
-               </div>`,
-        iconSize: [14, 14],
-        iconAnchor: [7, 7],
-        popupAnchor: [0, -14]
-      });
+    <button class="nav-item"
+      onclick="flyTo(5.938463202710493,80.46808120169506,this)">
+      Temple Point
+    </button>
+
+    <div class="nav-meta">
+      3 Locations · South Coast
+    </div>
+
+  </nav>
+
+  <footer>
+    <div class="footer-rule"></div>
+
+    <div class="footer-inner">
+      <span class="footer-text">© LankaSwell</span>
+      <span class="footer-text">Live Surf Cameras</span>
+    </div>
+  </footer>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+
+const map = L.map('map',{
+  center:[5.955,80.41],
+  zoom:13,
+  zoomControl:false,
+  attributionControl:false
+});
+
+L.tileLayer(
+  'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+  {
+    maxZoom:20
+  }
+).addTo(map);
+
+function pulseIcon(){
+  return L.divIcon({
+    className:'',
+    html:`
+      <div class="marker-dot">
+        <div class="core"></div>
+        <div class="ring"></div>
+      </div>
+    `,
+    iconSize:[16,16],
+    iconAnchor:[8,8]
+  });
+}
+
+const locations = [
+{
+  name:'Marshmallow',
+  lat:5.973371876984806,
+  lng:80.35753405630781
+},
+{
+  name:'Mirissa Point',
+  lat:5.94367887022686,
+  lng:80.45492100038744
+},
+{
+  name:'Temple Point',
+  lat:5.938463202710493,
+  lng:80.46808120169506
+}
+];
+
+locations.forEach(loc=>{
+
+  const popup=`
+    <div class="popup-name">${loc.name}</div>
+    <div class="popup-coords">
+      ${loc.lat.toFixed(4)}°N,
+      ${loc.lng.toFixed(4)}°E
+    </div>
+  `;
+
+  L.marker(
+    [loc.lat,loc.lng],
+    {icon:pulseIcon()}
+  )
+  .addTo(map)
+  .bindPopup(popup,{closeButton:false});
+
+});
+
+function flyTo(lat,lng,button){
+
+  document
+    .querySelectorAll('.nav-item')
+    .forEach(btn=>btn.classList.remove('active'));
+
+  if(button){
+    button.classList.add('active');
+  }
+
+  map.flyTo(
+    [lat,lng],
+    15,
+    {
+      duration:1.8
     }
+  );
+}
 
-    // ── Locations ─────────────────────────────────────────────
-    const locations = [
-      { name: 'Marshmallow', lat: 5.973371876984806, lng: 80.35753405630781 },
-      { name: 'Mirissa Point', lat: 5.94367887022686,  lng: 80.45492100038744 },
-      { name: 'Temple Point', lat: 5.938463202710493, lng: 80.46808120169506 }
-    ];
-
-    locations.forEach(loc => {
-      const popup = `
-        <div class="popup-name">${loc.name}</div>
-        <div class="popup-coords">${loc.lat.toFixed(4)}°N, ${loc.lng.toFixed(4)}°E</div>
-      `;
-      L.marker([loc.lat, loc.lng], { icon: pulseIcon() })
-        .addTo(map)
-        .bindPopup(popup, { closeButton: false });
-    });
-
-    // ── Fly-to ────────────────────────────────────────────────
-    function flyTo(lat, lng) {
-      map.flyTo([lat, lng], 15, { duration: 2, easeLinearity: 0.25 });
-    }
-  </script>
+</script>
 
 </body>
 </html>
