@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>LANKASWELL | The Southern Frontier</title>
+<title>LankaSwell | The Southern Frontier</title>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
-<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,700&f[]=instrument-sans@700&display=swap" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,700&f[]=instrument-sans@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 
 <style>
+
 :root{
-  --bone:#FBFAF8;
+  --bone:#ffffff;
   --obsidian:#1A1D1F;
-  --reef:#00E0D0;
+  --reef:#0095ff;
 }
 
 *{
@@ -24,21 +25,17 @@
   box-sizing:border-box;
 }
 
-html,body{
+html,
+body{
   width:100%;
   height:100%;
 }
 
 body{
-  background:#0f1112;
-  color:var(--bone);
   font-family:'Satoshi',sans-serif;
   overflow:hidden;
+  background:#dceef8;
 }
-
-/* =========================
-   MAP
-========================= */
 
 #map{
   position:absolute;
@@ -47,7 +44,7 @@ body{
 }
 
 .leaflet-container{
-  background:#0f1112 !important;
+  background:#dceef8 !important;
 }
 
 .leaflet-control-attribution{
@@ -55,27 +52,18 @@ body{
 }
 
 .leaflet-tile-pane{
-  filter:
-    contrast(1.15)
-    saturate(1.15)
-    brightness(.92);
+  filter:saturate(1.05) contrast(1.03);
 }
 
 .leaflet-popup-content-wrapper{
   border-radius:12px;
-  background:#16191b;
-  color:white;
-  box-shadow:0 8px 30px rgba(0,0,0,.35);
-}
-
-.leaflet-popup-tip{
-  background:#16191b;
+  box-shadow:0 8px 24px rgba(0,0,0,.12);
 }
 
 .popup-name{
   font-family:'Instrument Sans',sans-serif;
-  font-size:.9rem;
   font-weight:700;
+  font-size:.9rem;
 }
 
 .popup-coords{
@@ -85,26 +73,23 @@ body{
   margin-top:4px;
 }
 
-/* =========================
-   SONAR MARKER
-========================= */
+/* MARKERS */
 
 @keyframes sonar{
-  0%{
+  from{
     transform:scale(.6);
     opacity:.8;
   }
-
-  100%{
-    transform:scale(3.2);
+  to{
+    transform:scale(3);
     opacity:0;
   }
 }
 
 .marker-dot{
   position:relative;
-  width:16px;
-  height:16px;
+  width:22px;
+  height:22px;
 }
 
 .marker-dot .core{
@@ -112,12 +97,13 @@ body{
   inset:0;
 
   background:var(--reef);
-  border:3px solid white;
+
+  border:4px solid white;
   border-radius:50%;
 
   box-shadow:
-    0 0 10px rgba(0,224,208,.9),
-    0 0 24px rgba(0,224,208,.45);
+    0 0 12px rgba(0,149,255,.6),
+    0 0 28px rgba(0,149,255,.35);
 
   z-index:2;
 }
@@ -128,24 +114,21 @@ body{
   top:-8px;
   left:-8px;
 
-  width:32px;
-  height:32px;
+  width:38px;
+  height:38px;
 
   border-radius:50%;
   border:2px solid var(--reef);
 
-  animation:sonar 2.5s infinite;
+  animation:sonar 2.4s infinite;
 }
 
-/* =========================
-   OVERLAY
-========================= */
+/* OVERLAY */
 
 .overlay{
   position:absolute;
   inset:0;
   z-index:1000;
-
   pointer-events:none;
 
   display:flex;
@@ -153,16 +136,10 @@ body{
   justify-content:space-between;
 }
 
-/* =========================
-   HEADER
-========================= */
+/* HEADER */
 
 header{
   padding:2rem 3rem 0;
-
-  display:flex;
-  justify-content:space-between;
-
   pointer-events:auto;
 }
 
@@ -170,32 +147,24 @@ header{
   font-family:'Instrument Sans',sans-serif;
   font-size:1.5rem;
   font-weight:700;
-  letter-spacing:-0.04em;
-
-  color:white;
+  color:#111;
 }
 
 .brand-sub{
   font-family:'JetBrains Mono',monospace;
   font-size:.65rem;
-
   letter-spacing:.12em;
   text-transform:uppercase;
-
-  opacity:.5;
-  margin-top:2px;
+  opacity:.45;
 }
 
 .header-rule{
   height:1px;
   margin:1rem 3rem 0;
-
-  background:rgba(255,255,255,.08);
+  background:rgba(0,0,0,.08);
 }
 
-/* =========================
-   DESKTOP NAV
-========================= */
+/* NAVIGATION */
 
 .location-nav{
   position:absolute;
@@ -212,22 +181,23 @@ header{
 .nav-item{
   display:block;
 
-  border:none;
   background:none;
+  border:none;
 
-  color:white;
   cursor:pointer;
 
   font-family:'Instrument Sans',sans-serif;
   font-weight:700;
 
-  font-size:clamp(1.6rem,3vw,2.8rem);
+  font-size:clamp(1.5rem,3vw,2.8rem);
+
+  color:#111;
 
   opacity:.35;
 
-  transition:.3s;
+  margin-bottom:.6rem;
 
-  margin-bottom:.75rem;
+  transition:.25s;
 }
 
 .nav-item:hover{
@@ -243,17 +213,15 @@ header{
 .nav-meta{
   font-family:'JetBrains Mono',monospace;
   font-size:.65rem;
-  letter-spacing:.12em;
+
   text-transform:uppercase;
+  letter-spacing:.12em;
 
   opacity:.45;
-
   margin-top:1rem;
 }
 
-/* =========================
-   FOOTER
-========================= */
+/* FOOTER */
 
 footer{
   padding:0 3rem 1.5rem;
@@ -262,7 +230,7 @@ footer{
 
 .footer-rule{
   height:1px;
-  background:rgba(255,255,255,.08);
+  background:rgba(0,0,0,.08);
   margin-bottom:.75rem;
 }
 
@@ -274,14 +242,12 @@ footer{
 .footer-text{
   font-family:'JetBrains Mono',monospace;
   font-size:.55rem;
-  letter-spacing:.12em;
   text-transform:uppercase;
-  opacity:.4;
+  letter-spacing:.12em;
+  opacity:.45;
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* MOBILE */
 
 @media (max-width:768px){
 
@@ -293,41 +259,40 @@ footer{
     margin:.75rem 1rem 0;
   }
 
-  .brand-logo{
-    font-size:1.2rem;
-  }
-
   .location-nav{
-
-    top:auto;
-    bottom:5rem;
 
     left:50%;
     right:auto;
 
+    bottom:4.5rem;
+    top:auto;
+
     transform:translateX(-50%);
-
-    text-align:center;
-
-    background:rgba(10,10,10,.72);
-
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    border-radius:20px;
-
-    padding:1rem 1.25rem;
 
     width:calc(100% - 2rem);
     max-width:320px;
+
+    text-align:center;
+
+    background:rgba(20,25,30,.72);
+
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+
+    border-radius:20px;
+
+    padding:1rem;
   }
 
   .nav-item{
+    color:white;
     font-size:1rem;
-    margin-bottom:.4rem;
+    margin-bottom:.45rem;
     opacity:.85;
+  }
+
+  .nav-item.active{
+    color:#4db4ff;
   }
 
   .nav-meta{
@@ -345,7 +310,6 @@ footer{
 
 </style>
 </head>
-
 <body>
 
 <div id="map"></div>
@@ -409,7 +373,7 @@ const map = L.map('map',{
 });
 
 L.tileLayer(
-  'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+  'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
   {
     maxZoom:20
   }
@@ -424,8 +388,8 @@ function pulseIcon(){
         <div class="ring"></div>
       </div>
     `,
-    iconSize:[16,16],
-    iconAnchor:[8,8]
+    iconSize:[22,22],
+    iconAnchor:[11,11]
   });
 }
 
@@ -449,16 +413,15 @@ const locations = [
 
 locations.forEach(loc=>{
 
-  const popup=`
+  const popup = `
     <div class="popup-name">${loc.name}</div>
     <div class="popup-coords">
-      ${loc.lat.toFixed(4)}°N,
-      ${loc.lng.toFixed(4)}°E
+      ${loc.lat.toFixed(4)}°N, ${loc.lng.toFixed(4)}°E
     </div>
   `;
 
   L.marker(
-    [loc.lat,loc.lng],
+    [loc.lat, loc.lng],
     {icon:pulseIcon()}
   )
   .addTo(map)
@@ -468,9 +431,8 @@ locations.forEach(loc=>{
 
 function flyTo(lat,lng,button){
 
-  document
-    .querySelectorAll('.nav-item')
-    .forEach(btn=>btn.classList.remove('active'));
+  document.querySelectorAll('.nav-item')
+    .forEach(el=>el.classList.remove('active'));
 
   if(button){
     button.classList.add('active');
