@@ -352,6 +352,13 @@ function renderFeaturedCard(item) {
       <p>${escapeHTML(item.description)}</p>
 
       <div class="host-social" style="transform: scale(0.9); transform-origin: left center;">
+	  ${item.url ? `
+        <a href="${escapeHTML(item.url)}"
+           class="service-btn"
+           target="_blank">
+          ${escapeHTML(item.buttonText || "Contact")}
+        </a>
+      ` : ""} 
         ${item.instagram ? socialLink(
           item.instagram,
           "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg",
@@ -384,14 +391,6 @@ function renderFeaturedCard(item) {
           "Map"
         ) : ""}
       </div>
-
-      ${item.url ? `
-        <a href="${escapeHTML(item.url)}"
-           class="service-btn"
-           target="_blank">
-          ${escapeHTML(item.buttonText || "Contact")}
-        </a>
-      ` : ""}
     </div>
   `;
 }
