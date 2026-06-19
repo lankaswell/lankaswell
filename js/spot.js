@@ -435,13 +435,14 @@ function renderSurfModal(spot) {
   if (!modalContent) return;
 
   const stats = spot.stats || [];
+  const guide = spot.guide || {};
 
   modalContent.innerHTML = `
     <span class="modal-close" onclick="closeSurfModal()">&times;</span>
 
     <h2>${escapeHTML(spot.name)}</h2>
 
-    <p>${escapeHTML(spot.description)}</p>
+    <p>${escapeHTML(spot.description || "")}</p>
 
     ${stats.length ? `
       <div class="modal-grid">
@@ -451,9 +452,49 @@ function renderSurfModal(spot) {
       </div>
     ` : ""}
 
-    ${spot.waves ? modalSection("Wave Characteristics", spot.waves) : ""}
-    ${spot.hazards ? modalSection("Hazards", spot.hazards) : ""}
-    ${spot.best ? modalSection("Best Conditions", spot.best) : ""}
+    ${guide.image ? `
+      <img
+        src="${escapeHTML(guide.image)}"
+        alt="${escapeHTML(spot.name)} Surf Guide"
+        style="
+          width:100%;
+          border-radius:14px;
+          margin:20px 0;
+          display:block;
+        "
+      >
+    ` : ""}
+
+    ${guide.areas?.length ? `
+      <div class="surf-guide">
+        ${guide.areas.map(area => `
+          <div class="modal-section">
+            <h3>
+              ${escapeHTML(area.number)}.
+              ${escapeHTML(area.title)}
+            </h3>
+
+            <p>
+              ${escapeHTML(area.description)}
+            </p>
+          </div>
+        `).join("")}
+      </div>
+    ` : ""}
+
+    ${guide.safety?.length ? `
+      <div class="modal-section">
+        <h3>⚠️ Safety Information</h3>
+
+        <ul style="padding-left:20px;">
+          ${guide.safety.map(item => `
+            <li style="margin-bottom:10px;">
+              ${escapeHTML(item)}
+            </li>
+          `).join("")}
+        </ul>
+      </div>
+    ` : ""}
   `;
 }
 

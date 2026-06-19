@@ -165,18 +165,44 @@
 	"lat": "5.938463202710493", 
 	"lng": "80.46808120169506",
 
-    "stats": [
-      "Reef Break",
-      "Intermediate",
-      "Best Season: Nov-Apr",
-      "Warm Water",
-      "Best Tide: Mid Tide",
-      "Scenic Lineup"
-    ],
+    "guide": {
+	  "image": "img/templepoint-guide.webp",
 
-    "waves": "Can produce clean, fun walls when swell and tide match. Best for surfers who are comfortable around reef.",
-    "hazards": "Reef, shallow sections, currents, and occasional crowd pressure.",
-    "best": "Morning sessions with clean wind and moderate swell are usually the safest bet.",
+	  "areas": [
+		{
+		  "number": 1,
+		  "title": "Main Entrance (Recommended)",
+		  "description": "This is the easiest way to access the surf point. You can walk down through the mountain path from Odin's Restaurant. At the bottom, you will find a couple of rocks that you need to cross carefully. They can be very slippery, especially when wet. When exiting the surf point, it is usually better to use Route 2 and head all the way to the beach. During larger surf, it can be difficult to exit safely from the same place you entered at Point 1."
+		},
+		{
+		  "number": 2,
+		  "title": "Alternative Entrance",
+		  "description": "Another way to reach the surf point is from Sunset Bar Beach. You can enter the water there and swim across. While passing this area, watch out for two rocks that sit near the surface. At times, you may experience a current drifting toward the Parrot Rock side. It is usually not dangerous, but do not allow it to carry you too far. Try to stay in deeper water and make your way toward Area 4."
+		},
+		{
+		  "number": 3,
+		  "title": "Rocky Entrance",
+		  "description": "This is another possible entrance to the surf point. However, there are many rocks in this area, so proceed carefully and always be aware of your surroundings."
+		},
+		{
+		  "number": 4,
+		  "title": "Main Lineup",
+		  "description": "This is the main surfing area. You can catch both left and right waves from this position, directly in front of the rocks. This is generally the best place to wait for waves."
+		},
+		{
+		  "number": 5,
+		  "title": "Mountain Reef (Danger Zone)",
+		  "description": "Always stay clear of this area. The Mountain Reef is shallow and can be dangerous, especially during larger swells. If you find yourself drifting onto the reef, paddling straight out may be difficult. Instead, move left or right with the current and work your way back toward Area 4 before heading out."
+		}
+	  ],
+
+	  "safety": [
+		"Always check the conditions before entering the water. Currents, wave size, and reef exposure can change throughout the day.",
+		"Make sure your leash is in good condition before surfing. If your leash breaks, there is a high chance you will not recover your board without damage. In some situations, you may also need assistance from other surfers to get back safely.",
+		"If you lose your board, do not panic. If it is close enough, try to recover it safely. If it is too far away, forget the board and focus on your own safety. Exit the surf point using Route 1, 2, or 3, follow the current, and remain calm.",
+		"This surf break is generally not beginner friendly, especially if you are surfing alone. It is best suited for intermediate to advanced surfers."
+	  ]
+	}
 
     "host": {
       "name": "ODIN'S",
