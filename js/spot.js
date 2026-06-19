@@ -335,55 +335,63 @@ function renderServices(spot) {
 
 function renderFeaturedCard(item) {
   return `
-    <div class="featured-card compact">
+    <div class="featured-card">
+      <div class="featured-badge">FEATURED</div>
 
       ${item.image ? `
-        <img src="${escapeHTML(item.image)}"
-             alt="${escapeHTML(item.title)}"
-             class="featured-logo">
+        <img
+          src="${escapeHTML(item.image)}"
+          alt="${escapeHTML(item.title)}"
+          class="host-image"
+          style="width:64px;height:64px;object-fit:cover;border-radius:12px;margin-bottom:10px;"
+        >
       ` : ""}
 
-      <div class="featured-main">
-        <h4>${escapeHTML(item.title)}</h4>
-        <p>${escapeHTML(item.description || "")}</p>
+      <h4>${escapeHTML(item.title)}</h4>
 
-        <div class="featured-actions">
+      <p>${escapeHTML(item.description)}</p>
 
-          ${item.instagram ? `
-            <a href="${escapeHTML(item.instagram)}" target="_blank" class="icon-btn">
-              <i class="fab fa-instagram"></i>
-            </a>
-          ` : ""}
+      <div class="host-social" style="transform: scale(0.9); transform-origin: left center;">
+        ${item.instagram ? socialLink(
+          item.instagram,
+          "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg",
+          "Instagram"
+        ) : ""}
 
-          ${item.whatsapp ? `
-            <a href="https://wa.me/${item.whatsapp.replace(/\D/g,'')}" target="_blank" class="icon-btn">
-              <i class="fab fa-whatsapp"></i>
-            </a>
-          ` : ""}
+        ${item.facebook ? socialLink(
+          item.facebook,
+          "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg",
+          "Facebook"
+        ) : ""}
 
-          ${item.website ? `
-            <a href="${escapeHTML(item.website)}" target="_blank" class="icon-btn">
-              <i class="fas fa-globe"></i>
-            </a>
-          ` : ""}
+        ${item.website ? socialLink(
+          item.website,
+          "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/globe.svg",
+          "Website"
+        ) : ""}
 
-          ${item.mapUrl ? `
-            <a href="${escapeHTML(item.mapUrl)}" target="_blank" class="icon-btn">
-              <i class="fas fa-location-dot"></i>
-            </a>
-          ` : ""}
+        ${item.whatsapp ? socialLink(
+          item.whatsapp.startsWith("http")
+            ? item.whatsapp
+            : "https://wa.me/" + item.whatsapp.replace(/\D/g, ""),
+          "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/telephone-fill.svg",
+          "WhatsApp"
+        ) : ""}
 
-        </div>
-
-        ${item.url ? `
-          <a href="${escapeHTML(item.url)}"
-             target="_blank"
-             class="featured-btn">
-            ${escapeHTML(item.buttonText || "Book")}
-          </a>
-        ` : ""}
+        ${item.mapUrl ? socialLink(
+          item.mapUrl,
+          "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/geo-alt-fill.svg",
+          "Map"
+        ) : ""}
       </div>
 
+      ${item.url ? `
+        <a href="${escapeHTML(item.url)}"
+           class="service-btn"
+           target="_blank">
+          ${escapeHTML(item.buttonText || "Contact")}
+        </a>
+      ` : ""}
     </div>
   `;
 }
@@ -407,7 +415,8 @@ function renderFeaturedCard(item) {
       ` : ""}
     </div>
   `;
-}*/
+}
+*/
 
 function renderServiceCard(item) {
   return `
