@@ -261,11 +261,11 @@ function renderHostVenue(spot) {
   hostSection.style.display = "";
 
   hostSection.innerHTML = `
-    <img
+    <!--<img
       src="${escapeHTML(host.image || "")}"
       alt="${escapeHTML(host.name || "Camera host")}"
       class="host-image"
-    >
+    >-->
 
     <div class="host-content">
       <div class="host-badge">Camera Hosted By</div>
@@ -352,13 +352,7 @@ function renderFeaturedCard(item) {
       <p>${escapeHTML(item.description)}</p>
 
       <div class="host-social" style="transform: scale(0.9); transform-origin: left center;">
-	  ${item.url ? `
-        <a href="${escapeHTML(item.url)}"
-           class="service-btn"
-           target="_blank">
-          ${escapeHTML(item.buttonText || "Contact")}
-        </a>
-      ` : ""} 
+	  Contacts:
         ${item.instagram ? socialLink(
           item.instagram,
           "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg",
