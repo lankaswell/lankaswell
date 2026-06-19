@@ -242,7 +242,7 @@ function renderButtons(spot) {
     </a>
 
     <a class="btn btn-secondary" href="#" onclick="openSurfModal(); return false;">
-      Surf Spot Info
+      Surf Spot Guide
     </a>
   `;
 }
