@@ -268,7 +268,7 @@ function renderHostVenue(spot) {
     >-->
 
     <div class="host-content">
-      <div class="host-badge">Camera Hosted By</div>
+      <div class="host-badge">Camera Hosted By ❤️</div>
 
       <h3>${escapeHTML(host.name)}</h3>
 
