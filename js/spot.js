@@ -337,15 +337,18 @@ function renderFeaturedCard(item) {
   return `
     <div class="featured-card">
       <div class="featured-badge">FEATURED</div>
-
-      ${item.image ? `
+	  
+	  <div class="featured-logo-wrapper">
+		<img src="img/logo.webp" class="lankaswell-watermark">
+		${item.image ? `
         <img
           src="${escapeHTML(item.image)}"
           alt="${escapeHTML(item.title)}"
-          class="host-image"
+          class="featured-logo"
           style="width:64px;height:64px;object-fit:cover;border-radius:12px;margin-bottom:10px;"
         >
       ` : ""}
+	  </div>
 
       <h4>${escapeHTML(item.title)}</h4>
 
