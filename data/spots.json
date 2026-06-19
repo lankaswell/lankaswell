@@ -51,8 +51,7 @@
         "description": "Surf Coach for Every Level, whitewash to pro, with video feedback!",
         "buttonText": "Book Lesson",
 		"instagram": "https://www.instagram.com/saltnsurfahangama?igsh=Z2VhaDMwNHdoOHpp",
-		"whatsapp" : "+94766836232",
-        "url": "https://wa.me/+94766836232"
+		"whatsapp" : "https://wa.me/+94766836232"
       },
       {
         "icon": "📸",
@@ -134,8 +133,12 @@
     "featuredPartners": [
       {
         "icon": "☕",
-        "title": "Beach Coffee",
-        "description": "Coffee and breakfast close to the point.",
+        "title": "Eli's Stroopwafels & Coffee",
+		"image": "img/elisstroopwafel-logo.jpg",
+        "description": "Freshly made Sroopwafels & Coffee. Taste a bit of The Netherlands in Mirissa!",
+		"instagram": "https://www.instagram.com/elis_stroopwafels/",
+		"mapUrl": "https://maps.app.goo.gl/iQGWKXvL2DVgeTJ8A",
+		"whatsapp": "https://wa.me/+94740323870",
         "buttonText": "See Location",
         "url": "https://example.com"
       }
