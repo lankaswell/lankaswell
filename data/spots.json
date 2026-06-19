@@ -46,9 +46,11 @@
     "featuredPartners": [
       {
         "icon": "🏄",
-        "title": "Marshmallow Surf School",
-        "description": "Private beginner and intermediate surf lessons directly at Marshmallow Point.",
+        "title": "Surf School : Salt n Surf Ahangama",
+        "description": "Surf Coach for Every Level",
         "buttonText": "Book Lesson",
+		"instagram": "https://www.instagram.com/saltnsurfahangama?igsh=Z2VhaDMwNHdoOHpp"
+		"whatsapp" : "+94766836232",
         "url": "https://wa.me/94773100884"
       },
       {

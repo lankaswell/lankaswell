@@ -335,6 +335,62 @@ function renderServices(spot) {
 
 function renderFeaturedCard(item) {
   return `
+    <div class="featured-card compact">
+
+      ${item.image ? `
+        <img src="${escapeHTML(item.image)}"
+             alt="${escapeHTML(item.title)}"
+             class="featured-logo">
+      ` : ""}
+
+      <div class="featured-main">
+        <h4>${escapeHTML(item.title)}</h4>
+        <p>${escapeHTML(item.description || "")}</p>
+
+        <div class="featured-actions">
+
+          ${item.instagram ? `
+            <a href="${escapeHTML(item.instagram)}" target="_blank" class="icon-btn">
+              <i class="fab fa-instagram"></i>
+            </a>
+          ` : ""}
+
+          ${item.whatsapp ? `
+            <a href="https://wa.me/${item.whatsapp.replace(/\D/g,'')}" target="_blank" class="icon-btn">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+          ` : ""}
+
+          ${item.website ? `
+            <a href="${escapeHTML(item.website)}" target="_blank" class="icon-btn">
+              <i class="fas fa-globe"></i>
+            </a>
+          ` : ""}
+
+          ${item.mapUrl ? `
+            <a href="${escapeHTML(item.mapUrl)}" target="_blank" class="icon-btn">
+              <i class="fas fa-location-dot"></i>
+            </a>
+          ` : ""}
+
+        </div>
+
+        ${item.url ? `
+          <a href="${escapeHTML(item.url)}"
+             target="_blank"
+             class="featured-btn">
+            ${escapeHTML(item.buttonText || "Book")}
+          </a>
+        ` : ""}
+      </div>
+
+    </div>
+  `;
+}
+
+/*
+function renderFeaturedCard(item) {
+  return `
     <div class="featured-card">
       <div class="featured-badge">FEATURED</div>
 
@@ -351,7 +407,7 @@ function renderFeaturedCard(item) {
       ` : ""}
     </div>
   `;
-}
+}*/
 
 function renderServiceCard(item) {
   return `
