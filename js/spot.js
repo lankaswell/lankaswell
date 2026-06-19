@@ -343,7 +343,7 @@ function renderFeaturedCard(item) {
         <img
           src="${escapeHTML(item.image)}"
           alt="${escapeHTML(item.title)}"
-          class="featured-logo"
+          class="host-image"
           style="width:64px;height:64px;object-fit:cover;border-radius:12px;margin-bottom:10px;"
         >
       ` : ""}
