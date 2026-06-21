@@ -495,6 +495,10 @@ function renderSurfModal(spot) {
         </ul>
       </div>
     ` : ""}
+	
+	<div class="surf-copyright">
+  © ${new Date().getFullYear()} LankaSwell. All surf guides, descriptions and visuals are original content and may not be copied or redistributed without permission.
+</div>
   `;
 }
 
@@ -505,6 +509,7 @@ function modalSection(title, text) {
       <p>${escapeHTML(text)}</p>
     </div>
   `;
+  
 }
 
 function renderVenueModal(spot) {
@@ -614,3 +619,32 @@ window.openSurfModal = openSurfModal;
 window.closeSurfModal = closeSurfModal;
 window.openVenueModal = openVenueModal;
 window.closeVenueModal = closeVenueModal;
+
+const surfModal = document.getElementById("surfModal");
+
+if (surfModal) {
+
+  // Right click
+  surfModal.addEventListener("contextmenu", e => {
+    e.preventDefault();
+  });
+
+  // Copy / cut / paste
+  surfModal.addEventListener("copy", e => e.preventDefault());
+  surfModal.addEventListener("cut", e => e.preventDefault());
+  surfModal.addEventListener("paste", e => e.preventDefault());
+
+  // Keyboard shortcuts (Ctrl/Cmd + C/X/A)
+  document.addEventListener("keydown", e => {
+    const isOpen = surfModal.classList.contains("active");
+
+    if (!isOpen) return;
+
+    if ((e.ctrlKey || e.metaKey)) {
+      const key = e.key.toLowerCase();
+      if (["c", "x", "a"].includes(key)) {
+        e.preventDefault();
+      }
+    }
+  });
+}
