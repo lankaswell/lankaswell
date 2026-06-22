@@ -25,7 +25,9 @@
     "host": {
       "name": "Follow The White Rabbit",
       "description": "Established in 2018 and renowned for its diverse menu, the restaurant offers freshly prepared, locally sourced dishes, with vegetarian, vegan, and gluten-free options. Whether it’s brunch, tapas, or dinner, savor each bite as you overlook Ahangama’s stunning beach.",
-      "image": "img/ftwr-thumb.webp",
+	  "images": [
+		  "img/ftwr-thumb.webp"
+		],
       "instagram": "https://www.instagram.com/followthewhiterabbitahangama",
       "facebook": "https://www.facebook.com/fwrabbitahangama",
       "phone": "+94773100884",
@@ -165,7 +167,9 @@
     "host": {
       "name": "A++ Restaurant",
       "description": "Beachfront restaurant in Mirissa, Sri Lanka. Located right in front of the main surf point, it offers an incredible mix of Sri Lankan, Mexican, and European dishes, alongside excellent coffee and cocktails, all with stunning ocean views.",
-      "image": "img/aplusplus-thumb.webp",
+      "images": [
+		"img/aplusplus-thumb.webp"
+		],
       "instagram": "https://www.instagram.com/a_plus_plus_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
       "facebook": "https://www.facebook.com/p/A-Plus-plus-100083418226840/",
       "phone": "+94785809083",
@@ -259,7 +263,9 @@
     "host": {
       "name": "ODIN'S",
       "description": "Odin near Coconut Tree Hill is pure slow mood. Coconut trees moving to their own rhythm, waves on loop, sunlight doing magic on the table. Peak Sri Lanka.",
-      "image": "img/odins-thumb.webp",
+      "images": [
+		"img/odins-thumb.webp"
+		],
       "instagram": "https://www.instagram.com/odins.lk/?hl=en",
       "phone": "+94779465776"
     },

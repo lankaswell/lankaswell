@@ -779,6 +779,64 @@ footer{
     }
 }
 
+.venue-slider{
+  position:relative;
+  margin:12px 0;
+}
+
+.venue-slide-image{
+  width:100%;
+  height:320px;
+  object-fit:cover;
+  border-radius:14px;
+  display:block;
+}
+
+.venue-prev,
+.venue-next{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:40px;
+  height:40px;
+
+  border:none;
+  border-radius:50%;
+
+  background:rgba(0,0,0,0.5);
+  color:white;
+
+  cursor:pointer;
+  font-size:1.2rem;
+}
+
+.venue-prev{
+  left:10px;
+}
+
+.venue-next{
+  right:10px;
+}
+
+.venue-dots{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  margin-top:10px;
+}
+
+.venue-dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#ccc;
+  cursor:pointer;
+}
+
+.venue-dot.active{
+  background:var(--ocean);
+}
+
 </style>
 </head>
 

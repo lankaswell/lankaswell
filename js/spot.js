@@ -500,6 +500,42 @@ function renderSurfModal(spot) {
   © ${new Date().getFullYear()} LankaSwell. All surf guides, descriptions and visuals are original content and may not be copied or redistributed without permission.
 </div>
   `;
+  if (host.images?.length > 1) {
+	  let current = 0;
+
+	  const img = modalContent.querySelector(".venue-slide-image");
+	  const prev = modalContent.querySelector(".venue-prev");
+	  const next = modalContent.querySelector(".venue-next");
+	  const dots = modalContent.querySelectorAll(".venue-dot");
+
+	  function show(index){
+		current = index;
+
+		img.src = host.images[current];
+
+		dots.forEach((d,i)=>{
+		  d.classList.toggle("active", i === current);
+		});
+	  }
+
+	  prev?.addEventListener("click", () => {
+		show((current - 1 + host.images.length) % host.images.length);
+	  });
+
+	  next?.addEventListener("click", () => {
+		show((current + 1) % host.images.length);
+	  });
+
+	  dots.forEach(dot=>{
+		dot.addEventListener("click", ()=>{
+		  show(Number(dot.dataset.index));
+		});
+	  });
+
+	  setInterval(()=>{
+		show((current + 1) % host.images.length);
+	  }, 5000);
+	}
 }
 
 function modalSection(title, text) {
@@ -534,13 +570,31 @@ function renderVenueModal(spot) {
 
     <p>${escapeHTML(host.description || "Local venue supporting this LankaSwell camera.")}</p>
 
-    ${host.image ? `
-      <img
-        src="${escapeHTML(host.image)}"
-        alt="${escapeHTML(host.name)}"
-        style="width:100%;border-radius:14px;margin:12px 0;"
-      >
-    ` : ""}
+    ${host.images?.length ? `
+	  <div class="venue-slider">
+		<button class="venue-prev">&#10094;</button>
+
+		<img
+		  class="venue-slide-image"
+		  src="${escapeHTML(host.images[0])}"
+		  alt="${escapeHTML(host.name)}"
+		>
+
+		<button class="venue-next">&#10095;</button>
+
+		<div class="venue-dots">
+		  ${host.images.map((_,i)=>`
+			<span class="venue-dot ${i===0 ? 'active' : ''}" data-index="${i}"></span>
+		  `).join("")}
+		</div>
+	  </div>
+	` : host.image ? `
+	  <img
+		src="${escapeHTML(host.image)}"
+		alt="${escapeHTML(host.name)}"
+		style="width:100%;border-radius:14px;margin:12px 0;"
+	  >
+	` : ""}
 
     ${discount?.enabled ? `
       <h3>Exclusive LankaSwell Offer</h3>
