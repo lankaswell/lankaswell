@@ -453,17 +453,14 @@ function renderSurfModal(spot) {
     ` : ""}
 
     ${guide.image ? `
-      <img
-        src="${escapeHTML(guide.image)}"
-        alt="${escapeHTML(spot.name)} Surf Guide"
-        style="
-          width:100%;
-          border-radius:14px;
-          margin:20px 0;
-          display:block;
-        "
-      >
-    ` : ""}
+  <div class="guide-image-sticky">
+    <img
+      src="${escapeHTML(guide.image)}"
+      alt="${escapeHTML(spot.name)} Surf Guide"
+      class="guide-image"
+    >
+  </div>
+` : ""}}
 
     ${guide.areas?.length ? `
       <div class="surf-guide">
