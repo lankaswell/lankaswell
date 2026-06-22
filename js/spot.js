@@ -536,21 +536,29 @@ function renderVenueModal(spot) {
 
     ${host.images?.length ? `
 	  <div class="venue-slider">
-		<button class="venue-prev">&#10094;</button>
 
-		<img
-		  class="venue-slide-image"
-		  src="${escapeHTML(host.images[0])}"
-		  alt="${escapeHTML(host.name)}"
-		>
+		<button class="venue-prev" type="button">&#10094;</button>
 
-		<button class="venue-next">&#10095;</button>
+		<div class="venue-viewport">
+		  <div class="venue-track">
+			${host.images.map(img => `
+			  <img
+				src="${escapeHTML(img)}"
+				alt="${escapeHTML(host.name)}"
+				loading="lazy"
+			  >
+			`).join("")}
+		  </div>
+		</div>
+
+		<button class="venue-next" type="button">&#10095;</button>
 
 		<div class="venue-dots">
-		  ${host.images.map((_,i)=>`
-			<span class="venue-dot ${i===0 ? 'active' : ''}" data-index="${i}"></span>
+		  ${host.images.map((_, i) => `
+			<span class="venue-dot ${i === 0 ? 'active' : ''}" data-index="${i}"></span>
 		  `).join("")}
 		</div>
+
 	  </div>
 	` : host.image ? `
 	  <img
@@ -590,17 +598,16 @@ function renderVenueModal(spot) {
   `;
   
   if (host.images?.length > 1) {
+
 	  let current = 0;
 
-	  const img = modalContent.querySelector(".venue-slide-image");
+	  const track = modalContent.querySelector(".venue-track");
 	  const prev = modalContent.querySelector(".venue-prev");
 	  const next = modalContent.querySelector(".venue-next");
 	  const dots = modalContent.querySelectorAll(".venue-dot");
 
-	  function show(index){
-		current = index;
-
-		img.src = host.images[current];
+	  function update(){
+		track.style.transform = `translateX(-${current * 100}%)`;
 
 		dots.forEach((d,i)=>{
 		  d.classList.toggle("active", i === current);
@@ -608,22 +615,21 @@ function renderVenueModal(spot) {
 	  }
 
 	  prev?.addEventListener("click", () => {
-		show((current - 1 + host.images.length) % host.images.length);
+		current = (current - 1 + host.images.length) % host.images.length;
+		update();
 	  });
 
 	  next?.addEventListener("click", () => {
-		show((current + 1) % host.images.length);
+		current = (current + 1) % host.images.length;
+		update();
 	  });
 
-	  dots.forEach(dot=>{
-		dot.addEventListener("click", ()=>{
-		  show(Number(dot.dataset.index));
+	  dots.forEach(dot => {
+		dot.addEventListener("click", () => {
+		  current = Number(dot.dataset.index);
+		  update();
 		});
 	  });
-
-	  setInterval(()=>{
-		show((current + 1) % host.images.length);
-	  }, 5000);
 	}
 }
 
