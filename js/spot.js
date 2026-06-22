@@ -241,7 +241,7 @@ function renderButtons(spot) {
       Let's go!
     </a>
 
-    <a class="btn btn-secondary" href="#" onclick="openSurfModal(); return false;">
+    <a class="btn btn-secondary surf-guide-btn" href="#" onclick="openSurfModal(); return false;">
       Surf Spot Guide
     </a>
   `;
