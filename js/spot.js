@@ -436,7 +436,6 @@ function renderSurfModal(spot) {
 
   const stats = spot.stats || [];
   const guide = spot.guide || {};
-  const host = spot.host;
 
   modalContent.innerHTML = `
     <span class="modal-close" onclick="closeSurfModal()">&times;</span>
@@ -501,42 +500,6 @@ function renderSurfModal(spot) {
   © ${new Date().getFullYear()} LankaSwell. All surf guides, descriptions and visuals are original content and may not be copied or redistributed without permission.
 </div>
   `;
-  if (host.images?.length > 1) {
-	  let current = 0;
-
-	  const img = modalContent.querySelector(".venue-slide-image");
-	  const prev = modalContent.querySelector(".venue-prev");
-	  const next = modalContent.querySelector(".venue-next");
-	  const dots = modalContent.querySelectorAll(".venue-dot");
-
-	  function show(index){
-		current = index;
-
-		img.src = host.images[current];
-
-		dots.forEach((d,i)=>{
-		  d.classList.toggle("active", i === current);
-		});
-	  }
-
-	  prev?.addEventListener("click", () => {
-		show((current - 1 + host.images.length) % host.images.length);
-	  });
-
-	  next?.addEventListener("click", () => {
-		show((current + 1) % host.images.length);
-	  });
-
-	  dots.forEach(dot=>{
-		dot.addEventListener("click", ()=>{
-		  show(Number(dot.dataset.index));
-		});
-	  });
-
-	  setInterval(()=>{
-		show((current + 1) % host.images.length);
-	  }, 5000);
-	}
 }
 
 function modalSection(title, text) {
@@ -625,6 +588,43 @@ function renderVenueModal(spot) {
       ` : ""}
     ` : ""}
   `;
+  
+  if (host.images?.length > 1) {
+	  let current = 0;
+
+	  const img = modalContent.querySelector(".venue-slide-image");
+	  const prev = modalContent.querySelector(".venue-prev");
+	  const next = modalContent.querySelector(".venue-next");
+	  const dots = modalContent.querySelectorAll(".venue-dot");
+
+	  function show(index){
+		current = index;
+
+		img.src = host.images[current];
+
+		dots.forEach((d,i)=>{
+		  d.classList.toggle("active", i === current);
+		});
+	  }
+
+	  prev?.addEventListener("click", () => {
+		show((current - 1 + host.images.length) % host.images.length);
+	  });
+
+	  next?.addEventListener("click", () => {
+		show((current + 1) % host.images.length);
+	  });
+
+	  dots.forEach(dot=>{
+		dot.addEventListener("click", ()=>{
+		  show(Number(dot.dataset.index));
+		});
+	  });
+
+	  setInterval(()=>{
+		show((current + 1) % host.images.length);
+	  }, 5000);
+	}
 }
 
 /* =========================================================
