@@ -436,6 +436,7 @@ function renderSurfModal(spot) {
 
   const stats = spot.stats || [];
   const guide = spot.guide || {};
+  const host = spot.host;
 
   modalContent.innerHTML = `
     <span class="modal-close" onclick="closeSurfModal()">&times;</span>
