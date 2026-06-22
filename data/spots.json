@@ -90,25 +90,68 @@
   "mirissa-point": {
     "name": "MIRISSA POINT",
 	"title": "Mirissa Point",
-    "description": "Mirissa Point is a scenic reef and point setup with long walls on the right swell. A great spot to check before driving across the south coast.",
+    "description": "Mirissa Surf Point is a super fun and scenic right-hand reef break. The wave peels cleanly, making it easy to catch and ride. On a good swell, the wave opens up with nice speed, occasionally offering clean, hollow little barrels. It is a fantastic spot to get long rides and enjoy a great tropical session, making it best suited for intermediate to advanced surfers. ",
     "stream": "https://lankaswell.com/live/mirissapoint/index.m3u8",
     "path": "mirissapoint",
     "mapUrl": "https://maps.app.goo.gl/7FfEvJTWzLL12WdG7",
 	"lat": "5.94367887022686",
 	"lng": "80.45492100038744",
 
-    "stats": [
-      "Point Break",
-      "Intermediate",
-      "Best Season: Nov-Apr",
-      "Reef & Rock",
-      "Best Tide: Mid to High",
-      "Mostly Rights"
-    ],
+    "guide": {
+	  "image": "img/guides/mirissapoint-guide.webp",
+	  
+	  "areas": [
+		{
+		  "number": 1,
+		  "title": "Primary Entrance & Paddle-Out Route",
+		  "description": "This is the safest and easiest entrance to the surf point. Before paddling out, pick out a landmark on the shore—a distinct tree works perfectly. Having a clear landmark will help you navigate back to your exit point when you come in. Hazard: always be aware of Rock 8, which sits at surface level and can be hard to see depending on the tide. Stay 2 to 4 feet to the right side of Rock 8 and do not drift too far past it, as beyond this point the reef becomes very shallow and heavy. Seasonal changes also affect this entrance: sometimes it is covered in sand, while other times rocks are exposed. If walking over rocks, watch for sea urchins."
+		},
+		{
+		  "number": 2,
+		  "title": "Alternative Beach Entrance",
+		  "description": "Alternative entry point that works when the reef is covered by sand. However, this sand cover is rare, leaving behind sharp and shallow reef. Unless you are certain of safe sand coverage, this entrance is not recommended."
+		},
+		{
+		  "number": 3,
+		  "title": "Outer Paddle-Out Channel (Long Route)",
+		  "description": "A longer but safer paddle-out route that takes you from the beach, around the main rock formation, and into the lineup. Recommended for beginners or surfers with limited board control. Always maintain distance from rocks, especially during high swell conditions."
+		},
+		{
+		  "number": 4,
+		  "title": "Impact Zone Rock",
+		  "description": "A heavily exposed rock covered in sea urchins. Never walk or climb on it. If a wave pushes you toward this area, kick out early or move into deeper water before reaching the rock."
+		},
+		{
+		  "number": 5,
+		  "title": "Rip Current / Deep Water Passage",
+		  "description": "Strong natural current formed by water flowing from multiple areas. On larger days, paddling straight back out from inside sections can be very difficult. Use this current to your advantage by moving into it and allowing it to carry you back toward the main lineup."
+		},
+		{
+		  "number": 6,
+		  "title": "General Impact Zone (Shallow Reef)",
+		  "description": "A wide shallow reef area where falling often results in foot contact with the bottom. Never dive headfirst here. If you must walk on the reef, move carefully and be aware of sea urchins."
+		},
+		{
+		  "number": 7,
+		  "title": "Main Peak / Lineup",
+		  "description": "Primary take-off zone where waves break. This area can get crowded, so maintain awareness, respect other surfers, and avoid dropping in on locals."
+		},
+		{
+		  "number": 8,
+		  "title": "Surface Rock",
+		  "description": "A hazardous rock sitting at water level. Avoid it completely when entering or exiting the surf zone, especially when returning to shore."
+		}
+	  ],
 
-    "waves": "Longer, cleaner walls can appear when the swell direction lines up. Smaller days can be playful, while bigger days are better for experienced surfers.",
-    "hazards": "Reef, rocks, crowds, and changing currents. Respect local surfers and avoid paddling out beyond your ability.",
-    "best": "Early mornings with light offshore wind and organised south-west swell are usually best.",
+  "safety": [
+    "Always check swell, tide, and reef exposure before entering the water.",
+    "Use a clear shoreline landmark to orient your entry and exit point.",
+    "Avoid Rock 8 and shallow reef zones at all times.",
+    "Do not dive headfirst in shallow reef areas.",
+    "Respect local surfers and avoid drop-ins at the main peak.",
+    "Sea urchins are common in exposed reef sections—move carefully if walking."
+  ]
+},
 
     "host": {
       "name": "A++ Restaurant",
