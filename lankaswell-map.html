@@ -203,28 +203,54 @@ function icon(){
 
 // SPOTS
 const spots = [
-  {name:"Marshmallow",lat:5.9733,lng:80.3575},
-  {name:"Mirissa Point",lat:5.9436,lng:80.4549},
-  {name:"Temple Point",lat:5.9384,lng:80.4680}
+  {
+    name:"Marshmallow",
+    lat:5.9733,
+    lng:80.3575,
+    url:"spot-template.html?id=marshmallow"
+  },
+  {
+    name:"Mirissa Point",
+    lat:5.9436,
+    lng:80.4549,
+    url:"spot-template.html?id=mirissa-point"
+  },
+  {
+    name:"Temple Point",
+    lat:5.9384,
+    lng:80.4680,
+    url:"spot-template.html?id=temple-point"
+  }
 ];
 
 spots.forEach(s=>{
 
   const popup = `
-    <div class="popup-name">${s.name}</div>
-    <div class="popup-coords">
-      ${s.lat.toFixed(4)}, ${s.lng.toFixed(4)}
-    </div>
-  `;
+  <div class="popup-name">${s.name}</div>
 
-  L.marker([s.lat,s.lng],{icon:icon()})
-    .addTo(map)
-    .bindPopup(popup,{closeButton:false});
+  <div class="popup-coords">
+    ${s.lat.toFixed(4)}, ${s.lng.toFixed(4)}
+  </div>
+
+  <a href="${s.url}" style="
+    display:inline-block;
+    margin-top:8px;
+    font-weight:700;
+    color:#008CFF;
+    text-decoration:none;
+  ">
+    → Open Live Camera
+  </a>
+`;
+
+  s.marker = L.marker([s.lat,s.lng],{icon:icon()})
+  .addTo(map)
+  .bindPopup(popup,{closeButton:false});
 
 });
 
 // NAV LOGIC
-function flyTo(lat,lng,btn){
+function flyTo(lat,lng,btn,spotName){
 
   document.querySelectorAll(".nav button")
     .forEach(b=>b.classList.remove("active"));
@@ -234,6 +260,14 @@ function flyTo(lat,lng,btn){
   map.flyTo([lat,lng],14,{
     duration:1.8
   });
+
+  // OPEN POPUP AFTER ANIMATION
+  const spot = spots.find(s => s.name === spotName);
+  if(spot && spot.marker){
+    setTimeout(()=>{
+      spot.marker.openPopup();
+    }, 1800); // match flyTo duration
+  }
 }
 
 </script>
