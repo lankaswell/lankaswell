@@ -843,57 +843,65 @@ footer{
 }
 
 /* =========================
-   HERO SECTION
+   FULL WIDTH HERO (SAFE)
 ========================= */
 
-.spot-hero{
+.spot-hero-full{
   position:relative;
+
   width:100%;
-  height:clamp(180px, 28vw, 260px);
+  height:clamp(220px, 35vw, 420px);
+
   overflow:hidden;
-  border-radius:0 0 20px 20px;
 }
 
-.spot-hero img{
+.spot-hero-full img{
   width:100%;
   height:100%;
   object-fit:cover;
-  filter:brightness(0.75);
 }
 
+/* dark overlay for readability */
+.spot-hero-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to top,
+    rgba(0,0,0,0.55),
+    rgba(0,0,0,0.1)
+  );
+}
+
+/* TITLE */
 .spot-hero-title{
   position:absolute;
-  bottom:14px;
-  left:14px;
+  bottom:20px;
+  left:20px;
 
-  font-size:clamp(1.2rem, 2.5vw, 2rem);
+  font-size:clamp(1.6rem, 4vw, 3rem);
   font-weight:800;
   color:white;
 
-  text-shadow:0 6px 20px rgba(0,0,0,0.6);
+  text-shadow:0 8px 25px rgba(0,0,0,0.6);
 }
 
 
 /* =========================
-   STREAM OVERLAP
+   STREAM (OVERLAP HERO)
 ========================= */
 
 .stream-box{
   position:relative;
   z-index:10;
 
-  margin-top:-60px;
-
-  width:100%;
   max-width:900px;
-  margin-left:auto;
-  margin-right:auto;
+  margin: -70px auto 0; /* overlap hero */
 
   background:black;
   border-radius:16px;
   overflow:hidden;
 
-  box-shadow:0 12px 30px rgba(0,0,0,0.18);
+  box-shadow:0 14px 35px rgba(0,0,0,0.25);
 
   aspect-ratio:16/9;
 }
@@ -906,12 +914,17 @@ footer{
 
 
 /* =========================
-   MOBILE FIX
+   MOBILE
 ========================= */
 
-@media (max-width: 768px){
+@media (max-width:768px){
+
+  .spot-hero-full{
+    height:260px;
+  }
+
   .stream-box{
-    margin-top:-35px;
+    margin-top:-40px;
     aspect-ratio:16/10;
     max-height:40vh;
   }
