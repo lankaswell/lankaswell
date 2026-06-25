@@ -237,12 +237,13 @@ function renderButtons(spot) {
   const mapUrl = spot.mapUrl || "#";
 
   buttons.innerHTML = `
-    <a class="btn btn-primary" href="${escapeHTML(mapUrl)}" target="_blank">
-      Let's go!
-    </a>
 
     <a class="btn btn-secondary surf-guide-btn" href="#" onclick="openSurfModal(); return false;">
       Surf Spot Guide
+    </a>
+	
+	<a class="btn btn-primary" href="${escapeHTML(mapUrl)}" target="_blank">
+      Let's go!
     </a>
   `;
 }
