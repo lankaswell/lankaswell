@@ -712,70 +712,78 @@ if (surfModal) {
   });
   
   function renderRoadtrip() {
-	  const container = document.getElementById("roadtrip");
-	  if (!container || !window.spot) return;
+  const container = document.getElementById("roadtrip");
+  if (!container || !window.spot) return;
 
-	  const allSpots = Object.entries(window.__ALL_SPOTS || {})
-		.map(([id, s]) => ({
-		  id,
-		  name: s.name,
-		  lat: parseFloat(s.lat),
-		  lng: parseFloat(s.lng)
-		}))
-		.sort((a, b) => a.lng - b.lng); // west → east
+  const allSpots = Object.entries(window.__ALL_SPOTS || {})
+    .map(([id, s]) => ({
+      id,
+      name: s.name,
+      lat: parseFloat(s.lat),
+      lng: parseFloat(s.lng)
+    }))
+    .sort((a, b) => a.lng - b.lng); // W → E
 
-	  const currentId = window.spot.path;
+  const currentId = window.spot.path;
 
-	  const currentIndex = allSpots.findIndex(s => s.id === currentId);
+  function distance(a, b) {
+    const R = 6371;
+    const dLat = (b.lat - a.lat) * Math.PI / 180;
+    const dLng = (b.lng - a.lng) * Math.PI / 180;
 
-	  function distance(a, b) {
-		const R = 6371;
-		const dLat = (b.lat - a.lat) * Math.PI / 180;
-		const dLng = (b.lng - a.lng) * Math.PI / 180;
+    const x =
+      Math.sin(dLat / 2) ** 2 +
+      Math.cos(a.lat * Math.PI / 180) *
+      Math.cos(b.lat * Math.PI / 180) *
+      Math.sin(dLng / 2) ** 2;
 
-		const x =
-		  Math.sin(dLat / 2) ** 2 +
-		  Math.cos(a.lat * Math.PI / 180) *
-		  Math.cos(b.lat * Math.PI / 180) *
-		  Math.sin(dLng / 2) ** 2;
+    return 2 * R * Math.atan2(Math.sqrt(x), Math.sqrt(1 - x));
+  }
 
-		return 2 * R * Math.atan2(Math.sqrt(x), Math.sqrt(1 - x));
-	  }
+  let html = `
+    <div class="roadtrip-shell">
+      <div class="roadtrip-west">W</div>
 
-	  let html = `
-		<div class="roadtrip-inner">
-		  <div class="roadtrip-label">W</div>
-		  <div class="roadtrip-line">
-	  `;
+      <div class="roadtrip-track">
+  `;
 
-	  allSpots.forEach((s, i) => {
+  allSpots.forEach((s, i) => {
 
-		const isActive = s.id === currentId;
+    const isActive = s.id === currentId;
 
-		html += `
-		  <div class="roadtrip-wrapper">
-			<div class="roadtrip-dot ${isActive ? "active" : ""}"
-				title="${s.name}"
-			  onclick="location.href='spot-template.html?id=${s.id}'"
-			></div>
+    html += `
+      <div class="roadtrip-node">
 
-			<div class="roadtrip-name">${s.name}</div>
-		  </div>
-		`;
+        <div class="roadtrip-dot ${isActive ? "active" : ""}"
+          onclick="location.href='spot-template.html?id=${s.id}'"
+          title="${s.name}"
+        ></div>
 
-		if (i < allSpots.length - 1) {
-		  const d = distance(s, allSpots[i + 1]).toFixed(0);
+        <div class="roadtrip-name ${isActive ? "active" : ""}">
+          ${s.name}
+        </div>
 
-		  html += `<div class="roadtrip-seg">${d} km</div>`;
-		}
-	  });
+      </div>
+    `;
 
-	  html += `
-		  </div>
-		  <div class="roadtrip-label">E</div>
-		</div>
-	  `;
+    if (i < allSpots.length - 1) {
+      const d = distance(s, allSpots[i + 1]);
 
-	  container.innerHTML = html;
-	}
+      html += `
+        <div class="roadtrip-segment">
+          <div class="roadtrip-line"></div>
+          <div class="roadtrip-distance">${d < 1 ? (d * 1000).toFixed(0) + " m" : d.toFixed(1) + " km"}</div>
+        </div>
+      `;
+    }
+  });
+
+  html += `
+      </div>
+      <div class="roadtrip-east">E</div>
+    </div>
+  `;
+
+  container.innerHTML = html;
+}
 }

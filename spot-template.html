@@ -979,6 +979,95 @@ footer{
   opacity:0.45;
   white-space:nowrap;
 }
+
+.roadtrip-shell{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 8px;
+  overflow-x:auto;
+}
+
+.roadtrip-west,
+.roadtrip-east{
+  font-weight:800;
+  font-size:12px;
+  opacity:0.6;
+  flex:0 0 auto;
+}
+
+/* MAIN TRACK */
+.roadtrip-track{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+/* NODE */
+.roadtrip-node{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-width:70px;
+}
+
+/* DOT */
+.roadtrip-dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:#008CFF;
+  border:2px solid white;
+  box-shadow:0 0 10px rgba(0,140,255,0.4);
+  cursor:pointer;
+  transition:0.2s;
+  position:relative;
+}
+
+/* ACTIVE DOT (ONLY ONE REALLY GLOWS) */
+.roadtrip-dot.active{
+  background:#00ffb3;
+  box-shadow:0 0 14px rgba(0,255,179,0.9);
+  transform:scale(1.25);
+}
+
+/* LABEL */
+.roadtrip-name{
+  font-size:10px;
+  margin-top:6px;
+  opacity:0.65;
+  text-align:center;
+  white-space:nowrap;
+}
+
+.roadtrip-name.active{
+  opacity:1;
+  font-weight:700;
+}
+
+/* SEGMENT */
+.roadtrip-segment{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  width:60px;
+  position:relative;
+}
+
+/* LINE BETWEEN DOTS */
+.roadtrip-line{
+  height:2px;
+  width:100%;
+  background:rgba(0,140,255,0.25);
+  margin-bottom:4px;
+}
+
+/* DISTANCE LABEL */
+.roadtrip-distance{
+  font-size:9px;
+  opacity:0.6;
+  white-space:nowrap;
+}
 </style>
 </head>
 
@@ -1061,7 +1150,7 @@ footer{
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<script src="/js/spot.js?v=31"></script>
+<script src="/js/spot.js?v=33"></script>
 
 </body>
 </html>
