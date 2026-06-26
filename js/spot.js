@@ -745,7 +745,7 @@ if (surfModal) {
     <div class="roadtrip-shell">
       <div class="roadtrip-west">W</div>
 
-      <div class="roadtrip-track">
+      <div class="roadtrip-track" id="roadtripTrack">
   `;
 
   allSpots.forEach((s, i) => {
@@ -786,21 +786,22 @@ if (surfModal) {
   `;
 
   container.innerHTML = html;
-  requestAnimationFrame(() => {
-  const container = document.querySelector(".roadtrip");
-  const active = container?.querySelector(".roadtrip-dot.active");
 
-  if (active && container) {
-    const offset =
-      active.offsetLeft -
-      container.clientWidth / 2 +
-      active.offsetWidth / 2;
+	requestAnimationFrame(() => {
+	  const track = document.getElementById("roadtripTrack");
+	  const container = document.getElementById("roadtrip");
 
-    container.scrollTo({
-      left: offset,
-      behavior: "smooth"
-    });
-  }
-});
+	  if (!track || !container) return;
+
+	  const active = track.querySelector(".roadtrip-dot.active");
+	  if (!active) return;
+
+	  const containerWidth = container.offsetWidth;
+	  const activeCenter = active.offsetLeft + active.offsetWidth / 2;
+
+	  const offset = containerWidth / 2 - activeCenter;
+
+	  track.style.transform = `translateX(${offset}px)`;
+	});
 }
 }
