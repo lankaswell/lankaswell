@@ -785,5 +785,21 @@ if (surfModal) {
   `;
 
   container.innerHTML = html;
+  requestAnimationFrame(() => {
+  const container = document.querySelector(".roadtrip");
+  const active = container?.querySelector(".roadtrip-dot.active");
+
+  if (active && container) {
+    const offset =
+      active.offsetLeft -
+      container.clientWidth / 2 +
+      active.offsetWidth / 2;
+
+    container.scrollTo({
+      left: offset,
+      behavior: "smooth"
+    });
+  }
+});
 }
 }
