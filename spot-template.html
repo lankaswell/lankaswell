@@ -842,6 +842,74 @@ footer{
   background:var(--ocean);
 }
 
+
+/* =========================
+   SURF ROADTRIP BAR
+========================= */
+
+.roadtrip{
+  margin-top:16px;
+  background:white;
+  border-radius:16px;
+  padding:14px 12px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+  overflow-x:auto;
+}
+
+.roadtrip-inner{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:max-content;
+}
+
+.roadtrip-label{
+  font-size:0.75rem;
+  font-weight:700;
+  opacity:0.6;
+  white-space:nowrap;
+}
+
+.roadtrip-line{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.roadtrip-dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#ccc;
+  cursor:pointer;
+  position:relative;
+  transition:0.2s;
+}
+
+.roadtrip-dot.active{
+  background:var(--ocean);
+  transform:scale(1.4);
+  box-shadow:0 0 10px rgba(10,163,163,0.5);
+}
+
+.roadtrip-name{
+  font-size:0.75rem;
+  font-weight:600;
+  white-space:nowrap;
+  opacity:0.8;
+}
+
+.roadtrip-seg{
+  font-size:0.7rem;
+  opacity:0.5;
+  white-space:nowrap;
+}
+
+.roadtrip-wrapper{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
 </style>
 </head>
 
@@ -891,6 +959,8 @@ footer{
   </div>
 
   <div class="buttons"></div>
+  
+  <div class="roadtrip" id="roadtrip"></div>
 
   <div class="host-venue"></div>
   

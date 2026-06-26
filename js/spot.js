@@ -30,6 +30,7 @@ async function loadSpot() {
     const data = await res.json();
 
     window.spot = data[id];
+	window.__ALL_SPOTS = data;
 
     if (!window.spot) {
       document.body.innerHTML = "<h1>Spot not found</h1>";
@@ -214,6 +215,7 @@ function setupUI() {
   renderServices(spot);
   renderSurfModal(spot);
   renderVenueModal(spot);
+  renderRoadtrip();
 }
 
 function setText(selector, value) {
@@ -708,4 +710,72 @@ if (surfModal) {
       }
     }
   });
+  
+  function renderRoadtrip() {
+	  const container = document.getElementById("roadtrip");
+	  if (!container || !window.spot) return;
+
+	  const allSpots = Object.entries(window.__ALL_SPOTS || {})
+		.map(([id, s]) => ({
+		  id,
+		  name: s.name,
+		  lat: parseFloat(s.lat),
+		  lng: parseFloat(s.lng)
+		}))
+		.sort((a, b) => a.lng - b.lng); // west → east
+
+	  const currentId = window.spot.path;
+
+	  const currentIndex = allSpots.findIndex(s => s.id === currentId);
+
+	  function distance(a, b) {
+		const R = 6371;
+		const dLat = (b.lat - a.lat) * Math.PI / 180;
+		const dLng = (b.lng - a.lng) * Math.PI / 180;
+
+		const x =
+		  Math.sin(dLat / 2) ** 2 +
+		  Math.cos(a.lat * Math.PI / 180) *
+		  Math.cos(b.lat * Math.PI / 180) *
+		  Math.sin(dLng / 2) ** 2;
+
+		return 2 * R * Math.atan2(Math.sqrt(x), Math.sqrt(1 - x));
+	  }
+
+	  let html = `
+		<div class="roadtrip-inner">
+		  <div class="roadtrip-label">W</div>
+		  <div class="roadtrip-line">
+	  `;
+
+	  allSpots.forEach((s, i) => {
+
+		const isActive = s.id === currentId;
+
+		html += `
+		  <div class="roadtrip-wrapper">
+			<div
+			  class="roadtrip-dot ${isActive ? "active" : ""}"
+			  onclick="location.href='spot-template.html?id=${s.id}'"
+			></div>
+
+			<div class="roadtrip-name">${s.name}</div>
+		  </div>
+		`;
+
+		if (i < allSpots.length - 1) {
+		  const d = distance(s, allSpots[i + 1]).toFixed(0);
+
+		  html += `<div class="roadtrip-seg">${d} km</div>`;
+		}
+	  });
+
+	  html += `
+		  </div>
+		  <div class="roadtrip-label">E</div>
+		</div>
+	  `;
+
+	  container.innerHTML = html;
+	}
 }
