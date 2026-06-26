@@ -754,8 +754,8 @@ if (surfModal) {
 
 		html += `
 		  <div class="roadtrip-wrapper">
-			<div
-			  class="roadtrip-dot ${isActive ? "active" : ""}"
+			<div class="roadtrip-dot ${isActive ? "active" : ""}"
+				title="${s.name}"
 			  onclick="location.href='spot-template.html?id=${s.id}'"
 			></div>
 

@@ -844,71 +844,140 @@ footer{
 
 
 /* =========================
-   SURF ROADTRIP BAR
+   LANKASWELL ROADTRIP V2
+   (glow / wave style)
 ========================= */
 
 .roadtrip{
   margin-top:16px;
-  background:white;
-  border-radius:16px;
-  padding:14px 12px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+  padding:14px 10px;
+  border-radius:18px;
+
+  background:linear-gradient(
+    135deg,
+    #ffffff,
+    #f4fbfb
+  );
+
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
   overflow-x:auto;
 }
 
 .roadtrip-inner{
   display:flex;
   align-items:center;
-  gap:10px;
   min-width:max-content;
+  gap:12px;
 }
 
 .roadtrip-label{
   font-size:0.75rem;
-  font-weight:700;
+  font-weight:800;
   opacity:0.6;
-  white-space:nowrap;
+  letter-spacing:1px;
 }
 
 .roadtrip-line{
   display:flex;
   align-items:center;
-  gap:8px;
-}
-
-.roadtrip-dot{
-  width:10px;
-  height:10px;
-  border-radius:50%;
-  background:#ccc;
-  cursor:pointer;
   position:relative;
-  transition:0.2s;
 }
 
-.roadtrip-dot.active{
-  background:var(--ocean);
-  transform:scale(1.4);
-  box-shadow:0 0 10px rgba(10,163,163,0.5);
+/* glowing baseline */
+.roadtrip-line::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:50%;
+  height:3px;
+
+  background:linear-gradient(
+    90deg,
+    rgba(10,163,163,0.1),
+    rgba(10,163,163,0.8),
+    rgba(10,163,163,0.1)
+  );
+
+  transform:translateY(-50%);
+  filter:blur(0.2px);
+  animation:flow 3s linear infinite;
 }
 
-.roadtrip-name{
-  font-size:0.75rem;
-  font-weight:600;
-  white-space:nowrap;
-  opacity:0.8;
-}
-
-.roadtrip-seg{
-  font-size:0.7rem;
-  opacity:0.5;
-  white-space:nowrap;
+/* subtle wave motion */
+@keyframes flow{
+  0% { transform:translateY(-50%) translateX(-10%); }
+  100% { transform:translateY(-50%) translateX(10%); }
 }
 
 .roadtrip-wrapper{
   display:flex;
   align-items:center;
   gap:6px;
+  margin:0 10px;
+  position:relative;
+  z-index:2;
+}
+
+/* DOTS */
+.roadtrip-dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:#cfd8dc;
+  border:2px solid white;
+  cursor:pointer;
+
+  transition:0.25s;
+  position:relative;
+}
+
+/* glow aura */
+.roadtrip-dot::after{
+  content:"";
+  position:absolute;
+  inset:-6px;
+  border-radius:50%;
+  background:rgba(10,163,163,0.2);
+  opacity:0;
+  transition:0.25s;
+}
+
+/* hover */
+.roadtrip-dot:hover::after{
+  opacity:1;
+}
+
+/* ACTIVE SPOT (PULSING) */
+.roadtrip-dot.active{
+  background:var(--ocean);
+  transform:scale(1.4);
+  box-shadow:0 0 12px rgba(10,163,163,0.6);
+}
+
+.roadtrip-dot.active::after{
+  opacity:1;
+  animation:pulse 1.6s infinite;
+}
+
+@keyframes pulse{
+  0% { transform:scale(1); opacity:0.6; }
+  100% { transform:scale(2.2); opacity:0; }
+}
+
+/* names */
+.roadtrip-name{
+  font-size:0.75rem;
+  font-weight:700;
+  opacity:0.85;
+  white-space:nowrap;
+}
+
+/* distance segments */
+.roadtrip-seg{
+  font-size:0.7rem;
+  opacity:0.45;
+  white-space:nowrap;
 }
 </style>
 </head>
@@ -992,7 +1061,7 @@ footer{
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<script src="/js/spot.js?v=30"></script>
+<script src="/js/spot.js?v=31"></script>
 
 </body>
 </html>
