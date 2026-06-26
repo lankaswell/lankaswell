@@ -788,20 +788,20 @@ if (surfModal) {
   container.innerHTML = html;
 
 	requestAnimationFrame(() => {
-	  const track = document.getElementById("roadtripTrack");
-	  const container = document.getElementById("roadtrip");
+	  const shell = document.querySelector(".roadtrip-shell");
+	  const active = shell?.querySelector(".roadtrip-dot.active");
 
-	  if (!track || !container) return;
+	  if (!shell || !active) return;
 
-	  const active = track.querySelector(".roadtrip-dot.active");
-	  if (!active) return;
-
-	  const containerWidth = container.offsetWidth;
+	  const shellWidth = shell.offsetWidth;
 	  const activeCenter = active.offsetLeft + active.offsetWidth / 2;
 
-	  const offset = containerWidth / 2 - activeCenter;
+	  const scrollTo = activeCenter - shellWidth / 2;
 
-	  track.style.transform = `translateX(${offset}px)`;
+	  shell.scrollTo({
+		left: scrollTo,
+		behavior: "smooth"
+	  });
 	});
-}
+	}
 }
