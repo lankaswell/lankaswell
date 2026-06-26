@@ -741,7 +741,7 @@ if (surfModal) {
   }
 
   let html = `
-  <div class="roadtrip-title">South Coast Road Trip</div>
+  <div class="roadtrip-title">The Down South</div>
     <div class="roadtrip-shell">
       <div class="roadtrip-west">W</div>
 
