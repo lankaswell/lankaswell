@@ -724,7 +724,7 @@ if (surfModal) {
     }))
     .sort((a, b) => a.lng - b.lng); // W → E
 
-  const currentId = window.spot.path;
+  const currentId = Object.entries(window.__ALL_SPOTS).find(([id, s]) => s.path === window.spot.path)?.[0];
 
   function distance(a, b) {
     const R = 6371;
