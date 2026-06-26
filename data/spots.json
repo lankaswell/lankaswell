@@ -296,5 +296,123 @@
         "url": "https://wa.me/94771111111"
       }
     ]
-  }
+  },
+
+	"weligama": {
+		"name": "WELIGAMA - COMING SOON",
+		"title": "Weligama",
+		"description": "Weligama Bay is Sri Lanka's premier destination for beginner surfers. The sweeping 2-kilometer crescent beach provides mellow, rolling, sandy-bottom waves that are perfect for learning.",
+		"stream": "https://lankaswell.com/live/weligama/index.m3u8",
+		"path": "weligama",
+		"mapUrl": "https://maps.app.goo.gl/WBg4EqvfiU1WG2QD6",
+		"lat": "5.970660267708661", 
+		"lng": "80.43620048553365",
+
+		"guide": {
+		  "image": "img/weligama-guide.webp",
+
+		  "areas": [
+		  ],
+
+		  "safety": [
+
+		  ]
+		},
+
+		"host": {
+		  "name": "Samaru Beach Hotel",
+		  "description": "Samaru Beach House is a beach front guest house on the south coast of Sri Lanka, Weligama beach. This is a perfect and wonderful place for a relaxing holiday on beach in tranquil surroundings. Samaru Beach House stands for dedicated family hospitality at International standards with modern, clean and spacious rooms, clean and all immaculate to ensure an amazing time right on wonderful Weligama Beach.",
+		  "images": [
+			"img/samaru-thumb.webp"
+			],
+		  "instagram": "https://www.instagram.com/odins.lk/?hl=en",
+		  "phone": "+94412251417",
+		  "facebook": "https://www.facebook.com/profile.php?id=100069539663937",
+		  "instagram": "https://www.instagram.com/samarubeachhouse_weligama/?utm_source=ig_web_button_share_sheet",
+		  "website": "http://samarubeachhouseweligama.com/"
+		},
+
+		"discount": {
+		  "enabled": false,
+		  "code": "",
+		  "perks": []
+		},
+
+		"featuredPartners": [],
+
+		"services": [
+		  {
+			"icon": "🍽️",
+			"title": "Local Food",
+			"description": "Rice and curry, fresh juice, and post-surf meals nearby.",
+			"buttonText": "Explore",
+			"url": "https://example.com"
+		  },
+		  {
+			"icon": "🛵",
+			"title": "Transport",
+			"description": "Tuk-tuk and scooter options for moving between surf spots.",
+			"buttonText": "Contact",
+			"url": "https://wa.me/94771111111"
+		  }
+		]
+	  },
+	  
+	"gas-station": {
+		"name": "GAS STATION",
+		"title": "Gas Station",
+		"description": "Gas Station is a fun, consistent reef break right in front of the roadside fuel station. It offers playful walls on smaller days and faster, more punchy sections when the swell picks up. Best surfed on clean morning conditions with offshore winds, it’s a lively mix of good waves and Sri Lankan roadside chaos. Best for intermediate/advanced surfers",
+		"stream": "https://lankaswell.com/live/gasstation/index.m3u8",
+		"path": "gasstation",
+		"mapUrl": "https://maps.app.goo.gl/UvZKXrxrwCpifMyb7",
+		"lat": "5.968901136745357", 
+		"lng": "80.36812659412448",
+
+		"guide": {
+		  "image": "img/gasstation-guide.webp",
+
+		  "areas": [
+		  ],
+
+		  "safety": [
+
+		  ]
+		},
+
+		"host": {
+		  "name": "The Gas Point",
+		  "description": "Nestled in Ahangama, The Gas Point is a cozy spot to enjoy fresh seafood while soaking in breathtaking views of surfers and stilt fishermen. With a warm atmosphere and attentive staff, it's a great choice for those seeking a laid-back dining experience. Ideal for seafood lovers and anyone looking to unwind by the sea.",
+		  "images": [
+			"img/gaspoint-thumb.webp"
+			],
+		  "phone": "+94778609047",
+		  "instagram": "https://www.instagram.com/thegaspoint_ahangama/"
+		},
+
+		"discount": {
+		  "enabled": false,
+		  "code": "",
+		  "perks": []
+		},
+
+		"featuredPartners": [],
+
+		"services": [
+		  {
+			"icon": "🍽️",
+			"title": "Local Food",
+			"description": "Rice and curry, fresh juice, and post-surf meals nearby.",
+			"buttonText": "Explore",
+			"url": "https://example.com"
+		  },
+		  {
+			"icon": "🛵",
+			"title": "Transport",
+			"description": "Tuk-tuk and scooter options for moving between surf spots.",
+			"buttonText": "Contact",
+			"url": "https://wa.me/94771111111"
+		  }
+		]
+	  }
+
 }
