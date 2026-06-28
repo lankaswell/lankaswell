@@ -89,27 +89,45 @@ body{
   font-weight:600;
 }
 
-/* MOBILE NAV (BOTTOM PILLS) */
+/* MOBILE NAV */
 .nav{
   position:absolute;
   bottom:1rem;
-  left:50%;
-  transform:translateX(-50%);
+  left:0;
+  right:0;
   z-index:1000;
 
   display:flex;
   gap:.5rem;
+
+  padding:0 1rem;
+
+  overflow-x:auto;
+  overflow-y:hidden;
+
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+
+  justify-content:flex-start;
+}
+
+.nav::-webkit-scrollbar{
+  display:none;
 }
 
 .nav button{
+  flex:0 0 auto;
+
   border:none;
   cursor:pointer;
 
-  padding:.6rem 1rem;
+  padding:.65rem 1rem;
   border-radius:999px;
 
   font-size:.8rem;
   font-weight:600;
+
+  white-space:nowrap;
 
   background:rgba(255,255,255,.9);
   box-shadow:0 6px 18px rgba(0,0,0,.12);
@@ -123,15 +141,20 @@ body{
 }
 
 /* DESKTOP: same nav but vertical */
-@media(min-width:768px){
+@media (min-width:768px){
 
   .nav{
     top:50%;
     bottom:auto;
     left:auto;
     right:1rem;
+
     transform:translateY(-50%);
+
     flex-direction:column;
+
+    overflow:visible;
+    padding:0;
   }
 
 }
