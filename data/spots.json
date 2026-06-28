@@ -26,7 +26,14 @@
       "name": "Follow The White Rabbit",
       "description": "Established in 2018 and renowned for its diverse menu, the restaurant offers freshly prepared, locally sourced dishes, with vegetarian, vegan, and gluten-free options. Whether it’s brunch, tapas, or dinner, savor each bite as you overlook Ahangama’s stunning beach.",
 	  "images": [
-		  "img/ftwr-thumb.webp"
+		  "img/ftwr-thumb.webp",
+		  "img/ftwr-thumb2.webp",
+		  "img/ftwr-thumb3.webp",
+		  "img/ftwr-thumb4.webp",
+		  "img/ftwr-thumb5.webp",
+		  "img/ftwr-thumb6.webp",
+		  "img/ftwr-thumb7.webp",
+		  "img/ftwr-thumb8.webp"
 		],
       "instagram": "https://www.instagram.com/followthewhiterabbitahangama",
       "facebook": "https://www.facebook.com/fwrabbitahangama",
@@ -327,7 +334,7 @@
 
 		"host": {
 		  "name": "Samaru Beach Hotel",
-		  "description": "Samaru Beach House is a beach front guest house on the south coast of Sri Lanka, Weligama beach. This is a perfect and wonderful place for a relaxing holiday on beach in tranquil surroundings. Samaru Beach House stands for dedicated family hospitality at International standards with modern, clean and spacious rooms, clean and all immaculate to ensure an amazing time right on wonderful Weligama Beach.",
+		  "description": "Samaru Beach House is a beach front guest house on the south coast of Sri Lanka, Weligama beach. This is a perfect and wonderful place for a relaxing holiday on beach in tranquil surroundings.",
 		  "images": [
 			"img/samaru-thumb.webp",
 			"img/samaru-thumb2.webp",
