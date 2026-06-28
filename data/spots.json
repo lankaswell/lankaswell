@@ -323,9 +323,14 @@
 		  "name": "Samaru Beach Hotel",
 		  "description": "Samaru Beach House is a beach front guest house on the south coast of Sri Lanka, Weligama beach. This is a perfect and wonderful place for a relaxing holiday on beach in tranquil surroundings. Samaru Beach House stands for dedicated family hospitality at International standards with modern, clean and spacious rooms, clean and all immaculate to ensure an amazing time right on wonderful Weligama Beach.",
 		  "images": [
-			"img/samaru-thumb.webp"
+			"img/samaru-thumb.webp",
+			"img/samaru-thumb2.png",
+			"img/samaru-thumb3.png",
+			"img/samaru-thumb4.webp",
+			"img/samaru-thumb5.png",
+			"img/samaru-thumb6.png",
+			"img/samaru-thumb7.webp"
 			],
-		  "instagram": "https://www.instagram.com/odins.lk/?hl=en",
 		  "phone": "+94412251417",
 		  "facebook": "https://www.facebook.com/profile.php?id=100069539663937",
 		  "instagram": "https://www.instagram.com/samarubeachhouse_weligama/?utm_source=ig_web_button_share_sheet",
@@ -333,9 +338,13 @@
 		},
 
 		"discount": {
-		  "enabled": false,
-		  "code": "",
-		  "perks": []
+		  "enabled": true,
+		  "code": "SAMARUSWELL",
+		  "perks": [
+			"10% off booking",
+			"Board storage available",
+			"Free breakfast"
+		  ]
 		},
 
 		"featuredPartners": [],
