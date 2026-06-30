@@ -93,9 +93,9 @@ function showUnavailable() {
 
 function showNightMode() {
   overlay.classList.remove("hidden");
-  title.innerText = "🌙 Camera sleeping";
+  title.innerText = "🌙 Cameras are live from 6 AM until 6 PM";
   text.innerText =
-    "Our cameras are live from 6 AM until 6 PM. Check out our surf guide here below in the meanwhile!";
+    "Our cameras are taking a rest. Check out our surf guide here below in the meanwhile!";
 }
 
 function hideOverlay() {
