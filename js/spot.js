@@ -216,6 +216,7 @@ function setupUI() {
   renderSurfModal(spot);
   renderVenueModal(spot);
   renderRoadtrip();
+  renderFooter();
 }
 
 function setText(selector, value) {
@@ -820,4 +821,4 @@ function renderFooter() {
 	`;
 }
 
-renderFooter();
+
