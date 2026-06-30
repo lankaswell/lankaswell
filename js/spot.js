@@ -95,7 +95,7 @@ function showNightMode() {
   overlay.classList.remove("hidden");
   title.innerText = "🌙 Camera sleeping";
   text.innerText =
-    "This camera rests overnight and will wake up in the morning.";
+    "Our cameras are live from 6 AM until 6 PM. Check out our surf guide here below in the meanwhile!";
 }
 
 function hideOverlay() {
