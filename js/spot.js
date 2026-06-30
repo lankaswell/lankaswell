@@ -819,5 +819,5 @@ if (surfModal) {
 		`;
 	}
 
-populateFooter();
+renderFooter();
 }
