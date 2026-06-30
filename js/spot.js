@@ -804,20 +804,20 @@ if (surfModal) {
 	  });
 	});
 	}
-	
-	function renderFooter() {
-		const footer = document.getElementById("footer");
+}
 
-		footer.innerHTML = `
-			<p>© 2026 LANKASWELL</p>
+function renderFooter() {
+	const footer = document.getElementById("footer");
 
-			<div style="margin-top:12px;">
-				<img
-					src="https://visitor-badge.laobi.icu/badge?page_id=lankaswell.${window.spot.path}"
-					alt="Visitor counter">
-			</div>
-		`;
-	}
+	footer.innerHTML = `
+		<p>© 2026 LANKASWELL</p>
+
+		<div style="margin-top:12px;">
+			<img
+				src="https://visitor-badge.laobi.icu/badge?page_id=lankaswell.${window.spot.path}"
+				alt="Visitor counter">
+		</div>
+	`;
+}
 
 renderFooter();
-}
