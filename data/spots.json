@@ -42,7 +42,7 @@
     },
 
     "discount": {
-      "enabled": true,
+      "enabled": false,
       "code": "RABBITSWELL",
       "perks": [
         "Free coffee with breakfast",
@@ -176,8 +176,13 @@
       "description": "Beachfront restaurant in Mirissa, Sri Lanka. Located right in front of the main surf point, it offers an incredible mix of Sri Lankan, Mexican, and European dishes, alongside excellent coffee and cocktails, all with stunning ocean views.",
       "images": [
 		"img/aplusplus-thumb.webp",
-		"img/aplusplus-thumb2.png",
-		"img/aplusplus-thumb3.png"
+		"img/aplusplus-thumb2.webp",
+		"img/aplusplus-thumb3.webp",
+		"img/aplusplus-thumb4.webp",
+		"img/aplusplus-thumb5.webp",
+		"img/aplusplus-thumb6.webp",
+		"img/aplusplus-thumb7.webp",
+		"img/aplusplus-thumb8.webp",
 		],
       "instagram": "https://www.instagram.com/a_plus_plus_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
       "facebook": "https://www.facebook.com/p/A-Plus-plus-100083418226840/",
@@ -186,7 +191,7 @@
     },
 
     "discount": {
-      "enabled": true,
+      "enabled": false,
       "code": "MIRISSASWELL",
       "perks": [
         "10% off breakfast",
@@ -203,9 +208,7 @@
         "description": "Freshly made Sroopwafels & Coffee. Taste a bit of The Netherlands in Mirissa!",
 		"instagram": "https://www.instagram.com/elis_stroopwafels/",
 		"mapUrl": "https://maps.app.goo.gl/iQGWKXvL2DVgeTJ8A",
-		"whatsapp": "https://wa.me/+94740323870",
-        "buttonText": "See Location",
-        "url": "https://example.com"
+		"whatsapp": "https://wa.me/+94740323870"
       }
     ],
 
@@ -291,7 +294,16 @@
       "perks": []
     },
 
-    "featuredPartners": [],
+    "featuredPartners": [
+		{
+        "title": "Surf School: Salt & Soul",
+		"image": "img/saltandsoul-logo.jpg",
+        "description": "Surf lessons for beginners and improvers who want to learn properly. Safe, friendly, and focused coaching in beautiful Sri Lanka.",
+		"instagram": "https://www.instagram.com/salt_and_soul_surf_school/",
+		"mapUrl": "https://maps.app.goo.gl/1QTjkAKLJD8mhXjq5",
+		"whatsapp": "https://wa.me/+94770627569"
+      }
+	],
 
     "services": [
       {
